@@ -1,0 +1,18 @@
+{
+  "name": "hotelserver",
+  "version": "1.0.0",
+  "description": "GraphQl server for \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[L\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C hotels in PostgresSQL DB",
+  "main": "server.js",
+  "scripts": {
+    "dev:server": "nodemon server.js"
+  },
+  "author": "Zaid Saeed",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "express-graphql": "^0.7.1",
+    "graphql": "^14.1.1",
+    "nodemon": "^1.18.10",
+    "pg-promise": "^8.5.5"
+  }
+}
