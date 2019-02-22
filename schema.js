@@ -53,6 +53,24 @@ const RootQuery = new GraphQLObjectType({
             return "The error is", err;
           });
       }
+    },
+    hotels: {
+      type: GraphQLList(HotelType),
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM hotel;
+        `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
     }
   }
 });

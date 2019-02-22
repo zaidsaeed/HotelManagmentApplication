@@ -4,11 +4,16 @@
   "description": "GraphQl server for \u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[L\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C\u001b[C hotels in PostgresSQL DB",
   "main": "server.js",
   "scripts": {
-    "dev:server": "nodemon server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Zaid Saeed",
   "license": "MIT",
   "dependencies": {
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
     "graphql": "^14.1.1",
