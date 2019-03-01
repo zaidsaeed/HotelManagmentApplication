@@ -20,7 +20,7 @@ export class HotelChains extends Component {
     return (
       <Fragment>
         <Navbar />
-        <h1 className="display-4 my-3">Hotel Chians</h1>
+        <h1 className="display-4 my-3">Hotel Chains</h1>
         <Query query={HOTELCHAINS_QUERY}>
           {({ loading, error, data }) => {
             if (loading) {
