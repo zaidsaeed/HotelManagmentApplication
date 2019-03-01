@@ -5,8 +5,8 @@ import { ApolloProvider } from "react-apollo";
 import "./App.css";
 import Hotels from "./components/Hotels";
 import HotelPage from "./components/HotelPage";
-import SignUpPage from "./components/SignUpPage";
 import HotelChains from "./components/HotelChains";
+import SignUp from "./components/SignUp";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -18,10 +18,10 @@ class App extends Component {
       <ApolloProvider client={client}>
         <Router>
           <div>
-            <Route exact path="/signUp" component={SignUpPage} />
             <Route exact path="/" component={Hotels} />
             <Route exact path="/launch/:h_id" component={HotelPage} />
             <Route exact path="/hotelchains" component={HotelChains} />
+            <Route exact path="/signUp" component={SignUp} />
           </div>
         </Router>
       </ApolloProvider>
