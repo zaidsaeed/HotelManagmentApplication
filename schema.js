@@ -19,12 +19,31 @@ const pgp = require("pg-promise")();
 const db = pgp(connectionString);
 
 //HotelType
+const HotelChainType = new GraphQLObjectType({
+  name: "HotelChain",
+  fields: () => ({
+    id: { type: GraphQLInt },
+    hotel_chain_name: { type: GraphQLString },
+    number_of_hotels: { type: GraphQLInt },
+    hotel_chain_logo_link: { type: GraphQLString }
+  })
+});
+
+//HotelType
 const HotelType = new GraphQLObjectType({
   name: "Hotel",
   fields: () => ({
-    h_id: { type: GraphQLString },
-    hotelname: { type: GraphQLString },
-    h_address: { type: GraphQLString }
+    street_name: { type: GraphQLString },
+    street_number: { type: GraphQLInt },
+    apt_number: { type: GraphQLInt },
+    city: { type: GraphQLString },
+    state_or_province: { type: GraphQLString },
+    zip_or_postal_code: { type: GraphQLString },
+    hotel_chain_id: { type: GraphQLInt },
+    rating: { type: GraphQLInt },
+    contact_email: { type: GraphQLString },
+    manager_SSN_SIN: { type: GraphQLInt },
+    number_of_rooms: { type: GraphQLInt }
   })
 });
 
@@ -59,7 +78,25 @@ const RootQuery = new GraphQLObjectType({
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        SELECT * FROM hotel;
+        SELECT * FROM t_hotel;
+        `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    hotel_chains: {
+      type: GraphQLList(HotelChainType),
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM t_hotel_chain;
         `;
         return db
           .manyOrNone(query)

@@ -1,6 +1,9 @@
 import React from "react";
 
 export default function HotelItem({ hotelItem }) {
-  console.log(hotelItem);
-  return <div />;
+  return (
+    <div>
+      <h1>{hotelItem.h_id}</h1>{" "}
+    </div>
+  );
 }

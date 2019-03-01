@@ -1,15 +1,16 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
   render() {
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-          <a class="navbar-brand" href="#">
-            Navbar
+        <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+          <a className="navbar-brand" href="#">
+            Hotel App
           </a>
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-toggle="collapse"
             data-target="#navbarColor01"
@@ -17,36 +18,44 @@ export default class Navbar extends Component {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon" />
+            <span className="navbar-toggler-icon" />
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarColor01">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#">
-                  Home <span class="sr-only">(current)</span>
+          <div className="collapse navbar-collapse col-md" id="navbarColor01">
+            <ul className="navbar-nav mr-5 ml-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="#">
+                  Hotels <span className="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Features
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Hotel Chains
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  Pricing
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+              <li className="nav-item">
+                <a className="nav-link" href="#">
                   About
                 </a>
               </li>
             </ul>
-            {/* <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search">
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-          </form> */}
+            <input
+              className="form-control mr-5 col-md ml-5"
+              type="text"
+              placeholder="Search"
+            />
+            <ul className="navbar-nav ml-5 col-md">
+              <li className="nav-item">
+                <Link to="/signUp" className="nav-link" href="#">
+                  Sign Up <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Sign In
+                </a>
+              </li>
+            </ul>
           </div>
         </nav>
       </div>
