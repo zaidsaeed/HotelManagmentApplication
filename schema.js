@@ -29,6 +29,25 @@ const HotelChainType = new GraphQLObjectType({
   })
 });
 
+const CustomerType = new GraphQLObjectType({
+  name: "CustomerType",
+  fields: () => ({
+    ssn_sin: { type: GraphQLInt },
+    street_number: { type: GraphQLInt },
+    street_name: { type: GraphQLString },
+    apt_number: { type: GraphQLInt },
+    city: { type: GraphQLString },
+    state_province: { type: GraphQLString },
+    zip_postalcode: { type: GraphQLInt },
+    first_name: { type: GraphQLString },
+    middle_name: { type: GraphQLString },
+    last_name: { type: GraphQLString },
+    date_of_registration: { type: GraphQLString },
+    username: { type: GraphQLString },
+    cust_password: { type: GraphQLString }
+  })
+});
+
 //HotelType
 const HotelType = new GraphQLObjectType({
   name: "Hotel",
@@ -112,6 +131,77 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+//Mutations
+const mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addCustomer: {
+      type: CustomerType,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLInt) },
+        street_number: { type: new GraphQLNonNull(GraphQLInt) },
+        street_name: { type: new GraphQLNonNull(GraphQLString) },
+        apt_number: { type: new GraphQLNonNull(GraphQLInt) },
+        city: { type: GraphQLString },
+        state_province: { type: GraphQLString },
+        zip_postalcode: { type: GraphQLInt },
+        first_name: { type: GraphQLString },
+        middle_name: { type: GraphQLString },
+        last_name: { type: GraphQLString },
+        date_of_registration: { type: GraphQLString },
+        username: { type: new GraphQLNonNull(GraphQLString) },
+        cust_password: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        INSERT INTO Customer(ssn_sin,
+          street_number,
+          street_name,
+          apt_number,
+          city,
+          state_province,
+          zip_postalcode,
+          first_name,
+          middle_name,
+          last_name,
+          date_of_registration,
+          username,
+          cust_password)
+           VALUES(
+            ${args.ssn_sin},
+            ${args.street_number},
+            '${args.street_name}',
+            ${args.apt_number},
+            '${args.city}',
+            '${args.state_province}',
+            ${args.zip_postalcode},
+            '${args.first_name}',
+            '${args.middle_name}',
+            '${args.last_name}',
+            '${args.date_of_registration}',
+            '${args.username}',
+            '${args.cust_password}'
+          )
+          RETURNING ssn_sin, street_number
+          ;
+        `;
+        return db
+          .one(query)
+          .then(data => {
+            console.log("data", data);
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation
 });
