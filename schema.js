@@ -155,7 +155,8 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        INSERT INTO Customer(ssn_sin,
+        INSERT INTO Customer(
+          ssn_sin,
           street_number,
           street_name,
           apt_number,
@@ -183,7 +184,20 @@ const mutation = new GraphQLObjectType({
             '${args.username}',
             '${args.cust_password}'
           )
-          RETURNING ssn_sin, street_number
+          RETURNING
+            ssn_sin,
+            street_number,
+            street_name,
+            apt_number,
+            city,
+            state_province,
+            zip_postalcode,
+            first_name,
+            middle_name,
+            last_name,
+            date_of_registration,
+            username,
+            cust_password
           ;
         `;
         return db
