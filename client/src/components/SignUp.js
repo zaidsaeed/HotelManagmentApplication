@@ -53,7 +53,6 @@ class Register extends Component {
       first_name: "",
       middle_name: "",
       last_name: "",
-      date_of_registration: "",
       username: "",
       cust_password: "",
       errors: {}
@@ -78,35 +77,35 @@ class Register extends Component {
     });
   };
 
-  onSubmit = e => {
-    e.preventDefault();
-    const newUser = {
-      ssn_sin: this.state.ssn_sin,
-      street_number: parseInt(this.state.street_number, 10),
-      street_name: this.state.street_name,
-      apt_number: parseInt(this.state.apt_number),
-      city: this.state.city,
-      state_province: this.state.state_province,
-      zip_postalcode: parseInt(this.state.zip_postalcode),
-      first_name: this.state.first_name,
-      middle_name: this.state.middle_name,
-      last_name: this.state.last_name,
-      date_of_registration: this.state.date_of_registration,
-      username: this.state.username,
-      cust_password: this.state.cust_password
-    };
-    console.log("newUser", newUser);
-    // addCustomer({ variables: newUser });
+  // onSubmit = e => {
+  //   e.preventDefault();
+  //   const newUser = {
+  //     ssn_sin: this.state.ssn_sin,
+  //     street_number: parseInt(this.state.street_number, 10),
+  //     street_name: this.state.street_name,
+  //     apt_number: parseInt(this.state.apt_number),
+  //     city: this.state.city,
+  //     state_province: this.state.state_province,
+  //     zip_postalcode: parseInt(this.state.zip_postalcode),
+  //     first_name: this.state.first_name,
+  //     middle_name: this.state.middle_name,
+  //     last_name: this.state.last_name,
+  //     date_of_registration: new Date(),
+  //     username: this.state.username,
+  //     cust_password: this.state.cust_password
+  //   };
+  //   console.log("newUser", newUser);
+  //   // addCustomer({ variables: newUser });
 
-    // this.props.registerUser(newUser, () => {
-    //   const userData = {
-    //     email: this.state.email,
-    //     password: this.state.password
-    //   };
-    //   this.props.setCurrentUser(userData);
-    //   this.props.history.push("/dashboard");
-    // });
-  };
+  //   // this.props.registerUser(newUser, () => {
+  //   //   const userData = {
+  //   //     email: this.state.email,
+  //   //     password: this.state.password
+  //   //   };
+  //   //   this.props.setCurrentUser(userData);
+  //   //   this.props.history.push("/dashboard");
+  //   // });
+  // };
 
   render() {
     const { errors } = this.state;
@@ -127,16 +126,16 @@ class Register extends Component {
                       e.preventDefault();
                       const newUser = {
                         ssn_sin: parseInt(this.state.ssn_sin),
-                        street_number: this.state.street_number,
+                        street_number: parseInt(this.state.street_number),
                         street_name: this.state.street_name,
-                        apt_number: this.state.apt_number,
+                        apt_number: parseInt(this.state.apt_number),
                         city: this.state.city,
                         state_province: this.state.state_province,
-                        zip_postalcode: this.state.zip_postalcode,
+                        zip_postalcode: parseInt(this.state.zip_postalcode),
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
-                        date_of_registration: this.state.date_of_registration,
+                        date_of_registration: new Date(),
                         username: this.state.username,
                         cust_password: this.state.cust_password
                       };
@@ -270,19 +269,6 @@ class Register extends Component {
                         placeholder="Last Name:"
                         name="last_name"
                         value={this.state.last_name}
-                        onChange={this.onChange}
-                      />
-                      <div class="invalid-feedback">{errors.password2}</div>
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="String"
-                        className={classnames("form-control form-control-lg", {
-                          "is-invalid": errors.password2
-                        })}
-                        placeholder="Date of Registration:"
-                        name="date_of_registration"
-                        value={this.state.date_of_registration}
                         onChange={this.onChange}
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
