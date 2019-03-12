@@ -5,19 +5,19 @@ import { Mutation, graphql } from "react-apollo";
 
 const ADD_CUSTOMER = gql`
   mutation(
-    $ssn_sin: Int!
-    $street_number: Int!
-    $street_name: String!
-    $apt_number: Int!
+    $ssn_sin: String!
+    $street_number: Int
+    $street_name: String
+    $apt_number: Int
     $city: String
     $state_province: String
-    $zip_postalcode: Int
+    $zip_postalcode: String
     $first_name: String
     $middle_name: String
     $last_name: String
     $date_of_registration: String
-    $username: String!
-    $cust_password: String!
+    $username: String
+    $cust_password: String
   ) {
     addCustomer(
       ssn_sin: $ssn_sin
@@ -43,7 +43,7 @@ class Register extends Component {
   constructor() {
     super();
     this.state = {
-      ssn_sin: null,
+      ssn_sin: "",
       street_number: "",
       street_name: "",
       apt_number: "",
@@ -125,13 +125,13 @@ class Register extends Component {
                     onSubmit={e => {
                       e.preventDefault();
                       const newUser = {
-                        ssn_sin: parseInt(this.state.ssn_sin),
+                        ssn_sin: this.state.ssn_sin,
                         street_number: parseInt(this.state.street_number),
                         street_name: this.state.street_name,
                         apt_number: parseInt(this.state.apt_number),
                         city: this.state.city,
                         state_province: this.state.state_province,
-                        zip_postalcode: parseInt(this.state.zip_postalcode),
+                        zip_postalcode: this.state.zip_postalcode,
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
@@ -145,7 +145,7 @@ class Register extends Component {
                   >
                     <div className="form-group">
                       <input
-                        type="number"
+                        type="String"
                         className={classnames("form-control form-control-lg", {
                           "is-invalid": errors.name
                         })}
@@ -175,7 +175,7 @@ class Register extends Component {
                         className={classnames("form-control form-control-lg", {
                           "is-invalid": errors.password
                         })}
-                        placeholder="Street Name:"
+                        placeholder="Street Name"
                         name="street_name"
                         value={this.state.street_name}
                         onChange={this.onChange}
@@ -188,7 +188,7 @@ class Register extends Component {
                         className={classnames("form-control form-control-lg", {
                           "is-invalid": errors.password2
                         })}
-                        placeholder="Apartment Number:"
+                        placeholder="Apartment Number"
                         name="apt_number"
                         value={this.state.apt_number}
                         onChange={this.onChange}

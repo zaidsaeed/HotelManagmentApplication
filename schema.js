@@ -32,13 +32,13 @@ const HotelChainType = new GraphQLObjectType({
 const CustomerType = new GraphQLObjectType({
   name: "CustomerType",
   fields: () => ({
-    ssn_sin: { type: GraphQLInt },
+    ssn_sin: { type: GraphQLString },
     street_number: { type: GraphQLInt },
     street_name: { type: GraphQLString },
     apt_number: { type: GraphQLInt },
     city: { type: GraphQLString },
     state_province: { type: GraphQLString },
-    zip_postalcode: { type: GraphQLInt },
+    zip_postalcode: { type: GraphQLString },
     first_name: { type: GraphQLString },
     middle_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
@@ -138,24 +138,24 @@ const mutation = new GraphQLObjectType({
     addCustomer: {
       type: CustomerType,
       args: {
-        ssn_sin: { type: new GraphQLNonNull(GraphQLInt) },
-        street_number: { type: new GraphQLNonNull(GraphQLInt) },
-        street_name: { type: new GraphQLNonNull(GraphQLString) },
-        apt_number: { type: new GraphQLNonNull(GraphQLInt) },
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
+        street_number: { type: GraphQLInt },
+        street_name: { type: GraphQLString },
+        apt_number: { type: GraphQLInt },
         city: { type: GraphQLString },
         state_province: { type: GraphQLString },
-        zip_postalcode: { type: GraphQLInt },
+        zip_postalcode: { type: GraphQLString },
         first_name: { type: GraphQLString },
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
         date_of_registration: { type: GraphQLString },
-        username: { type: new GraphQLNonNull(GraphQLString) },
-        cust_password: { type: new GraphQLNonNull(GraphQLString) }
+        username: { type: GraphQLString },
+        cust_password: { type: GraphQLString }
       },
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        INSERT INTO Customer(
+        INSERT INTO t_customer(
           ssn_sin,
           street_number,
           street_name,
@@ -170,13 +170,13 @@ const mutation = new GraphQLObjectType({
           username,
           cust_password)
            VALUES(
-            ${args.ssn_sin},
+            '${args.ssn_sin}',
             ${args.street_number},
             '${args.street_name}',
             ${args.apt_number},
             '${args.city}',
             '${args.state_province}',
-            ${args.zip_postalcode},
+            '${args.zip_postalcode}',
             '${args.first_name}',
             '${args.middle_name}',
             '${args.last_name}',
