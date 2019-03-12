@@ -50,7 +50,9 @@ class Login extends Component {
           <div className="row">
             <div className="col-md-8 m-auto">
               <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">Sign in to your Client Account</p>
+              <p className="lead text-center">
+                Sign in to your Hotels Service Client Account
+              </p>
               <form noValidate onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input

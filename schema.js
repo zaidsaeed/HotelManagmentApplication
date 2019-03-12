@@ -127,6 +127,31 @@ const RootQuery = new GraphQLObjectType({
             return "The error is", err;
           });
       }
+    },
+    customer: {
+      type: CustomerType,
+      args: {
+        username: { type: GraphQLString },
+        cust_password: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM t_customer where username ='${
+          args.username
+        }' and cust_password = '${args.cust_password}';
+        `;
+        console.log("query", query);
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
     }
   }
 });
