@@ -61,9 +61,16 @@ class Login extends Component {
       })
       .then(data => {
         console.log("data", data);
+        this.props.history.push("/");
       })
       .catch(err => {
         console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
       });
   };
 
@@ -85,14 +92,14 @@ class Login extends Component {
                     <input
                       type="string"
                       className={classnames("form-control form-control-lg", {
-                        "is-invalid": errors["email"]
+                        "is-invalid": errors["userName"]
                       })}
                       placeholder="Email Address"
                       name="userName"
                       value={this.state.userName}
                       onChange={this.onChange}
                     />
-                    <div class="invalid-feedback">{errors.email}</div>
+                    <div class="invalid-feedback">{errors.userName}</div>
                   </div>
 
                   <div className="form-group">
