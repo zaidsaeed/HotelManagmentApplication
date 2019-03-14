@@ -1,6 +1,20 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import Navbar from "./Navbar";
 import PropTypes from "prop-types";
 import classnames from "classnames";
+import gql from "graphql-tag";
+import { Query } from "react-apollo";
+
+const CUSTOMER_QUERY = gql`
+  query customerQuery {
+    customer(username: "zsaee060", cust_password: "lovely") {
+      ssn_sin
+      username
+      cust_password
+      street_name
+    }
+  }
+`;
 
 class Login extends Component {
   constructor() {
@@ -39,56 +53,61 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-    this.props.loginUser(userData);
   };
 
   render() {
     const { errors } = this.state;
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your Hotels Service Client Account
-              </p>
-              <form noValidate onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors["email"]
-                    })}
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  <div class="invalid-feedback">{errors.email}</div>
-                </div>
+      <Fragment>
+        <Navbar />
+        <div className="login">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-8 m-auto">
+                <h1 className="display-4 text-center">Log In</h1>
+                <p className="lead text-center">
+                  Sign in to your Hotels Service Client Account
+                </p>
+                <form noValidate onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="email"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors["email"]
+                      })}
+                      placeholder="Email Address"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.onChange}
+                    />
+                    <div class="invalid-feedback">{errors.email}</div>
+                  </div>
 
-                <div className="form-group">
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      className={classnames("form-control form-control-lg", {
+                        "is-invalid": errors.password
+                      })}
+                      placeholder="Password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                    />
+                    {errors.password && (
+                      <div class="invalid-feedback">{errors.password}</div>
+                    )}
+                  </div>
                   <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
+                    type="submit"
+                    className="btn btn-info btn-block mt-4"
                   />
-                  {errors.password && (
-                    <div class="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Fragment>
     );
   }
 }
