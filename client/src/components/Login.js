@@ -3,11 +3,11 @@ import Navbar from "./Navbar";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { Query, graphql, withApollo } from "react-apollo";
 
 const CUSTOMER_QUERY = gql`
-  query customerQuery {
-    customer(username: "zsaee060", cust_password: "lovely") {
+  query customerQuery($username: String!, $cust_password: String!) {
+    customer(username: $username, cust_password: $cust_password) {
       ssn_sin
       username
       cust_password
@@ -20,7 +20,7 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      email: "",
+      userName: "",
       password: "",
       errors: {}
     };
@@ -50,9 +50,21 @@ class Login extends Component {
   onSubmit = e => {
     e.preventDefault();
     const userData = {
-      email: this.state.email,
-      password: this.state.password
+      username: this.state.userName,
+      cust_password: this.state.password
     };
+
+    this.props.client
+      .query({
+        query: CUSTOMER_QUERY,
+        variables: userData
+      })
+      .then(data => {
+        console.log("data", data);
+      })
+      .catch(err => {
+        console.log("err", err);
+      });
   };
 
   render() {
@@ -71,13 +83,13 @@ class Login extends Component {
                 <form noValidate onSubmit={this.onSubmit}>
                   <div className="form-group">
                     <input
-                      type="email"
+                      type="string"
                       className={classnames("form-control form-control-lg", {
                         "is-invalid": errors["email"]
                       })}
                       placeholder="Email Address"
-                      name="email"
-                      value={this.state.email}
+                      name="userName"
+                      value={this.state.userName}
                       onChange={this.onChange}
                     />
                     <div class="invalid-feedback">{errors.email}</div>
@@ -118,4 +130,4 @@ class Login extends Component {
 //   errors: PropTypes.object.isRequired
 // };
 
-export default Login;
+export default withApollo(Login);
