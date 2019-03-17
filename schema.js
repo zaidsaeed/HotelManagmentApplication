@@ -66,6 +66,25 @@ const HotelType = new GraphQLObjectType({
   })
 });
 
+//EmployeeType
+const EmployeeType = new GraphQLObjectType({
+  name: "EmployeeType",
+  fields: () => ({
+    ssn_sin: { type: GraphQLInt },
+    street_number: { type: GraphQLInt },
+    street_name: { type: GraphQLString },
+    apt_number: { type: GraphQLInt },
+    city: { type: GraphQLString },
+    state_province: { type: GraphQLString },
+    zip_postalcode: { type: GraphQLString },
+    first_name: { type: GraphQLString },
+    middle_name: { type: GraphQLString },
+    last_name: { type: GraphQLString },
+    username: { type: GraphQLString },
+    emp_password: { type: GraphQLString }
+  })
+});
+
 //Root Query
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -140,6 +159,31 @@ const RootQuery = new GraphQLObjectType({
         SELECT * FROM t_customer where username ='${
           args.username
         }' and cust_password = '${args.cust_password}';
+        `;
+        console.log("query", query);
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    employee: {
+      type: EmployeeType,
+      args: {
+        username: { type: GraphQLString },
+        emp_password: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM t_employee where username ='${
+          args.username
+        }' and emp_password = '${args.emp_password}';
         `;
         console.log("query", query);
         return db

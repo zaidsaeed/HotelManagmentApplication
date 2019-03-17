@@ -16,6 +16,16 @@ const CUSTOMER_QUERY = gql`
   }
 `;
 
+const EMP_QUERY = gql`
+  query employeeQuery($username: String!, $emp_password: String!) {
+    employee(username: $username, emp_password: $emp_password) {
+      first_name
+      middle_name
+      last_name
+    }
+  }
+`;
+
 class Login extends Component {
   constructor() {
     super();
@@ -49,29 +59,53 @@ class Login extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    const userData = {
-      username: this.state.userName,
-      cust_password: this.state.password
-    };
-
-    this.props.client
-      .query({
-        query: CUSTOMER_QUERY,
-        variables: userData
-      })
-      .then(data => {
-        console.log("data", data);
-        this.props.history.push("/");
-      })
-      .catch(err => {
-        console.log("err", err);
-        this.setState({
-          errors: {
-            userName: "Username is incorrect",
-            password: "Password is incorrect"
-          }
+    if (this.state.userName.match("^emp.")) {
+      const userData = {
+        username: this.state.userName,
+        emp_password: this.state.password
+      };
+      this.props.client
+        .query({
+          query: EMP_QUERY,
+          variables: userData
+        })
+        .then(data => {
+          console.log("data", data);
+          this.props.history.push("/");
+        })
+        .catch(err => {
+          console.log("err", err);
+          this.setState({
+            errors: {
+              userName: "Username is incorrect",
+              password: "Password is incorrect"
+            }
+          });
         });
-      });
+    } else {
+      const userData = {
+        username: this.state.userName,
+        cust_password: this.state.password
+      };
+      this.props.client
+        .query({
+          query: CUSTOMER_QUERY,
+          variables: userData
+        })
+        .then(data => {
+          console.log("data", data);
+          this.props.history.push("/");
+        })
+        .catch(err => {
+          console.log("err", err);
+          this.setState({
+            errors: {
+              userName: "Username is incorrect",
+              password: "Password is incorrect"
+            }
+          });
+        });
+    }
   };
 
   render() {
