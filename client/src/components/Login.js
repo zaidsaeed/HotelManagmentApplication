@@ -71,7 +71,7 @@ class Login extends Component {
         })
         .then(data => {
           console.log("data", data);
-          this.props.history.push("/");
+          this.props.history.push("/employeeDashboard");
         })
         .catch(err => {
           console.log("err", err);
