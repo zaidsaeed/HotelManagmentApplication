@@ -39,7 +39,7 @@ const ADD_CUSTOMER = gql`
   }
 `;
 
-class Register extends Component {
+class EmployeeSignUp extends Component {
   constructor() {
     super();
     this.state = {
@@ -284,4 +284,4 @@ class Register extends Component {
   }
 }
 
-export default graphql(ADD_CUSTOMER)(Register);
+export default graphql(ADD_CUSTOMER)(EmployeeSignUp);
