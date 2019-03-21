@@ -22,7 +22,7 @@ export default class Navbar extends Component {
           </button>
 
           <div className="collapse navbar-collapse col-md" id="navbarColor01">
-            <ul className="navbar-nav mr-5 ml-auto">
+            <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="#">
                   Hotels <span className="sr-only">(current)</span>
@@ -39,20 +39,28 @@ export default class Navbar extends Component {
                 </a>
               </li>
             </ul>
-            <input
-              className="form-control mr-5 col-md ml-5"
-              type="text"
-              placeholder="Search"
-            />
-            <ul className="navbar-nav ml-5 col-md">
+
+            <ul className="form-inline navbar-nav my-2 my-lg-0">
               <li className="nav-item">
                 <Link to="/signUp" className="nav-link" href="#">
                   Sign Up <span className="sr-only">(current)</span>
                 </Link>
               </li>
+
               <li className="nav-item">
                 <Link to="/logIn" className="nav-link" href="#">
                   Log In
+                </Link>
+              </li>
+
+              <li className="nav-item" id="add">
+                <Link to="/employeeSignUp">
+                  <i
+                    style={{ hover: "pointer" }}
+                    className="nav-link material-icons"
+                  >
+                    add
+                  </i>
                 </Link>
               </li>
             </ul>
