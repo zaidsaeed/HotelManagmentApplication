@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 export default class RoomTable extends Component {
+  componentWillReceiveProps() {
+    console.log("this.props.dateOffSet", this.props.dateOffSet);
+  }
+
   render() {
     var datesArray = [];
     var date = new Date();
@@ -56,7 +60,16 @@ export default class RoomTable extends Component {
                   datesArray[4].getFullYear()}
               </th>
               <th scope="col">
-                <Link to="/employeeSignUp">
+                <Link
+                  to={{
+                    pathname: "/employeeDashboard",
+                    state: {
+                      dateOffSet: this.props.dateOffSet
+                        ? this.props.dateOffSet + 1
+                        : 1
+                    }
+                  }}
+                >
                   <i style={{ hover: "pointer" }} className="material-icons">
                     arrow_right_alt
                   </i>
