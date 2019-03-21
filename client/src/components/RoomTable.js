@@ -10,6 +10,7 @@ export default class RoomTable extends Component {
     var datesArray = [];
     var date = new Date();
     var count = 0;
+    console.log(this.props.dateOffSet);
     if (this.props.dateOffSet) {
       date.setDate(date.getDate() + this.props.dateOffSet * 5);
     }
@@ -25,6 +26,22 @@ export default class RoomTable extends Component {
         <table className="table table-hover" style={{ padding: "10px" }}>
           <thead>
             <tr>
+              <th scope="col">
+                <Link
+                  to={{
+                    pathname: "/employeeDashboard",
+                    state: {
+                      dateOffSet: this.props.dateOffSet
+                        ? this.props.dateOffSet - 1
+                        : 0
+                    }
+                  }}
+                >
+                  <i style={{ hover: "pointer" }} className="material-icons">
+                    arrow_back
+                  </i>
+                </Link>
+              </th>
               <th scope="col" style={{ paddingLeft: "3%" }}>
                 Room Number
               </th>
@@ -75,7 +92,7 @@ export default class RoomTable extends Component {
                   }}
                 >
                   <i style={{ hover: "pointer" }} className="material-icons">
-                    arrow_right_alt
+                    arrow_forward
                   </i>
                 </Link>
               </th>
@@ -83,6 +100,7 @@ export default class RoomTable extends Component {
           </thead>
           <tbody>
             <tr class="table-active">
+              <th style={{ background: "white" }} />
               <th
                 scope="row"
                 style={{ verticalAlign: "middle", paddingLeft: "5%" }}
