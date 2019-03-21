@@ -21,6 +21,16 @@ export default class RoomTable extends Component {
     }
 
     console.log(datesArray);
+
+    var checkStyleWithHover = {
+      color: "blue",
+      padding: 0
+    };
+
+    var checkStyleWithNoHover = {
+      padding: 0
+    };
+
     return (
       <div>
         <table className="table table-hover" style={{ padding: "10px" }}>
@@ -109,10 +119,10 @@ export default class RoomTable extends Component {
               </th>
               <td style={{ hover: "pointer" }}>
                 <i
-                  style={{ hover: "pointer", padding: 0 }}
+                  style={{ color: "blue", padding: 0 }}
                   className="material-icons nav-link"
                   alt="rent"
-                  onClick={() => console.log("hey")}
+                  onMouseOver={() => console.log("hey")}
                 >
                   check
                 </i>
@@ -127,10 +137,15 @@ export default class RoomTable extends Component {
               </td>
               <td style={{ hover: "pointer" }}>
                 <i
-                  style={{ hover: "pointer", padding: 0 }}
+                  style={checkStyleWithNoHover}
                   className="material-icons nav-link"
                   alt="rent"
-                  onClick={() => console.log("hey")}
+                  onClick={() =>
+                    (checkStyleWithNoHover = {
+                      ...checkStyleWithNoHover,
+                      color: "blue"
+                    })
+                  }
                 >
                   check
                 </i>
