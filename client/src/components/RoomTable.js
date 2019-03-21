@@ -17,7 +17,9 @@ export default class RoomTable extends Component {
         <table className="table table-hover" style={{ padding: "10px" }}>
           <thead>
             <tr>
-              <th scope="col">Room Number</th>
+              <th scope="col" style={{ paddingLeft: "3%" }}>
+                Room Number
+              </th>
               <th scope="col">
                 {datesArray[0].getDate() +
                   "/" +
@@ -64,10 +66,15 @@ export default class RoomTable extends Component {
           </thead>
           <tbody>
             <tr class="table-active">
-              <th scope="row">418</th>
+              <th
+                scope="row"
+                style={{ verticalAlign: "middle", paddingLeft: "5%" }}
+              >
+                418
+              </th>
               <td style={{ hover: "pointer" }}>
                 <i
-                  style={{ hover: "pointer" }}
+                  style={{ hover: "pointer", padding: 0 }}
                   className="material-icons nav-link"
                   alt="rent"
                   onClick={() => console.log("hey")}
@@ -75,7 +82,7 @@ export default class RoomTable extends Component {
                   check
                 </i>
                 <i
-                  style={{ hover: "pointer" }}
+                  style={{ hover: "pointer", paddingRight: 0 }}
                   className="material-icons nav-link"
                   onClick={() => console.log("hey")}
                   alt="book"
@@ -83,10 +90,78 @@ export default class RoomTable extends Component {
                   check_circle_outline
                 </i>
               </td>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
-              <td>Column content</td>
+              <td style={{ hover: "pointer" }}>
+                <i
+                  style={{ hover: "pointer", padding: 0 }}
+                  className="material-icons nav-link"
+                  alt="rent"
+                  onClick={() => console.log("hey")}
+                >
+                  check
+                </i>
+                <i
+                  style={{ hover: "pointer", paddingRight: 0 }}
+                  className="material-icons nav-link"
+                  onClick={() => console.log("hey")}
+                  alt="book"
+                >
+                  check_circle_outline
+                </i>
+              </td>
+              <td style={{ hover: "pointer" }}>
+                <i
+                  style={{ hover: "pointer", padding: 0 }}
+                  className="material-icons nav-link"
+                  alt="rent"
+                  onClick={() => console.log("hey")}
+                >
+                  check
+                </i>
+                <i
+                  style={{ hover: "pointer", paddingRight: 0 }}
+                  className="material-icons nav-link"
+                  onClick={() => console.log("hey")}
+                  alt="book"
+                >
+                  check_circle_outline
+                </i>
+              </td>{" "}
+              <td style={{ hover: "pointer" }}>
+                <i
+                  style={{ hover: "pointer", padding: 0 }}
+                  className="material-icons nav-link"
+                  alt="rent"
+                  onClick={() => console.log("hey")}
+                >
+                  check
+                </i>
+                <i
+                  style={{ hover: "pointer", paddingRight: 0 }}
+                  className="material-icons nav-link"
+                  onClick={() => console.log("hey")}
+                  alt="book"
+                >
+                  check_circle_outline
+                </i>
+              </td>{" "}
+              <td style={{ hover: "pointer" }}>
+                <i
+                  style={{ hover: "pointer", padding: 0 }}
+                  className="material-icons nav-link"
+                  alt="rent"
+                  onClick={() => console.log("hey")}
+                >
+                  check
+                </i>
+                <i
+                  style={{ hover: "pointer", paddingRight: 0 }}
+                  className="material-icons nav-link"
+                  onClick={() => console.log("hey")}
+                  alt="book"
+                >
+                  check_circle_outline
+                </i>
+              </td>
             </tr>
           </tbody>
         </table>
