@@ -3,7 +3,7 @@ import classnames from "classnames";
 import gql from "graphql-tag";
 import { Mutation, graphql } from "react-apollo";
 
-const ADD_CUSTOMER = gql`
+const ADD_EMPLOYEE = gql`
   mutation(
     $ssn_sin: String!
     $street_number: Int
@@ -15,11 +15,10 @@ const ADD_CUSTOMER = gql`
     $first_name: String
     $middle_name: String
     $last_name: String
-    $date_of_registration: String
     $username: String
-    $cust_password: String
+    $emp_password: String
   ) {
-    addCustomer(
+    addEmployee(
       ssn_sin: $ssn_sin
       street_number: $street_number
       street_name: $street_name
@@ -30,9 +29,8 @@ const ADD_CUSTOMER = gql`
       first_name: $first_name
       middle_name: $middle_name
       last_name: $last_name
-      date_of_registration: $date_of_registration
       username: $username
-      cust_password: $cust_password
+      emp_password: $emp_password
     ) {
       ssn_sin
     }
@@ -54,7 +52,7 @@ class EmployeeSignUp extends Component {
       middle_name: "",
       last_name: "",
       username: "",
-      cust_password: "",
+      emp_password: "",
       errors: {}
     };
   }
@@ -80,15 +78,15 @@ class EmployeeSignUp extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <Mutation mutation={ADD_CUSTOMER}>
-        {(addCustomer, { data }) => (
+      <Mutation mutation={ADD_EMPLOYEE}>
+        {(addEmployee, { data }) => (
           <div className="register">
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
                   <h1 className="display-4 text-center">Sign Up</h1>
                   <p className="lead text-center">
-                    Create your HotelsApp account
+                    Create your Employee HotelsApp account
                   </p>
                   <form
                     noValidate
@@ -105,12 +103,11 @@ class EmployeeSignUp extends Component {
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
-                        date_of_registration: new Date(),
                         username: this.state.username,
-                        cust_password: this.state.cust_password
+                        emp_password: this.state.emp_password
                       };
-                      console.log("newUser", newUser);
-                      addCustomer({ variables: newUser });
+                      console.log("newEmployee", newUser);
+                      addEmployee({ variables: newUser });
                     }}
                   >
                     <div className="form-group">
@@ -263,8 +260,8 @@ class EmployeeSignUp extends Component {
                           "is-invalid": errors.password2
                         })}
                         placeholder="Password:"
-                        name="cust_password"
-                        value={this.state.cust_password}
+                        name="emp_password"
+                        value={this.state.emp_password}
                         onChange={this.onChange}
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
@@ -284,4 +281,4 @@ class EmployeeSignUp extends Component {
   }
 }
 
-export default graphql(ADD_CUSTOMER)(EmployeeSignUp);
+export default graphql(ADD_EMPLOYEE)(EmployeeSignUp);

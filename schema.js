@@ -284,7 +284,7 @@ const mutation = new GraphQLObjectType({
     addEmployee: {
       type: EmployeeType,
       args: {
-        ssn_sin: { type: new GraphQLNonNull(GraphQLInt) },
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
         street_number: { type: GraphQLInt },
         street_name: { type: GraphQLString },
         apt_number: { type: GraphQLInt },
@@ -295,7 +295,7 @@ const mutation = new GraphQLObjectType({
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
         username: { type: GraphQLString },
-        cust_password: { type: GraphQLString }
+        emp_password: { type: GraphQLString }
       },
       resolve(parentValue, args) {
         const query = `
@@ -311,9 +311,8 @@ const mutation = new GraphQLObjectType({
           first_name,
           middle_name,
           last_name,
-          date_of_registration,
           username,
-          cust_password)
+          emp_password)
            VALUES(
             ${args.ssn_sin},
             ${args.street_number},
@@ -326,7 +325,7 @@ const mutation = new GraphQLObjectType({
             '${args.middle_name}',
             '${args.last_name}',
             '${args.username}',
-            '${args.cust_password}'
+            '${args.emp_password}'
           )
           RETURNING
             ssn_sin,
