@@ -10,11 +10,15 @@ export default class RoomTable extends Component {
     var datesArray = [];
     var date = new Date();
     var count = 0;
+    if (this.props.dateOffSet) {
+      date.setDate(date.getDate() + this.props.dateOffSet * 5);
+    }
     while (count < 5) {
       datesArray.push(new Date(date));
       date.setDate(date.getDate() + 1);
       count = count + 1;
     }
+
     console.log(datesArray);
     return (
       <div>
