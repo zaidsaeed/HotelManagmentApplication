@@ -3,17 +3,56 @@ import { Link } from "react-router-dom";
 
 export default class RoomTable extends Component {
   render() {
+    var datesArray = [];
+    var date = new Date();
+    var count = 0;
+    while (count < 5) {
+      datesArray.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+      count = count + 1;
+    }
+    console.log(datesArray);
     return (
       <div>
-        <table class="table table-hover">
+        <table className="table table-hover" style={{ padding: "10px" }}>
           <thead>
             <tr>
               <th scope="col">Room Number</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
-              <th scope="col">Column heading</th>
+              <th scope="col">
+                {datesArray[0].getDate() +
+                  "/" +
+                  datesArray[0].getMonth() +
+                  "/" +
+                  datesArray[0].getFullYear()}
+              </th>
+              <th scope="col">
+                {datesArray[1].getDate() +
+                  "/" +
+                  datesArray[1].getMonth() +
+                  "/" +
+                  datesArray[1].getFullYear()}
+              </th>
+              <th scope="col">
+                {datesArray[2].getDate() +
+                  "/" +
+                  datesArray[2].getMonth(1) +
+                  "/" +
+                  datesArray[2].getFullYear()}
+              </th>
+              <th scope="col">
+                {datesArray[3].getDate() +
+                  "/" +
+                  datesArray[3].getMonth() +
+                  "/" +
+                  datesArray[3].getFullYear()}
+              </th>
+              <th scope="col">
+                {datesArray[4].getDate() +
+                  "/" +
+                  datesArray[4].getMonth() +
+                  "/" +
+                  datesArray[4].getFullYear()}
+              </th>
               <th scope="col">
                 <Link to="/employeeSignUp">
                   <i style={{ hover: "pointer" }} className="material-icons">
@@ -30,8 +69,18 @@ export default class RoomTable extends Component {
                 <i
                   style={{ hover: "pointer" }}
                   className="material-icons nav-link"
+                  alt="rent"
+                  onClick={() => console.log("hey")}
                 >
                   check
+                </i>
+                <i
+                  style={{ hover: "pointer" }}
+                  className="material-icons nav-link"
+                  onClick={() => console.log("hey")}
+                  alt="book"
+                >
+                  check_circle_outline
                 </i>
               </td>
               <td>Column content</td>
