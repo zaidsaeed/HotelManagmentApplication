@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import RentHotelButton from "./RentHotelButton";
+import BookHotelButton from "./BookHotelButton";
 
 export default class RoomTable extends Component {
   componentWillReceiveProps() {
@@ -10,6 +12,7 @@ export default class RoomTable extends Component {
     var datesArray = [];
     var date = new Date();
     var count = 0;
+    var roomNumbersArray = [408, 409, 410, 411];
     console.log(this.props.dateOffSet);
     if (this.props.dateOffSet) {
       date.setDate(date.getDate() + this.props.dateOffSet * 5);
@@ -22,10 +25,39 @@ export default class RoomTable extends Component {
 
     console.log(datesArray);
 
-    var checkStyleWithHover = {
-      color: "blue",
-      padding: 0
-    };
+    var tableRows = roomNumbersArray.map(roomNumber => {
+      return (
+        <tr class="table-active">
+          <th style={{ background: "white" }} />
+          <th
+            scope="row"
+            style={{ verticalAlign: "middle", paddingLeft: "5%" }}
+          >
+            {roomNumber}
+          </th>
+          <td>
+            <RentHotelButton />
+            <BookHotelButton />
+          </td>
+          <td>
+            <RentHotelButton />
+            <BookHotelButton />
+          </td>
+          <td>
+            <RentHotelButton />
+            <BookHotelButton />
+          </td>
+          <td>
+            <RentHotelButton />
+            <BookHotelButton />
+          </td>
+          <td>
+            <RentHotelButton />
+            <BookHotelButton />
+          </td>
+        </tr>
+      );
+    });
 
     var checkStyleWithNoHover = {
       padding: 0
@@ -108,112 +140,7 @@ export default class RoomTable extends Component {
               </th>
             </tr>
           </thead>
-          <tbody>
-            <tr class="table-active">
-              <th style={{ background: "white" }} />
-              <th
-                scope="row"
-                style={{ verticalAlign: "middle", paddingLeft: "5%" }}
-              >
-                418
-              </th>
-              <td style={{ hover: "pointer" }}>
-                <i
-                  style={{ color: "blue", padding: 0 }}
-                  className="material-icons nav-link"
-                  alt="rent"
-                  onMouseOver={() => console.log("hey")}
-                >
-                  check
-                </i>
-                <i
-                  style={{ hover: "pointer", paddingRight: 0 }}
-                  className="material-icons nav-link"
-                  onClick={() => console.log("hey")}
-                  alt="book"
-                >
-                  check_circle_outline
-                </i>
-              </td>
-              <td style={{ hover: "pointer" }}>
-                <i
-                  style={checkStyleWithNoHover}
-                  className="material-icons nav-link"
-                  alt="rent"
-                  onClick={() =>
-                    (checkStyleWithNoHover = {
-                      ...checkStyleWithNoHover,
-                      color: "blue"
-                    })
-                  }
-                >
-                  check
-                </i>
-                <i
-                  style={{ hover: "pointer", paddingRight: 0 }}
-                  className="material-icons nav-link"
-                  onClick={() => console.log("hey")}
-                  alt="book"
-                >
-                  check_circle_outline
-                </i>
-              </td>
-              <td style={{ hover: "pointer" }}>
-                <i
-                  style={{ hover: "pointer", padding: 0 }}
-                  className="material-icons nav-link"
-                  alt="rent"
-                  onClick={() => console.log("hey")}
-                >
-                  check
-                </i>
-                <i
-                  style={{ hover: "pointer", paddingRight: 0 }}
-                  className="material-icons nav-link"
-                  onClick={() => console.log("hey")}
-                  alt="book"
-                >
-                  check_circle_outline
-                </i>
-              </td>{" "}
-              <td style={{ hover: "pointer" }}>
-                <i
-                  style={{ hover: "pointer", padding: 0 }}
-                  className="material-icons nav-link"
-                  alt="rent"
-                  onClick={() => console.log("hey")}
-                >
-                  check
-                </i>
-                <i
-                  style={{ hover: "pointer", paddingRight: 0 }}
-                  className="material-icons nav-link"
-                  onClick={() => console.log("hey")}
-                  alt="book"
-                >
-                  check_circle_outline
-                </i>
-              </td>{" "}
-              <td style={{ hover: "pointer" }}>
-                <i
-                  style={{ hover: "pointer", padding: 0 }}
-                  className="material-icons nav-link"
-                  alt="rent"
-                  onClick={() => console.log("hey")}
-                >
-                  check
-                </i>
-                <i
-                  style={{ hover: "pointer", paddingRight: 0 }}
-                  className="material-icons nav-link"
-                  onClick={() => console.log("hey")}
-                  alt="book"
-                >
-                  check_circle_outline
-                </i>
-              </td>
-            </tr>
-          </tbody>
+          <tbody>{tableRows}</tbody>
         </table>
       </div>
     );
