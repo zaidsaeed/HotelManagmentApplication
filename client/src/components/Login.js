@@ -71,6 +71,7 @@ class Login extends Component {
         })
         .then(data => {
           console.log("data", data);
+          window.localStorage.setItem("user", data);
           this.props.history.push("/employeeDashboard");
         })
         .catch(err => {
