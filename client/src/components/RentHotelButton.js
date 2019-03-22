@@ -15,9 +15,9 @@ export default class RentHotel extends Component {
   render() {
     var linkStyle;
     if (this.state.hover) {
-      linkStyle = { cursor: "pointer", color: "blue", paddingRight: 0 };
+      linkStyle = { cursor: "pointer", color: "blue", paddingLeft: 0 };
     } else {
-      linkStyle = { paddingRight: 0 };
+      linkStyle = { paddingLeft: 0 };
     }
     return (
       <i

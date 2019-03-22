@@ -36,32 +36,28 @@ export default class RoomTable extends Component {
             {roomNumber}
           </th>
           <td>
-            <RentHotelButton />
-            <BookHotelButton />
+            <RentHotelButton roomNumber={roomNumber} date={datesArray[0]} />
+            <BookHotelButton roomNumber={roomNumber} date={datesArray[0]} />
           </td>
           <td>
-            <RentHotelButton />
-            <BookHotelButton />
+            <RentHotelButton roomNumber={roomNumber} date={datesArray[1]} />
+            <BookHotelButton roomNumber={roomNumber} date={datesArray[1]} />
           </td>
           <td>
-            <RentHotelButton />
-            <BookHotelButton />
+            <RentHotelButton roomNumber={roomNumber} date={datesArray[2]} />
+            <BookHotelButton roomNumber={roomNumber} date={datesArray[2]} />
           </td>
           <td>
-            <RentHotelButton />
-            <BookHotelButton />
+            <RentHotelButton roomNumber={roomNumber} date={datesArray[3]} />
+            <BookHotelButton roomNumber={roomNumber} date={datesArray[3]} />
           </td>
           <td>
-            <RentHotelButton />
-            <BookHotelButton />
+            <RentHotelButton roomNumber={roomNumber} date={datesArray[4]} />
+            <BookHotelButton roomNumber={roomNumber} date={datesArray[4]} />
           </td>
         </tr>
       );
     });
-
-    var checkStyleWithNoHover = {
-      padding: 0
-    };
 
     return (
       <div>
