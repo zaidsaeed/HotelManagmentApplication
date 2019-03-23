@@ -1,11 +1,31 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import gql from "graphql-tag";
+import { Query, withApollo } from "react-apollo";
 import RentHotelButton from "./RentHotelButton";
 import BookHotelButton from "./BookHotelButton";
 
-export default class RoomTable extends Component {
+const ROOM_NUMBERS_QUERY = gql`
+  query RoomNumbersQuery($emp_ssn_sin: Int) {
+    roomNumbers() {
+      room_numbers
+    }
+  }
+`;
+
+class RoomTable extends Component {
   componentWillReceiveProps() {
     console.log("this.props.dateOffSet", this.props.dateOffSet);
+  }
+
+  componentWillMount() {
+    const user = window.localStorage.getItem("user");
+    console.log("user", user);
+    const arr = this.props.client.query({
+      query: ROOM_NUMBERS_QUERY,
+      variables: { emp_ssn_sin: 1 }
+    });
+    console.log(arr);
   }
 
   render() {
@@ -142,3 +162,5 @@ export default class RoomTable extends Component {
     );
   }
 }
+
+export default withApollo(RoomTable);

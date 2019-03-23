@@ -22,6 +22,7 @@ const EMP_QUERY = gql`
       first_name
       middle_name
       last_name
+      ssn_sin
     }
   }
 `;
@@ -70,8 +71,8 @@ class Login extends Component {
           variables: userData
         })
         .then(data => {
-          console.log("data", data);
-          window.localStorage.setItem("user", data);
+          console.log("data", data.data);
+          window.localStorage.setItem("user", JSON.stringify(data));
           this.props.history.push("/employeeDashboard");
         })
         .catch(err => {

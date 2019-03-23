@@ -29,6 +29,14 @@ const HotelChainType = new GraphQLObjectType({
   })
 });
 
+//RoomNumber Type
+const RoomNumberType = new GraphQLObjectType({
+  name: "RoomNumber",
+  fields: () => ({
+    room_number: { type: GraphQLInt }
+  })
+});
+
 const CustomerType = new GraphQLObjectType({
   name: "CustomerType",
   fields: () => ({
@@ -135,6 +143,27 @@ const RootQuery = new GraphQLObjectType({
         const query = `
         SET search_path = 'hotelsService';
         SELECT * FROM t_hotel_chain;
+        `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    room_numbers: {
+      type: GraphQLList(RoomNumberType),
+      args: {
+        emp_ssn_sin: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM emp_room where emp_ssn_sin = ${args.emp_ssn_sin} ;
         `;
         return db
           .manyOrNone(query)
