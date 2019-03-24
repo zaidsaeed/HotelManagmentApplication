@@ -7,7 +7,7 @@ import BookHotelButton from "./BookHotelButton";
 
 const ROOM_NUMBERS_QUERY = gql`
   query RoomNumbersQuery($emp_ssn_sin: Int) {
-    roomNumbers() {
+    roomNumbers(emp_ssn_sin: $emp_ssn_sin) {
       room_numbers
     }
   }
