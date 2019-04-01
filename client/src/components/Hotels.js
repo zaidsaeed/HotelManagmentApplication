@@ -15,13 +15,44 @@ const HOTELS_QUERY = gql`
 `;
 
 export class Hotels extends Component {
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+    console.log(this.state);
+  };
+  constructor() {
+    super();
+    this.state = {
+      startInput: "",
+      endInput: "",
+      minPriceInput: "",
+      maxPriceInput: "",
+      stateInput: "",
+      chainInput: "",
+      cityInput: "",
+      capacityInput: "",
+      minRoomsInput: "",
+      maxRoomsInput: "",
+      ratingInput: "",
+      errors: {}
+    };
+  }
   render() {
     return (
       <Fragment>
         <Navbar />
         <h1 className="display-4 my-3">Hotels</h1>
         <div class="container">
-          <form>
+          <form
+            noValidate
+            onSubmit={e => {
+              e.preventDefault();
+              const searchQuery = { ...this.state };
+              console.log("searchQuery", searchQuery);
+              // addCustomer({ variables: newUser });
+            }}
+          >
             <div class="form-row">
               <div class="col">
                 <div class="input-group">
@@ -30,7 +61,14 @@ export class Hotels extends Component {
                       Start Date:
                     </span>
                   </div>
-                  <input type="date" class="form-control" id="startInput" />
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="startInput"
+                    name="startInput"
+                    value={this.state.startInput}
+                    onChange={this.onChange}
+                  />
                 </div>
               </div>
               <div class="col">
@@ -40,7 +78,14 @@ export class Hotels extends Component {
                       End Date:
                     </span>
                   </div>
-                  <input type="date" class="form-control" id="endInput" />
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="endInput"
+                    name="endInput"
+                    value={this.state.endInput}
+                    onChange={this.onChange}
+                  />
                 </div>
               </div>
             </div>
@@ -51,6 +96,9 @@ export class Hotels extends Component {
                   class="form-control"
                   id="cityInput"
                   placeholder="City"
+                  name="cityInput"
+                  value={this.state.cityInput}
+                  onChange={this.onChange}
                 />
               </div>
               <div class="col">
@@ -59,6 +107,9 @@ export class Hotels extends Component {
                   class="form-control"
                   id="stateInput"
                   placeholder="State/Province"
+                  name="stateInput"
+                  value={this.state.stateInput}
+                  onChange={this.onChange}
                 />
               </div>
               <div class="col">
@@ -67,6 +118,9 @@ export class Hotels extends Component {
                   class="form-control"
                   id="chainInput"
                   placeholder="Preferred hotel chain"
+                  name="chainInput"
+                  value={this.state.chainInput}
+                  onChange={this.onChange}
                 />
               </div>
             </div>
@@ -74,34 +128,40 @@ export class Hotels extends Component {
               <div class="col">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="minInput">
+                    <span class="input-group-text" id="minPriceInput">
                       Min Price: $
                     </span>
                   </div>
                   <input
                     type="number"
                     class="form-control"
-                    id="minInput"
+                    id="minPriceInput"
                     placeholder="Any"
                     min="0"
                     step="10"
+                    name="minPriceInput"
+                    value={this.state.minPriceInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
               <div class="col">
                 <div class="input-group">
                   <div class="input-group-prepend">
-                    <span class="input-group-text" id="maxInput">
+                    <span class="input-group-text" id="maxPriceInput">
                       Max Price: $
                     </span>
                   </div>
                   <input
                     type="number"
                     class="form-control"
-                    id="maxInput"
+                    id="maxPriceInput"
                     placeholder="Any"
                     min="0"
                     step="10"
+                    name="maxPriceInput"
+                    value={this.state.maxPriceInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
@@ -119,6 +179,9 @@ export class Hotels extends Component {
                     placeholder="Any"
                     min="1"
                     max="12"
+                    name="capacityInput"
+                    value={this.state.capacityInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
@@ -138,6 +201,9 @@ export class Hotels extends Component {
                     placeholder="Any"
                     min="0"
                     step="25"
+                    name="minRoomsInput"
+                    value={this.state.minRoomsInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
@@ -156,6 +222,9 @@ export class Hotels extends Component {
                     min="0"
                     step="25"
                     max="10000"
+                    name="maxRoomsInput"
+                    value={this.state.maxRoomsInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
@@ -173,13 +242,16 @@ export class Hotels extends Component {
                     placeholder="Any"
                     min="1"
                     max="5"
+                    name="ratingInput"
+                    value={this.state.ratingInput}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>
             </div>
 
             <button type="submit" class="btn btn-primary">
-              Submit
+              Search
             </button>
           </form>
         </div>
