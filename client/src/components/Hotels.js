@@ -255,23 +255,6 @@ export class Hotels extends Component {
             </button>
           </form>
         </div>
-        <Query query={HOTELS_QUERY}>
-          {({ loading, error, data }) => {
-            if (loading) {
-              return <h4> Lading </h4>;
-            }
-            if (error) {
-              console.log(error);
-            }
-            return (
-              <Fragment>
-                {/* {data.hotels.map(hotelItem => (
-                  <HotelItem key={hotelItem.h_id} hotelItem={hotelItem} />
-                ))} */}
-              </Fragment>
-            );
-          }}
-        </Query>
       </Fragment>
     );
   }
