@@ -255,6 +255,28 @@ export class Hotels extends Component {
             </button>
           </form>
         </div>
+        <br />
+        <div class="container">
+          <div class="card">
+            <div class="row ">
+              <div class="col-md-4">
+                <img
+                  src="https://www.ctvnews.ca/polopoly_fs/1.4198928.1543580146!/httpImage/image.jpg_gen/derivatives/landscape_960/image.jpg"
+                  class="w-100 h-100 rounded"
+                />
+              </div>
+              <div class="col-md-8 px-3">
+                <div class="card-block px-3 py-3">
+                  <h2 class="card-title">City Hotel Chain</h2>
+                  <h4 class="card-header">$Price/night </h4>
+                  <p class="card-text">Capacity: capacity View: view</p>
+                  <p class="card-text">Address</p>
+                  <a class="btn btn-primary">Book This Room</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <Query query={HOTELS_QUERY}>
           {({ loading, error, data }) => {
             if (loading) {
