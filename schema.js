@@ -93,6 +93,25 @@ const EmployeeType = new GraphQLObjectType({
   })
 });
 
+//HotelView Type
+const HotelViewType = new GraphQLObjectType({
+  name: "HotelView",
+  fields: () => ({
+    room_number: { type: GraphQLInt },
+    street_name: { type: GraphQLString },
+    street_number: { type: GraphQLInt },
+    apt_number: { type: GraphQLInt },
+    city: { type: GraphQLString },
+    state_or_province: { type: GraphQLString },
+    zip_or_postal_code: { type: GraphQLString },
+    hotel_chain_name: { type: GraphQLString },
+    rating: { type: GraphQLInt },
+    contact_email: { type: GraphQLString },
+    number_of_rooms: { type: GraphQLInt },
+    capacity: { type: GraphQLInt }
+  })
+});
+
 //Root Query
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -217,6 +236,47 @@ const RootQuery = new GraphQLObjectType({
         console.log("query", query);
         return db
           .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    hotelView: {
+      type: GraphQLList(HotelViewType),
+      args: {
+        city: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        hotel_chain_name: { type: GraphQLString },
+        rating: { type: GraphQLInt },
+        capacity: { type: GraphQLInt },
+        start_date: { type: GraphQLString },
+        end_date: { type: GraphQLString },
+        min_price: { type: GraphQLInt },
+        max_price: { type: GraphQLInt },
+        min_rooms: { type: GraphQLInt },
+        max_rooms: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM search_rooms('${args.start_date}', '${args.end_date}',${
+          args.city !== undefined ? args.city : null
+        },${args.state !== undefined ? args.state : null},
+					${args.hotel_chain !== undefined ? args.hotel_chain : null},
+					${args.min_price !== undefined ? args.min_price : null},
+					${args.max_price !== undefined ? args.max_price : null},
+					${args.capacity !== undefined ? args.capacity : null},
+					${args.min_rooms !== undefined ? args.min_rooms : null},
+					${args.max_rooms !== undefined ? args.max_rooms : null},
+					${args.rating !== undefined ? args.rating : null});
+        `;
+        console.log("query", query);
+        return db
+          .manyOrNone(query)
           .then(data => {
             return data;
           })
