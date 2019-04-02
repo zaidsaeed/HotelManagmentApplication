@@ -1,15 +1,37 @@
 import React, { Component, Fragment } from "react";
 import gql from "graphql-tag";
-import { Query } from "react-apollo";
+import { Query, withApollo } from "react-apollo";
 import HotelItem from "./HotelItem";
 import Navbar from "./Navbar";
 
-const HOTELS_QUERY = gql`
-  query HotelsQuery {
-    hotels {
-      h_id
-      hotelname
-      h_address
+const HOTELS_VIEW_QUERY = gql`
+  query HotelViewQuery(
+    $city: String
+    $state_or_province: String
+    $hotel_chain_name: String
+    $rating: Int
+    $capacity: Int
+    $start_date: String
+    $end_date: String
+    $min_price: Int
+    $max_price: Int
+    $min_rooms: Int
+    $max_rooms: Int
+  ) {
+    hotelView(
+      city: $city
+      state_or_province: $state_or_province
+      hotel_chain_name: $hotel_chain_name
+      rating: $rating
+      capacity: $capacity
+      start_date: $start_date
+      end: $end_date
+      min_price: $min_price
+      max_price: $max_price
+      min_rooms: $min_rooms
+      max_rooms: $max_rooms
+    ) {
+      room_number
     }
   }
 `;
@@ -21,6 +43,44 @@ export class Hotels extends Component {
     });
     console.log(this.state);
   };
+
+  onSubmit = e => {
+    e.preventDefault();
+    const searchData = {
+      city: this.state.cityInput,
+      state_or_province: this.state.stateInput,
+      hotel_chain_name: this.state.chainInput,
+      rating: this.state.ratingInput,
+      capacity: this.state.capacityInput,
+      start_date: this.state.startInput,
+      end: this.state.endInput,
+      min_price: this.state.minPriceInput,
+      max_price: this.state.maxPriceInput,
+      min_rooms: this.state.minRoomsInput,
+      max_rooms: this.state.maxRoomsInput
+    };
+    debugger;
+    console.log("searchData", searchData);
+    this.props.client
+      .query({
+        query: HOTELS_VIEW_QUERY,
+        variables: searchData
+      })
+      .then(data => {
+        console.log("data", data.data);
+        debugger;
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
+      });
+  };
+
   constructor() {
     super();
     this.state = {
@@ -44,15 +104,7 @@ export class Hotels extends Component {
         <Navbar />
         <h1 className="display-4 my-3">Hotels</h1>
         <div class="container">
-          <form
-            noValidate
-            onSubmit={e => {
-              e.preventDefault();
-              const searchQuery = { ...this.state };
-              console.log("searchQuery", searchQuery);
-              // addCustomer({ variables: newUser });
-            }}
-          >
+          <form noValidate onSubmit={this.onSubmit}>
             <div class="form-row">
               <div class="col">
                 <div class="input-group">
@@ -260,4 +312,4 @@ export class Hotels extends Component {
   }
 }
 
-export default Hotels;
+export default withApollo(Hotels);
