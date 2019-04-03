@@ -8,7 +8,7 @@ const IS_BOOKED_QUERY = gql`
   }
 `;
 
-export default class BookHotelButton extends Component {
+export default class UnBookHotelButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,9 +23,9 @@ export default class BookHotelButton extends Component {
   render() {
     var linkStyle;
     if (this.state.hover) {
-      linkStyle = { cursor: "pointer", color: "blue", padding: 0 };
+      linkStyle = { cursor: "pointer", padding: 0 };
     } else {
-      linkStyle = { padding: 0 };
+      linkStyle = { padding: 0, color: "blue" };
     }
     return (
       <i

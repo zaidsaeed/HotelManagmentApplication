@@ -4,7 +4,9 @@ const {
   GraphQLInt,
   GraphQLSchema,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLBoolean,
+  GraphQLDate
 } = require("graphql");
 
 //DB Connection
@@ -167,6 +169,40 @@ const RootQuery = new GraphQLObjectType({
           .manyOrNone(query)
           .then(data => {
             return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    is_booked: {
+      type: GraphQLBoolean,
+      args: {
+        date: { type: GraphQLString },
+        room_number: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        
+        SELECT CASE WHEN EXISTS (
+          select * 
+          from t_booking
+          where '${
+            args.date
+          }' between t_booking.start_date and t_booking.end_date
+          and t_booking.room_number = ${args.room_number}
+        )
+        THEN CAST(1 AS BIT)
+        ELSE CAST(0 AS BIT) END
+        `;
+        console.log("query", query);
+        return db
+          .one(query)
+          .then(data => {
+            console.log(data);
+            return data.case == 1;
           })
           .catch(err => {
             console.log("error", err);
