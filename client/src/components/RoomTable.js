@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import RentHotelButton from "./RentHotelButton";
+import RentButton from "./RentButton";
 import BookButton from "./BookButton";
 
 const ROOM_NUMBERS_QUERY = gql`
@@ -52,38 +52,23 @@ class RoomTable extends Component {
                     {roomNumber}
                   </th>
                   <td>
-                    <RentHotelButton
-                      roomNumber={roomNumber}
-                      date={datesArray[0]}
-                    />
+                    <RentButton roomNumber={roomNumber} date={datesArray[0]} />
                     <BookButton roomNumber={roomNumber} date={datesArray[0]} />
                   </td>
                   <td>
-                    <RentHotelButton
-                      roomNumber={roomNumber}
-                      date={datesArray[1]}
-                    />
+                    <RentButton roomNumber={roomNumber} date={datesArray[1]} />
                     <BookButton roomNumber={roomNumber} date={datesArray[1]} />
                   </td>
                   <td>
-                    <RentHotelButton
-                      roomNumber={roomNumber}
-                      date={datesArray[2]}
-                    />
+                    <RentButton roomNumber={roomNumber} date={datesArray[2]} />
                     <BookButton roomNumber={roomNumber} date={datesArray[2]} />
                   </td>
                   <td>
-                    <RentHotelButton
-                      roomNumber={roomNumber}
-                      date={datesArray[3]}
-                    />
+                    <RentButton roomNumber={roomNumber} date={datesArray[3]} />
                     <BookButton roomNumber={roomNumber} date={datesArray[3]} />
                   </td>
                   <td>
-                    <RentHotelButton
-                      roomNumber={roomNumber}
-                      date={datesArray[4]}
-                    />
+                    <RentButton roomNumber={roomNumber} date={datesArray[4]} />
                     <BookButton roomNumber={roomNumber} date={datesArray[4]} />
                   </td>
                 </tr>
