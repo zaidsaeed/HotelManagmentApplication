@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
@@ -75,89 +75,103 @@ class RoomTable extends Component {
               );
             });
             return (
-              <table className="table table-hover" style={{ padding: "10px" }}>
-                <thead>
-                  <tr>
-                    <th scope="col">
-                      <Link
-                        to={{
-                          pathname: "/employeeDashboard",
-                          state: {
-                            dateOffSet: this.props.dateOffSet
-                              ? this.props.dateOffSet - 1
-                              : 0
-                          }
-                        }}
-                      >
-                        <i
-                          style={{ hover: "pointer" }}
-                          className="material-icons"
+              <Fragment>
+                <table
+                  className="table table-hover"
+                  style={{ padding: "10px" }}
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">
+                        <Link
+                          to={{
+                            pathname: "/employeeDashboard",
+                            state: {
+                              dateOffSet: this.props.dateOffSet
+                                ? this.props.dateOffSet - 1
+                                : 0
+                            }
+                          }}
                         >
-                          arrow_back
-                        </i>
-                      </Link>
-                    </th>
-                    <th scope="col" style={{ paddingLeft: "3%" }}>
-                      Room Number
-                    </th>
-                    <th scope="col">
-                      {datesArray[0].getDate() +
-                        "/" +
-                        datesArray[0].getMonth() +
-                        "/" +
-                        datesArray[0].getFullYear()}
-                    </th>
-                    <th scope="col">
-                      {datesArray[1].getDate() +
-                        "/" +
-                        datesArray[1].getMonth() +
-                        "/" +
-                        datesArray[1].getFullYear()}
-                    </th>
-                    <th scope="col">
-                      {datesArray[2].getDate() +
-                        "/" +
-                        datesArray[2].getMonth(1) +
-                        "/" +
-                        datesArray[2].getFullYear()}
-                    </th>
-                    <th scope="col">
-                      {datesArray[3].getDate() +
-                        "/" +
-                        datesArray[3].getMonth() +
-                        "/" +
-                        datesArray[3].getFullYear()}
-                    </th>
-                    <th scope="col">
-                      {datesArray[4].getDate() +
-                        "/" +
-                        datesArray[4].getMonth() +
-                        "/" +
-                        datesArray[4].getFullYear()}
-                    </th>
-                    <th scope="col">
-                      <Link
-                        to={{
-                          pathname: "/employeeDashboard",
-                          state: {
-                            dateOffSet: this.props.dateOffSet
-                              ? this.props.dateOffSet + 1
-                              : 1
-                          }
-                        }}
-                      >
-                        <i
-                          style={{ hover: "pointer" }}
-                          className="material-icons"
+                          <i
+                            style={{ hover: "pointer" }}
+                            className="material-icons"
+                          >
+                            arrow_back
+                          </i>
+                        </Link>
+                      </th>
+                      <th scope="col" style={{ paddingLeft: "3%" }}>
+                        Room Number
+                      </th>
+                      <th scope="col">
+                        {datesArray[0].getDate() +
+                          "/" +
+                          datesArray[0].getMonth() +
+                          "/" +
+                          datesArray[0].getFullYear()}
+                      </th>
+                      <th scope="col">
+                        {datesArray[1].getDate() +
+                          "/" +
+                          datesArray[1].getMonth() +
+                          "/" +
+                          datesArray[1].getFullYear()}
+                      </th>
+                      <th scope="col">
+                        {datesArray[2].getDate() +
+                          "/" +
+                          datesArray[2].getMonth(1) +
+                          "/" +
+                          datesArray[2].getFullYear()}
+                      </th>
+                      <th scope="col">
+                        {datesArray[3].getDate() +
+                          "/" +
+                          datesArray[3].getMonth() +
+                          "/" +
+                          datesArray[3].getFullYear()}
+                      </th>
+                      <th scope="col">
+                        {datesArray[4].getDate() +
+                          "/" +
+                          datesArray[4].getMonth() +
+                          "/" +
+                          datesArray[4].getFullYear()}
+                      </th>
+                      <th scope="col">
+                        <Link
+                          to={{
+                            pathname: "/employeeDashboard",
+                            state: {
+                              dateOffSet: this.props.dateOffSet
+                                ? this.props.dateOffSet + 1
+                                : 1
+                            }
+                          }}
                         >
-                          arrow_forward
-                        </i>
-                      </Link>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>{tableRows}</tbody>
-              </table>
+                          <i
+                            style={{ hover: "pointer" }}
+                            className="material-icons"
+                          >
+                            arrow_forward
+                          </i>
+                        </Link>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>{tableRows}</tbody>
+                </table>
+                <Link to="/signUp">
+                  <button
+                    type="button"
+                    style={{ float: "right", marginRight: "13%" }}
+                    class="btn btn-success"
+                  >
+                    Add Booking
+                  </button>
+                </Link>
+              </Fragment>
             );
           }}
         </Query>
