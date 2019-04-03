@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import RentButton from "./RentButton";
-import BookButton from "./BookButton";
+import RentButton from "./RentButton/RentButton";
+import BookButton from "./BookButton/BookButton";
 
 const ROOM_NUMBERS_QUERY = gql`
   query RoomNumbersQuery($emp_ssn_sin: Int) {
