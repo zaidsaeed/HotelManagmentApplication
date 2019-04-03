@@ -21,8 +21,9 @@ export default class HotelView extends Component {
           <div class="row ">
             <div class="col-md-4">
               <img
-                src="https://www.ctvnews.ca/polopoly_fs/1.4198928.1543580146!/httpImage/image.jpg_gen/derivatives/landscape_960/image.jpg"
+                src={`images/${hotel_chain_name}.jpg`}
                 class="w-100 h-100 rounded"
+                alt={hotel_chain_name}
               />
             </div>
             <div class="col-md-8 px-3">
@@ -42,6 +43,7 @@ export default class HotelView extends Component {
             </div>
           </div>
         </div>
+        <br />
       </div>
     );
   }

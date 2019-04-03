@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import HotelView from "./HotelView";
+import Navbar from "./Navbar";
 
 export default class HotelViews extends Component {
   render() {
     const hotelViews = this.props.location.state.hotelViews.hotelView;
     debugger;
-    return hotelViews.map((hotelView, index) => {
+    const hotelRoomViews = hotelViews.map((hotelView, index) => {
       return (
         <HotelView
           city={hotelView.city}
@@ -21,5 +22,13 @@ export default class HotelViews extends Component {
         />
       );
     });
+
+    return (
+      <div>
+        <Navbar />
+        <br />
+        {hotelRoomViews}
+      </div>
+    );
   }
 }
