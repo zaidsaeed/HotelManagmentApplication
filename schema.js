@@ -99,18 +99,19 @@ const EmployeeType = new GraphQLObjectType({
 const HotelViewType = new GraphQLObjectType({
   name: "HotelView",
   fields: () => ({
+    price: { type: GraphQLInt },
     room_number: { type: GraphQLInt },
     street_name: { type: GraphQLString },
     street_number: { type: GraphQLInt },
-    apt_number: { type: GraphQLInt },
     city: { type: GraphQLString },
-    state_or_province: { type: GraphQLString },
-    zip_or_postal_code: { type: GraphQLString },
-    hotel_chain_name: { type: GraphQLString },
+    state: { type: GraphQLString },
+    zip: { type: GraphQLString },
+    hotel_chain: { type: GraphQLString },
     rating: { type: GraphQLInt },
-    contact_email: { type: GraphQLString },
+    hotel_contact_email: { type: GraphQLString },
     number_of_rooms: { type: GraphQLInt },
-    capacity: { type: GraphQLInt }
+    capacity: { type: GraphQLInt },
+    room_view: { type: GraphQLString }
   })
 });
 

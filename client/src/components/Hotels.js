@@ -34,15 +34,16 @@ const HOTELS_VIEW_QUERY = gql`
       room_number
       street_name
       street_number
-      apt_number
       city
-      state_or_province
-      zip_or_postal_code
-      hotel_chain_name
+      state
+      zip
+      hotel_chain
       rating
-      contact_email
+      price
+      hotel_contact_email
       number_of_rooms
       capacity
+      room_view
     }
   }
 `;
@@ -76,6 +77,7 @@ export class Hotels extends Component {
         variables: searchData
       })
       .then(data => {
+        console.log("data.data", data.data);
         this.props.history.push({
           pathname: "/hotelViews",
           state: { hotelViews: data.data }

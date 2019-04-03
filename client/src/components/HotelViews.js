@@ -9,11 +9,14 @@ export default class HotelViews extends Component {
       return (
         <HotelView
           city={hotelView.city}
-          hotel_chain_name={hotelView.hotel_chain_name}
+          hotel_chain_name={hotelView.hotel_chain}
           price={hotelView.price}
           capacity={hotelView.capacity}
-          view={hotelView.view}
-          address={hotelView.street_name}
+          view={hotelView.room_view}
+          street_name={hotelView.street_name}
+          street_number={hotelView.street_number}
+          zip={hotelView.zip}
+          state={hotelView.state}
           key={index}
         />
       );

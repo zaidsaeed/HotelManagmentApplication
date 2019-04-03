@@ -2,7 +2,17 @@ import React, { Component } from "react";
 
 export default class HotelView extends Component {
   render() {
-    const { city, hotel_chain_name, price, capacity, view, address } = {
+    const {
+      city,
+      hotel_chain_name,
+      price,
+      capacity,
+      view,
+      street_number,
+      street_name,
+      zip,
+      state
+    } = {
       ...this.props
     };
     return (
@@ -20,11 +30,13 @@ export default class HotelView extends Component {
                 <h2 class="card-title">
                   {city} {hotel_chain_name}
                 </h2>
-                <h4 class="card-header">{price}/night </h4>
+                <h4 class="card-header">${price}/night </h4>
                 <p class="card-text">
                   Capacity: {capacity} View: {view}
                 </p>
-                <p class="card-text">{address}</p>
+                <p class="card-text">
+                  {street_number} {street_name}, {city}, {state}, {zip}
+                </p>
                 <a class="btn btn-primary">Book This Room</a>
               </div>
             </div>
