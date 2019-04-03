@@ -11,6 +11,7 @@ import Login from "./components/Login";
 import EmployeeDashboard from "./components/EmployeeDashboard";
 import EmployeeSignUp from "./components/EmployeeSignUp";
 import RoomTable from "./components/RoomTable";
+import HotelViews from "./components/HotelViews";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -34,6 +35,7 @@ class App extends Component {
             />
             <Route exact path="/employeeSignUp" component={EmployeeSignUp} />
             <Route exact path="/roomTable" component={RoomTable} />
+            <Route exact path="/hotelViews" component={HotelViews} />
           </div>
         </Router>
       </ApolloProvider>

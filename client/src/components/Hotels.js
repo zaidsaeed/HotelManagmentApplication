@@ -32,6 +32,17 @@ const HOTELS_VIEW_QUERY = gql`
       max_rooms: $max_rooms
     ) {
       room_number
+      street_name
+      street_number
+      apt_number
+      city
+      state_or_province
+      zip_or_postal_code
+      hotel_chain_name
+      rating
+      contact_email
+      number_of_rooms
+      capacity
     }
   }
 `;
@@ -59,16 +70,16 @@ export class Hotels extends Component {
       min_rooms: this.state.minRoomsInput,
       max_rooms: this.state.maxRoomsInput
     };
-    debugger;
-    console.log("searchData", searchData);
     this.props.client
       .query({
         query: HOTELS_VIEW_QUERY,
         variables: searchData
       })
       .then(data => {
-        console.log("data", data.data);
-        debugger;
+        this.props.history.push({
+          pathname: "/hotelViews",
+          state: { hotelViews: data.data }
+        });
       })
       .catch(err => {
         console.log("err", err);
