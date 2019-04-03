@@ -25,7 +25,7 @@ const HOTELS_VIEW_QUERY = gql`
       rating: $rating
       capacity: $capacity
       start_date: $start_date
-      end: $end_date
+      end_date: $end_date
       min_price: $min_price
       max_price: $max_price
       min_rooms: $min_rooms
@@ -53,7 +53,7 @@ export class Hotels extends Component {
       rating: this.state.ratingInput,
       capacity: this.state.capacityInput,
       start_date: this.state.startInput,
-      end: this.state.endInput,
+      end_date: this.state.endInput,
       min_price: this.state.minPriceInput,
       max_price: this.state.maxPriceInput,
       min_rooms: this.state.minRoomsInput,
@@ -84,17 +84,17 @@ export class Hotels extends Component {
   constructor() {
     super();
     this.state = {
-      startInput: "",
-      endInput: "",
-      minPriceInput: "",
-      maxPriceInput: "",
-      stateInput: "",
-      chainInput: "",
-      cityInput: "",
-      capacityInput: "",
-      minRoomsInput: "",
-      maxRoomsInput: "",
-      ratingInput: "",
+      startInput: null,
+      endInput: null,
+      minPriceInput: null,
+      maxPriceInput: null,
+      stateInput: null,
+      chainInput: null,
+      cityInput: null,
+      capacityInput: null,
+      minRoomsInput: null,
+      maxRoomsInput: null,
+      ratingInput: null,
       errors: {}
     };
   }
