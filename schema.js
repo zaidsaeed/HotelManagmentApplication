@@ -11,11 +11,12 @@ const {
 
 //DB Connection
 const connectionString = {
-  host: "web0.eecs.uottawa.ca", // server name or IP address;
-  port: 15432,
-  database: "zsaee060",
-  user: "zsaee060",
-  password: "Fdrx6s33j6"
+  host: "ec2-184-73-153-64.compute-1.amazonaws.com",
+  port: 5432,
+  database: "dc078ddv19492",
+  user: "arbhtasmwmtzgz",
+  password: "91fd20662684cc3899c91e4f7086c9ecceedde6903ca25c021d7b85ba4a413e4",
+  ssl: true
 };
 const pgp = require("pg-promise")();
 const db = pgp(connectionString);
