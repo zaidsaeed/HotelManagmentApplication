@@ -100,7 +100,7 @@ class CreateRentingComponent extends Component {
                     </div>
                     <div className="form-group">
                       <input
-                        type="Number"
+                        type="String"
                         className={"form-control form-control-lg"}
                         placeholder="Renting Reservation Start Date"
                         name="start_date"

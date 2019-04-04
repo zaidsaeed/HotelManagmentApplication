@@ -545,7 +545,7 @@ const mutation = new GraphQLObjectType({
         VALUES
         ('${args.room_number}', '${args.hotel_contact_email}', ${
           args.hotel_chain_id
-        }, '${args.start_date}', '${args.start_date}', ${args.cust_ssn_sin})
+        }, '${args.start_date}', '${args.end_date}', ${args.cust_ssn_sin})
         RETURNING
         room_number,
         hotel_contact_email,
