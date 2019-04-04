@@ -1,14 +1,24 @@
 import React, { Component } from "react";
-import Confirm from "./Confirm";
+import ReactModal from "react-modal";
 
 export default class HotelView extends Component {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
+    this.state = {
+      showModal: false
+    };
 
-    this.state = { modalShow: false };
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
-  modalClose = () => this.setState({ modalShow: false });
 
+  handleOpenModal() {
+    this.setState({ showModal: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ showModal: false });
+  }
   render() {
     const {
       city,
@@ -62,21 +72,49 @@ export default class HotelView extends Component {
                   </p>
                   <button
                     class="btn btn-primary"
-                    onClick={() => {
-                      this.setState(
-                        { modalShow: true },
-                        console.log(this.state)
-                      );
-                    }}
+                    onClick={this.handleOpenModal}
                   >
-                    Book This Room{" "}
+                    Book This Room
                   </button>
-                  <Confirm />
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div>
+          <ReactModal
+            class="modal-dialog"
+            isOpen={this.state.showModal}
+            style={{
+              content: {
+                bottom: "get outta here"
+              }
+            }}
+          >
+            <div class="modal-header">
+              <h5 class="modal-title">Confirm Booking</h5>
+            </div>
+            <div class="modal-body">
+              <p>
+                Room {room_number} at the {hotel_chain_name} hotel
+              </p>
+              <p>
+                Address: {street_number} {street_name}, {city}, {state}, {zip}
+              </p>
+              <p>Price per night: ${price}</p>
+              <p>View from room: {view}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">
+                Confirm
+              </button>
+              <button class="btn btn-secondary" onClick={this.handleCloseModal}>
+                Cancel
+              </button>
+            </div>
+          </ReactModal>
+        </div>
+        <br />
       </div>
     );
   }
