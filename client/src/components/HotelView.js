@@ -3,27 +3,27 @@ import ReactModal from "react-modal";
 import gql from "graphql-tag";
 import { Mutation, graphql } from "react-apollo";
 
-const ADD_ROOM_BOOKING = gql`
-  mutation(
-    $room_number: Int!
-    $hotel_contact_email: String
-    $hotel_chain_id: Int
-    $start_date: String
-    $end_date: String
-    $cust_ssn_sin: String
-  ) {
-    addRoomBooking(
-      room_number: $room_number
-      hotel_contact_email: $hotel_contact_email
-      hotel_chain_id: $hotel_chain_id
-      start_date: $start_date
-      end_date: $end_date
-      cust_ssn_sin: $cust_ssn_sin
-    ) {
-      room_number
-    }
-  }
-`;
+// const ADD_ROOM_BOOKING = gql`
+//   mutation(
+//     $room_number: Int!
+//     $hotel_contact_email: String
+//     $hotel_chain_id: Int
+//     $start_date: String
+//     $end_date: String
+//     $cust_ssn_sin: String
+//   ) {
+//     addRoomBooking(
+//       room_number: $room_number
+//       hotel_contact_email: $hotel_contact_email
+//       hotel_chain_id: $hotel_chain_id
+//       start_date: $start_date
+//       end_date: $end_date
+//       cust_ssn_sin: $cust_ssn_sin
+//     ) {
+//       room_number
+//     }
+//   }
+// `;
 
 export default class HotelView extends Component {
   constructor() {
@@ -59,7 +59,8 @@ export default class HotelView extends Component {
       room_number,
       number_of_rooms,
       start_date,
-      end_date
+      end_date,
+      hotel_contact_email
     } = {
       ...this.props
     };
@@ -79,7 +80,8 @@ export default class HotelView extends Component {
               <div class="col-md-8 px-3">
                 <div class="card-block px-3 py-3">
                   <h2 class="card-title">
-                    {city} {hotel_chain_name} room {room_number}
+                    {city} {hotel_chain_name} room {room_number}{" "}
+                    {hotel_contact_email}
                   </h2>
                   <h4 class="card-header">${price}/night </h4>
                   <div class="row py-3">
@@ -137,16 +139,16 @@ export default class HotelView extends Component {
               <button
                 type="button"
                 class="btn btn-primary"
-                onClick={e => {
-                  e.preventDefault();
-                  const newBooking = {
-                    ...this.state,
-                    room_number: parseInt(this.state.room_number),
-                    hotel_chain_id: parseInt(this.state.hotel_chain_id)
-                  };
-                  console.log("newBooking", newBooking);
-                  addRoomBooking({ variables: newRenting });
-                }}
+                // onClick={e => {
+                //   e.preventDefault();
+                //   const newBooking = {
+                //     ...this.state,
+                //     room_number: parseInt(this.state.room_number),
+                //     hotel_chain_id: parseInt(this.state.hotel_chain_id)
+                //   };
+                //   console.log("newBooking", newBooking);
+                //   addRoomBooking({ variables: newRenting });
+                // }}
               >
                 Confirm
               </button>

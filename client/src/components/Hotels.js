@@ -69,7 +69,8 @@ export class Hotels extends Component {
       min_price: this.state.minPriceInput,
       max_price: this.state.maxPriceInput,
       min_rooms: this.state.minRoomsInput,
-      max_rooms: this.state.maxRoomsInput
+      max_rooms: this.state.maxRoomsInput,
+      hotel_contact_email: this.state.hotel_contact_email
     };
     this.props.client
       .query({
