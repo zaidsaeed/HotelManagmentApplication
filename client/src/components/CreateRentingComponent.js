@@ -100,7 +100,7 @@ class CreateRentingComponent extends Component {
                     </div>
                     <div className="form-group">
                       <input
-                        type="String"
+                        type="Date"
                         className={"form-control form-control-lg"}
                         placeholder="Renting Reservation Start Date"
                         name="start_date"
@@ -110,9 +110,9 @@ class CreateRentingComponent extends Component {
                     </div>
                     <div className="form-group">
                       <input
-                        type="String"
+                        type="Date"
                         className={"form-control form-control-lg"}
-                        placeholder="Renting Reservation Start Date:"
+                        placeholder="Renting Reservation End Date:"
                         name="end_date"
                         value={this.state.end_date}
                         onChange={this.onChange}
