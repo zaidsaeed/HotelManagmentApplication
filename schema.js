@@ -116,6 +116,19 @@ const HotelViewType = new GraphQLObjectType({
   })
 });
 
+//RoomRentType
+const RoomRentType = new GraphQLObjectType({
+  name: "RoomRentType",
+  fields: () => ({
+    room_number: { type: GraphQLString },
+    hotel_contact_email: { type: GraphQLString },
+    hotel_chain_id: { type: GraphQLInt },
+    start_date: { type: GraphQLString },
+    end_date: { type: GraphQLString },
+    cust_ssn_sin: { type: GraphQLString }
+  })
+});
+
 //Root Query
 const RootQuery = new GraphQLObjectType({
   name: "RootQueryType",
@@ -501,6 +514,45 @@ const mutation = new GraphQLObjectType({
             username,
             emp_password
           ;
+        `;
+        return db
+          .one(query)
+          .then(data => {
+            console.log("data", data);
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    addRoomRenting: {
+      type: RoomRentType,
+      args: {
+        room_number: { type: GraphQLInt },
+        hotel_contact_email: { type: GraphQLString },
+        hotel_chain_id: { type: GraphQLInt },
+        start_date: { type: GraphQLString },
+        end_date: { type: GraphQLString },
+        cust_ssn_sin: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        insert into t_renting(room_number, hotel_contact_email, hotel_chain_id, start_date, end_date, cust_ssn_sin)
+        VALUES
+        ('${args.room_number}', '${args.hotel_contact_email}', ${
+          args.hotel_chain_id
+        }, '${args.start_date}', '${args.start_date}', ${args.cust_ssn_sin})
+        RETURNING
+        room_number,
+        hotel_contact_email,
+        hotel_chain_id,
+        start_date,
+        end_date,
+        cust_ssn_sin
+        ;
         `;
         return db
           .one(query)
