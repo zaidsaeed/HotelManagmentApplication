@@ -314,7 +314,6 @@ export class Hotels extends Component {
                 </div>
               </div>
             </div>
-
             <button type="submit" class="btn btn-primary">
               Search
             </button>
