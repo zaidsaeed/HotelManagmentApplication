@@ -75,7 +75,7 @@ class Login extends Component {
         })
         .then(data => {
           console.log("data", data.data);
-          window.localStorage.setItem("user", JSON.stringify(data));
+          window.localStorage.setItem("user", JSON.stringify(data.data));
           this.props.history.push("/employeeDashboard");
         })
         .catch(err => {
@@ -99,6 +99,7 @@ class Login extends Component {
         })
         .then(data => {
           console.log("data", data);
+          window.localStorage.setItem("user", JSON.stringify(data.data));
           this.props.history.push("/");
         })
         .catch(err => {

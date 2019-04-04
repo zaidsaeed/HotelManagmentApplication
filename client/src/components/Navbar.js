@@ -3,6 +3,15 @@ import { Link } from "react-router-dom";
 
 export default class Navbar extends Component {
   render() {
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    if (user.customer) {
+      var isCustomer = true;
+      console.log("isCustomer", isCustomer);
+    } else if (user.employee) {
+      var isEmployee = true;
+      console.log("isEmployee", isEmployee);
+    }
+    console.log("user", user);
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
