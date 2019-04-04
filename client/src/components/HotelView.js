@@ -76,7 +76,6 @@ export default class HotelView extends Component {
                   >
                     Book This Room
                   </button>
-                  <Confirm />
                 </div>
               </div>
             </div>
