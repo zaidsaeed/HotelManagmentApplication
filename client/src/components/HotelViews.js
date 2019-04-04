@@ -19,6 +19,8 @@ export default class HotelViews extends Component {
           zip={hotelView.zip}
           state={hotelView.state}
           key={index}
+          room_number={hotelView.room_number}
+          number_of_rooms={hotelView.number_of_rooms}
         />
       );
     });

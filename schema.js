@@ -329,7 +329,8 @@ const RootQuery = new GraphQLObjectType({
         min_price: { type: GraphQLInt },
         max_price: { type: GraphQLInt },
         min_rooms: { type: GraphQLInt },
-        max_rooms: { type: GraphQLInt }
+        max_rooms: { type: GraphQLInt },
+        number_of_rooms: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
         const query = `
