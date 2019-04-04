@@ -92,7 +92,11 @@ const EmployeeType = new GraphQLObjectType({
     middle_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
     username: { type: GraphQLString },
-    emp_password: { type: GraphQLString }
+    emp_password: { type: GraphQLString },
+    emp_ssn_sin: { type: GraphQLInt },
+    emp_role: { type: GraphQLString },
+    hotel_contact_email: { type: GraphQLString },
+    hotel_chain_id: { type: GraphQLInt }
   })
 });
 
@@ -313,9 +317,11 @@ const RootQuery = new GraphQLObjectType({
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        SELECT * FROM t_employee where username ='${
-          args.username
-        }' and emp_password = '${args.emp_password}';
+        SELECT * FROM t_employee
+        left join t_works_at on t_works_at.emp_ssn_sin = t_employee.ssn_sin
+        where username ='${args.username}' and emp_password = '${
+          args.emp_password
+        }';
         `;
         console.log("query", query);
         return db

@@ -23,6 +23,9 @@ const EMP_QUERY = gql`
       middle_name
       last_name
       ssn_sin
+      hotel_contact_email
+      hotel_chain_id
+      emp_role
     }
   }
 `;
