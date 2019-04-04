@@ -53,10 +53,10 @@ export class Hotels extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(this.state);
   };
 
   onSubmit = e => {
+    console.log(this.state);
     e.preventDefault();
     const searchData = {
       city: this.state.cityInput,
@@ -80,7 +80,13 @@ export class Hotels extends Component {
         console.log("data.data", data.data);
         this.props.history.push({
           pathname: "/hotelViews",
-          state: { hotelViews: data.data }
+          state: {
+            hotelViews: {
+              ...data.data,
+              start_date: this.state.startInput,
+              end_date: this.state.endInput
+            }
+          }
         });
       })
       .catch(err => {

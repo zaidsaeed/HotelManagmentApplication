@@ -4,7 +4,10 @@ import Navbar from "./Navbar";
 
 export default class HotelViews extends Component {
   render() {
+    console.log(this.props);
     const hotelViews = this.props.location.state.hotelViews.hotelView;
+    const start_date = this.props.location.state.hotelViews.start_date;
+    const end_date = this.props.location.state.hotelViews.end_date;
     debugger;
     const hotelRoomViews = hotelViews.map((hotelView, index) => {
       return (
@@ -21,6 +24,8 @@ export default class HotelViews extends Component {
           key={index}
           room_number={hotelView.room_number}
           number_of_rooms={hotelView.number_of_rooms}
+          start_date={start_date}
+          end_date={end_date}
         />
       );
     });
