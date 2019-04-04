@@ -64,7 +64,6 @@ class CreateRentingComponent extends Component {
                         room_number: parseInt(this.state.room_number),
                         hotel_chain_id: parseInt(this.state.hotel_chain_id)
                       };
-                      console.log("newRenting", newRenting);
                       addRoomRenting({ variables: newRenting });
                     }}
                   >

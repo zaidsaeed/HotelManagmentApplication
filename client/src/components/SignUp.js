@@ -109,7 +109,7 @@ class Register extends Component {
                         username: this.state.username,
                         cust_password: this.state.cust_password
                       };
-                      console.log("newUser", newUser);
+                   
                       addCustomer({ variables: newUser });
                     }}
                   >

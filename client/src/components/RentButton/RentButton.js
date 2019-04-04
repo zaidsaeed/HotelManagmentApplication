@@ -33,9 +33,6 @@ export default class BookButton extends Component {
             if (error) {
               console.log(error);
             }
-            console.log("this.props.date", this.props.date);
-            console.log("this.props.roomNumber", this.props.roomNumber);
-            console.log(data);
             return data.is_rented ? <UnRentHotelButton /> : <RentHotelButton />;
           }}
         </Query>

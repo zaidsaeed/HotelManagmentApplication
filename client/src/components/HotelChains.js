@@ -29,7 +29,7 @@ export class HotelChains extends Component {
             if (error) {
               console.log(error);
             }
-            console.log(data);
+
             return (
               <Fragment>
                 {data.hotel_chains.map((hotelChainItem, index) => (

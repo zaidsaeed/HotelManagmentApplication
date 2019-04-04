@@ -26,10 +26,7 @@ export default class RentHotel extends Component {
         title="Rent Room"
         onMouseEnter={this.toggleHover}
         onMouseLeave={this.toggleHover}
-        onClick={() => {
-          console.log(this.props.roomNumber);
-          console.log(this.props.date);
-        }}
+        onClick={() => {}}
       >
         check_circle_outline
       </i>

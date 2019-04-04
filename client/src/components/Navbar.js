@@ -4,14 +4,107 @@ import { Link } from "react-router-dom";
 export default class Navbar extends Component {
   render() {
     const user = JSON.parse(window.localStorage.getItem("user"));
-    if (user.customer) {
+    if (!user) {
+      var isNotSignedInUser = true;
+    } else if (user.customer) {
       var isCustomer = true;
-      console.log("isCustomer", isCustomer);
+      var isEmployee = false;
     } else if (user.employee) {
       var isEmployee = true;
-      console.log("isEmployee", isEmployee);
+      var isCustomer = false;
+      if (user.employee.emp_role === "Manager") {
+        var isManager = true;
+      }
     }
-    console.log("user", user);
+
+    const userNotSignedInLinks = (
+      <ul className="form-inline navbar-nav my-2 my-lg-0">
+        <li className="nav-item">
+          <Link to="/signUp" className="nav-link" href="#">
+            Sign Up <span className="sr-only">(current)</span>
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link to="/logIn" className="nav-link" href="#">
+            Log In
+          </Link>
+        </li>
+      </ul>
+    );
+
+    const userSignedInLinks = (
+      <ul className="form-inline navbar-nav my-2 my-lg-0">
+        <li className="nav-item" id="bookmarks">
+          <Link to="/clientBookmarks">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="My Room Bookings"
+            >
+              bookmarks
+            </i>
+          </Link>
+        </li>
+
+        <li className="nav-item" id="account_circle">
+          <Link to="/editAccount">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Account Settings"
+            >
+              account_circle
+            </i>
+          </Link>
+        </li>
+      </ul>
+    );
+
+    const managerLinks = (
+      <ul className="form-inline navbar-nav my-2 my-lg-0">
+        <li className="nav-item">
+          <Link to="/hotelEmployees" className="nav-link" href="#">
+            Hotel Employees
+          </Link>
+        </li>
+
+        <li className="nav-item">
+          <Link to="/employeeDashboard" className="nav-link" href="#">
+            Employee Dashboard
+          </Link>
+        </li>
+        <li className="nav-item" id="add">
+          <Link to="/employeeSignUp">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Add Employee"
+            >
+              add
+            </i>
+          </Link>
+        </li>
+      </ul>
+    );
+
+    const employeeLinks = (
+      <ul className="form-inline navbar-nav my-2 my-lg-0">
+        <li className="nav-item" id="account_circle">
+          <Link to="/editAccount">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Log out"
+            >
+              highlight_off
+            </i>
+          </Link>
+        </li>
+      </ul>
+    );
+
+    debugger;
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -42,37 +135,13 @@ export default class Navbar extends Component {
                   Hotel Chains
                 </Link>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">
-                  About
-                </a>
-              </li>
             </ul>
-
-            <ul className="form-inline navbar-nav my-2 my-lg-0">
-              <li className="nav-item">
-                <Link to="/signUp" className="nav-link" href="#">
-                  Sign Up <span className="sr-only">(current)</span>
-                </Link>
-              </li>
-
-              <li className="nav-item">
-                <Link to="/logIn" className="nav-link" href="#">
-                  Log In
-                </Link>
-              </li>
-
-              <li className="nav-item" id="add">
-                <Link to="/employeeSignUp">
-                  <i
-                    style={{ hover: "pointer" }}
-                    className="nav-link material-icons"
-                  >
-                    add
-                  </i>
-                </Link>
-              </li>
-            </ul>
+            {isNotSignedInUser ? userNotSignedInLinks : ""};
+            {isCustomer ? userSignedInLinks : ""};
+            {isManager ? managerLinks : ""};
+            {!isNotSignedInUser && !isCustomer && !isManager
+              ? employeeLinks
+              : ""}
           </div>
         </nav>
       </div>
