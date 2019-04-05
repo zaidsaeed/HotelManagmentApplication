@@ -355,9 +355,9 @@ const RootQuery = new GraphQLObjectType({
         const query = `
         SET search_path = 'hotelsService';
         SELECT * FROM search_rooms('${args.start_date}', '${args.end_date}',${
-          args.city !== undefined ? args.city : null
-        },${args.state !== undefined ? args.state : null},
-					${args.hotel_chain !== undefined ? args.hotel_chain : null},
+          args.city !== undefined ? `'${args.city}'` : null
+        },${args.state !== undefined ? `'${args.state}'` : null},
+					${args.hotel_chain !== undefined ? `'${args.hotel_chain}'` : null},
 					${args.min_price !== undefined ? args.min_price : null},
 					${args.max_price !== undefined ? args.max_price : null},
 					${args.capacity !== undefined ? args.capacity : null},
