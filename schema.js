@@ -361,7 +361,7 @@ const RootQuery = new GraphQLObjectType({
             ? `'${args.search_state_or_province}'`
             : null
         },
-					${args.search_hotel_chain ? `'${args.search_hotel_chain}'` : null},
+					${args.search_hotel_chain_name ? `'${args.search_hotel_chain_name}'` : null},
 					${args.search_min_price ? args.search_min_price : null},
 					${args.search_max_price ? args.search_max_price : null},
 					${args.search_capacity ? args.search_capacity : null},

@@ -27,6 +27,7 @@ export default class HotelViews extends Component {
           start_date={start_date}
           end_date={end_date}
           hotel_contact_email={hotelView.hotel_contact_email}
+          rating={hotelView.rating}
         />
       );
     });

@@ -60,7 +60,8 @@ export default class HotelView extends Component {
       number_of_rooms,
       start_date,
       end_date,
-      hotel_contact_email
+      hotel_contact_email,
+      rating
     } = {
       ...this.props
     };
@@ -81,9 +82,14 @@ export default class HotelView extends Component {
                 <div class="card-block px-3 py-3">
                   <h2 class="card-title">
                     {city} {hotel_chain_name} room {room_number}{" "}
-                    {hotel_contact_email}
                   </h2>
-                  <h4 class="card-header">${price}/night </h4>
+                  <h4 class="card-header">
+                    <div class="row py-3">
+                      {" "}
+                      <div class="col-md-4">${price}/night</div>
+                      <div class="col-md-4">Star Rating: {rating}</div>
+                    </div>
+                  </h4>
                   <div class="row py-3">
                     <div class="col-md-4">
                       <p class="card-text">Capacity: {capacity}</p>
