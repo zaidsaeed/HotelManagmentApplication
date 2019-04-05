@@ -17,6 +17,23 @@ export default class Navbar extends Component {
       }
     }
 
+    const logOutBtn = (
+      <li className="nav-item" id="account_circle">
+        <Link to={{ pathname: "/logIn" }}>
+          <i
+            style={{ hover: "pointer" }}
+            className="nav-link material-icons"
+            title="Log out"
+            onClick={() => {
+              window.localStorage.clear();
+            }}
+          >
+            highlight_off
+          </i>
+        </Link>
+      </li>
+    );
+
     const userNotSignedInLinks = (
       <ul className="form-inline navbar-nav my-2 my-lg-0">
         <li className="nav-item">
@@ -46,7 +63,6 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
-
         <li className="nav-item" id="account_circle">
           <Link to="/editAccount">
             <i
@@ -58,18 +74,7 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
-
-        <li>
-          <Link to="/editAccount">
-            <i
-              style={{ hover: "pointer" }}
-              className="nav-link material-icons"
-              title="Log out"
-            >
-              highlight_off
-            </i>
-          </Link>
-        </li>
+        {logOutBtn}
       </ul>
     );
 
@@ -80,7 +85,6 @@ export default class Navbar extends Component {
             Hotel Employees
           </Link>
         </li>
-
         <li className="nav-item">
           <Link to="/employeeDashboard" className="nav-link" href="#">
             Employee Dashboard
@@ -97,39 +101,14 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
-        <li>
-          <i
-            style={{ hover: "pointer" }}
-            className="nav-link material-icons"
-            title="Log out"
-            onClick={() => {
-              console.log("HEY");
-            }}
-          >
-            highlight_off
-          </i>
-        </li>
+        {logOutBtn}
       </ul>
     );
 
     const employeeLinks = (
-      <ul className="form-inline navbar-nav my-2 my-lg-0">
-        <li className="nav-item" id="account_circle">
-          <i
-            style={{ hover: "pointer" }}
-            className="nav-link material-icons"
-            title="Log out"
-            onClick={() => {
-              console.log("HEREEE");
-            }}
-          >
-            highlight_off
-          </i>
-        </li>
-      </ul>
+      <ul className="form-inline navbar-nav my-2 my-lg-0">{logOutBtn}</ul>
     );
 
-    debugger;
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
