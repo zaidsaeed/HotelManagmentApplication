@@ -9,9 +9,18 @@ const CUSTOMER_QUERY = gql`
   query customerQuery($username: String!, $cust_password: String!) {
     customer(username: $username, cust_password: $cust_password) {
       ssn_sin
+      street_number
+      street_name
+      apt_number
+      city
+      state_province
+      zip_postalcode
+      first_name
+      middle_name
+      last_name
+      date_of_registration
       username
       cust_password
-      street_name
     }
   }
 `;

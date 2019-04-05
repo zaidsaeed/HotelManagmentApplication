@@ -40,6 +40,7 @@ const RoomNumberType = new GraphQLObjectType({
   })
 });
 
+//Customer Type
 const CustomerType = new GraphQLObjectType({
   name: "CustomerType",
   fields: () => ({
@@ -458,6 +459,56 @@ const mutation = new GraphQLObjectType({
           .one(query)
           .then(data => {
             console.log("data", data);
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    editCustomer: {
+      type: CustomerType,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
+        street_number: { type: GraphQLInt },
+        street_name: { type: GraphQLString },
+        apt_number: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        state_province: { type: GraphQLString },
+        zip_postalcode: { type: GraphQLString },
+        first_name: { type: GraphQLString },
+        middle_name: { type: GraphQLString },
+        last_name: { type: GraphQLString },
+        date_of_registration: { type: GraphQLString },
+        username: { type: GraphQLString },
+        cust_password: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+
+        update t_customer
+          set street_number = ${args.street_number},
+          street_name= '${args.street_name}',
+          apt_number=${args.apt_number},
+          city='${args.city}',
+          state_province='${args.state_province}',
+          zip_postalcode='${args.zip_postalcode}',
+          first_name='${args.first_name}',
+          middle_name='${args.middle_name}',
+          last_name='${args.last_name}',
+          username='${args.username}',
+          date_of_registration= '${args.date_of_registration}',
+          cust_password='${args.cust_password}'
+          where ssn_sin = '${args.ssn_sin}'
+          RETURNING
+            *
+          ;
+        `;
+        return db
+          .one(query)
+          .then(data => {
             return data;
           })
           .catch(err => {

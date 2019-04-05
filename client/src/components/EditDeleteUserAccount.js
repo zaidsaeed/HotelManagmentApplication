@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Mutation, graphql } from "react-apollo";
 import classnames from "classnames";
 
-const ADD_CUSTOMER = gql`
+const EDIT_CUSTOMER = gql`
   mutation(
     $ssn_sin: String!
     $street_number: Int
@@ -19,7 +19,7 @@ const ADD_CUSTOMER = gql`
     $username: String
     $cust_password: String
   ) {
-    addCustomer(
+    editCustomer(
       ssn_sin: $ssn_sin
       street_number: $street_number
       street_name: $street_name
@@ -35,22 +35,38 @@ const ADD_CUSTOMER = gql`
       cust_password: $cust_password
     ) {
       ssn_sin
+      street_number
+      street_name
+      apt_number
+      city
+      state_province
+      zip_postalcode
+      first_name
+      middle_name
+      last_name
+      username
+      cust_password
     }
   }
 `;
 
-export default class EditDeleteUserAccount extends Component {
+class EditDeleteUserAccount extends Component {
   constructor() {
     super();
     const user = JSON.parse(window.localStorage.getItem("user")).customer;
     this.state = { ...user, errors: {} };
     console.log("this.state", this.state);
   }
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
   render() {
     const { errors } = { ...this.state };
     return (
-      <Mutation mutation={ADD_CUSTOMER}>
-        {(addCustomer, { data }) => (
+      <Mutation mutation={EDIT_CUSTOMER}>
+        {(editCustomer, { data }) => (
           <div className="register">
             <div className="container">
               <div className="row">
@@ -79,7 +95,7 @@ export default class EditDeleteUserAccount extends Component {
                         cust_password: this.state.cust_password
                       };
 
-                      addCustomer({ variables: newUser });
+                      editCustomer({ variables: newUser });
                     }}
                   >
                     <div className="form-group">
@@ -92,6 +108,7 @@ export default class EditDeleteUserAccount extends Component {
                         name="ssn_sin"
                         value={this.state.ssn_sin}
                         onChange={this.onChange}
+                        readOnly
                       />
                       <div class="invalid-feedback">{errors.email}</div>
                     </div>
@@ -252,3 +269,5 @@ export default class EditDeleteUserAccount extends Component {
     );
   }
 }
+
+export default graphql(EDIT_CUSTOMER)(EditDeleteUserAccount);
