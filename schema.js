@@ -352,25 +352,22 @@ const RootQuery = new GraphQLObjectType({
         search_number_of_rooms: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
-        console.log("args:", args);
         const query = `
         SET search_path = 'hotelsService';
         SELECT * FROM search_rooms('${args.search_start_date}', '${
           args.search_end_date
-        }',${args.search_city !== undefined ? `'${args.search_city}'` : null},${
-          args.search_state !== undefined ? `'${args.search_state}'` : null
+        }',${args.search_city ? `'${args.search_city}'` : null},${
+          args.search_state_or_province
+            ? `'${args.search_state_or_province}'`
+            : null
         },
-					${
-            args.search_hotel_chain !== undefined
-              ? `'${args.search_hotel_chain}'`
-              : null
-          },
-					${args.search_min_price !== undefined ? args.search_min_price : null},
-					${args.search_max_price !== undefined ? args.search_max_price : null},
-					${args.search_capacity !== undefined ? args.search_capacity : null},
-					${args.search_min_rooms !== undefined ? args.search_min_rooms : null},
-					${args.search_max_rooms !== undefined ? args.search_max_rooms : null},
-					${args.search_rating !== undefined ? args.search_rating : null});
+					${args.search_hotel_chain ? `'${args.search_hotel_chain}'` : null},
+					${args.search_min_price ? args.search_min_price : null},
+					${args.search_max_price ? args.search_max_price : null},
+					${args.search_capacity ? args.search_capacity : null},
+					${args.search_min_rooms ? args.search_min_rooms : null},
+					${args.search_max_rooms ? args.search_max_rooms : null},
+					${args.search_rating ? args.search_rating : null});
         `;
         console.log("query", query);
         return db
