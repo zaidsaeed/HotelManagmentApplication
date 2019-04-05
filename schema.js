@@ -338,32 +338,39 @@ const RootQuery = new GraphQLObjectType({
     hotelView: {
       type: GraphQLList(HotelViewType),
       args: {
-        city: { type: GraphQLString },
-        state_or_province: { type: GraphQLString },
-        hotel_chain_name: { type: GraphQLString },
-        rating: { type: GraphQLInt },
-        capacity: { type: GraphQLInt },
-        start_date: { type: GraphQLString },
-        end_date: { type: GraphQLString },
-        min_price: { type: GraphQLInt },
-        max_price: { type: GraphQLInt },
-        min_rooms: { type: GraphQLInt },
-        max_rooms: { type: GraphQLInt },
-        number_of_rooms: { type: GraphQLInt }
+        search_city: { type: GraphQLString },
+        search_state_or_province: { type: GraphQLString },
+        search_hotel_chain_name: { type: GraphQLString },
+        search_rating: { type: GraphQLInt },
+        search_capacity: { type: GraphQLInt },
+        search_start_date: { type: GraphQLString },
+        search_end_date: { type: GraphQLString },
+        search_min_price: { type: GraphQLInt },
+        search_max_price: { type: GraphQLInt },
+        search_min_rooms: { type: GraphQLInt },
+        search_max_rooms: { type: GraphQLInt },
+        search_number_of_rooms: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
+        console.log("args:", args);
         const query = `
         SET search_path = 'hotelsService';
-        SELECT * FROM search_rooms('${args.start_date}', '${args.end_date}',${
-          args.city !== undefined ? `'${args.city}'` : null
-        },${args.state !== undefined ? `'${args.state}'` : null},
-					${args.hotel_chain !== undefined ? `'${args.hotel_chain}'` : null},
-					${args.min_price !== undefined ? args.min_price : null},
-					${args.max_price !== undefined ? args.max_price : null},
-					${args.capacity !== undefined ? args.capacity : null},
-					${args.min_rooms !== undefined ? args.min_rooms : null},
-					${args.max_rooms !== undefined ? args.max_rooms : null},
-					${args.rating !== undefined ? args.rating : null});
+        SELECT * FROM search_rooms('${args.search_start_date}', '${
+          args.search_end_date
+        }',${args.search_city !== undefined ? `'${args.search_city}'` : null},${
+          args.search_state !== undefined ? `'${args.search_state}'` : null
+        },
+					${
+            args.search_hotel_chain !== undefined
+              ? `'${args.search_hotel_chain}'`
+              : null
+          },
+					${args.search_min_price !== undefined ? args.search_min_price : null},
+					${args.search_max_price !== undefined ? args.search_max_price : null},
+					${args.search_capacity !== undefined ? args.search_capacity : null},
+					${args.search_min_rooms !== undefined ? args.search_min_rooms : null},
+					${args.search_max_rooms !== undefined ? args.search_max_rooms : null},
+					${args.search_rating !== undefined ? args.search_rating : null});
         `;
         console.log("query", query);
         return db
