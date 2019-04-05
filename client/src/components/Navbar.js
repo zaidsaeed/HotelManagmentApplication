@@ -64,7 +64,7 @@ export default class Navbar extends Component {
           </Link>
         </li>
         <li className="nav-item" id="account_circle">
-          <Link to="/editAccount">
+          <Link to="/editDeleteUserAccount">
             <i
               style={{ hover: "pointer" }}
               className="nav-link material-icons"
