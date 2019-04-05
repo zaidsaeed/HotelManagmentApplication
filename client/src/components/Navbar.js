@@ -58,6 +58,18 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
+
+        <li>
+          <Link to="/editAccount">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Log out"
+            >
+              highlight_off
+            </i>
+          </Link>
+        </li>
       </ul>
     );
 
@@ -85,21 +97,34 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
+        <li>
+          <i
+            style={{ hover: "pointer" }}
+            className="nav-link material-icons"
+            title="Log out"
+            onClick={() => {
+              console.log("HEY");
+            }}
+          >
+            highlight_off
+          </i>
+        </li>
       </ul>
     );
 
     const employeeLinks = (
       <ul className="form-inline navbar-nav my-2 my-lg-0">
         <li className="nav-item" id="account_circle">
-          <Link to="/editAccount">
-            <i
-              style={{ hover: "pointer" }}
-              className="nav-link material-icons"
-              title="Log out"
-            >
-              highlight_off
-            </i>
-          </Link>
+          <i
+            style={{ hover: "pointer" }}
+            className="nav-link material-icons"
+            title="Log out"
+            onClick={() => {
+              console.log("HEREEE");
+            }}
+          >
+            highlight_off
+          </i>
         </li>
       </ul>
     );
@@ -136,9 +161,9 @@ export default class Navbar extends Component {
                 </Link>
               </li>
             </ul>
-            {isNotSignedInUser ? userNotSignedInLinks : ""};
-            {isCustomer ? userSignedInLinks : ""};
-            {isManager ? managerLinks : ""};
+            {isNotSignedInUser ? userNotSignedInLinks : ""}
+            {isCustomer ? userSignedInLinks : ""}
+            {isManager ? managerLinks : ""}
             {!isNotSignedInUser && !isCustomer && !isManager
               ? employeeLinks
               : ""}
