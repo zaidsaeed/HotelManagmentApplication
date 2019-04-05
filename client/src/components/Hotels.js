@@ -6,30 +6,30 @@ import Navbar from "./Navbar";
 
 const HOTELS_VIEW_QUERY = gql`
   query HotelViewQuery(
-    $city: String
-    $state_or_province: String
-    $hotel_chain_name: String
-    $rating: Int
-    $capacity: Int
-    $start_date: String
-    $end_date: String
-    $min_price: Int
-    $max_price: Int
-    $min_rooms: Int
-    $max_rooms: Int
+    $search_city: String
+    $search_state_or_province: String
+    $search_hotel_chain_name: String
+    $search_rating: Int
+    $search_capacity: Int
+    $search_start_date: String
+    $search_end_date: String
+    $search_min_price: Int
+    $search_max_price: Int
+    $search_min_rooms: Int
+    $search_max_rooms: Int
   ) {
     hotelView(
-      city: $city
-      state_or_province: $state_or_province
-      hotel_chain_name: $hotel_chain_name
-      rating: $rating
-      capacity: $capacity
-      start_date: $start_date
-      end_date: $end_date
-      min_price: $min_price
-      max_price: $max_price
-      min_rooms: $min_rooms
-      max_rooms: $max_rooms
+      search_city: $search_city
+      search_state_or_province: $search_state_or_province
+      search_hotel_chain_name: $search_hotel_chain_name
+      search_rating: $search_rating
+      search_capacity: $search_capacity
+      search_start_date: $search_start_date
+      search_end_date: $search_end_date
+      search_min_price: $search_min_price
+      search_max_price: $search_max_price
+      search_min_rooms: $search_min_rooms
+      search_max_rooms: $search_max_rooms
     ) {
       room_number
       street_name
@@ -59,19 +59,20 @@ export class Hotels extends Component {
     console.log(this.state);
     e.preventDefault();
     const searchData = {
-      city: this.state.cityInput,
-      state_or_province: this.state.stateInput,
-      hotel_chain_name: this.state.chainInput,
-      rating: this.state.ratingInput,
-      capacity: this.state.capacityInput,
-      start_date: this.state.startInput,
-      end_date: this.state.endInput,
-      min_price: this.state.minPriceInput,
-      max_price: this.state.maxPriceInput,
-      min_rooms: this.state.minRoomsInput,
-      max_rooms: this.state.maxRoomsInput,
-      hotel_contact_email: this.state.hotel_contact_email
+      search_city: this.state.cityInput,
+      search_state_or_province: this.state.stateInput,
+      search_hotel_chain_name: this.state.chainInput,
+      search_rating: this.state.ratingInput,
+      search_capacity: this.state.capacityInput,
+      search_start_date: this.state.startInput,
+      search_end_date: this.state.endInput,
+      search_min_price: this.state.minPriceInput,
+      search_max_price: this.state.maxPriceInput,
+      search_min_rooms: this.state.minRoomsInput,
+      search_max_rooms: this.state.maxRoomsInput,
+      search_hotel_contact_email: this.state.hotel_contact_email
     };
+    console.log("searchData:", searchData);
     this.props.client
       .query({
         query: HOTELS_VIEW_QUERY,

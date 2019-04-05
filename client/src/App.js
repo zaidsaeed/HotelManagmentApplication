@@ -14,6 +14,7 @@ import RoomTable from "./components/RoomTable";
 import HotelViews from "./components/HotelViews";
 import CreateRentingComponent from "./components/CreateRentingComponent";
 import EditDeleteUserAccount from "./components/EditDeleteUserAccount";
+import AllHotels from "./components/AllHotels";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -30,6 +31,7 @@ class App extends Component {
             <Route exact path="/hotelchains" component={HotelChains} />
             <Route exact path="/signUp" component={SignUp} />
             <Route exact path="/logIn" component={Login} />
+            <Route exact path="/hotels" component={AllHotels} />
             <Route
               exact
               path="/employeeDashboard"

@@ -129,10 +129,10 @@ export default class Navbar extends Component {
 
           <div className="collapse navbar-collapse col-md" id="navbarColor01">
             <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Hotels <span className="sr-only">(current)</span>
-                </a>
+              <li className="nav-item">
+                <Link to="/hotels" className="nav-link" href="#">
+                  Hotels
+                </Link>
               </li>
               <li className="nav-item">
                 <Link to="/hotelchains" className="nav-link" href="#">
