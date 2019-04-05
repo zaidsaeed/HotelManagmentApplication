@@ -369,6 +369,7 @@ const RootQuery = new GraphQLObjectType({
         return db
           .manyOrNone(query)
           .then(data => {
+            console.log("data", data);
             return data;
           })
           .catch(err => {
