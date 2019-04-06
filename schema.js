@@ -857,7 +857,7 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
-    deleteEmployee: {
+    deleteHotel: {
       type: GraphQLBoolean,
       args: {
         hotel_chain_id: { type: GraphQLInt },
