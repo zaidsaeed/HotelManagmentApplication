@@ -16,6 +16,7 @@ import CreateRentingComponent from "./components/CreateRentingComponent";
 import EditDeleteUserAccount from "./components/UserComponents/EditDeleteUserAccount";
 import AllHotels from "./components/AllHotels";
 import Areas from "./components/Areas";
+import EditDeleteEmployeeAccount from "./components/EmployeeComponents/EditDeleteEmployeeAccount";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -51,6 +52,11 @@ class App extends Component {
               exact
               path="/editDeleteUserAccount"
               component={EditDeleteUserAccount}
+            />
+            <Route
+              exact
+              path="/editDeleteEmployeeAccount"
+              component={EditDeleteEmployeeAccount}
             />
           </div>
         </Router>
