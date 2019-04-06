@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Link } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
 import { Mutation, graphql, withApollo } from "react-apollo";
@@ -74,7 +74,7 @@ class EditDeleteHotel extends Component {
         }
       })
       .then(data => {
-        this.props.history.push("/");
+        this.props.history.push("/hotels");
       })
       .catch(err => {
         console.log("err", err);
@@ -112,6 +112,7 @@ class EditDeleteHotel extends Component {
                           number_of_rooms: parseInt(this.state.number_of_rooms)
                         };
                         editHotel({ variables: newHotel });
+                        this.props.history.push("/hotels");
                       }}
                     >
                       <div className="form-group">
@@ -362,14 +363,13 @@ class EditDeleteHotel extends Component {
                           </div>
                         </div>
                       </div>
-
-                      <div style={{ display: "flex" }}>
+                      <div class="my-2" style={{ display: "flex" }}>
                         <button
                           type="submit"
                           className="btn btn-block mt-4 btn-primary"
                           style={{ marginRight: "5px" }}
                         >
-                          Edit Hotel
+                          Save Changes
                         </button>
                         <button
                           type="button"

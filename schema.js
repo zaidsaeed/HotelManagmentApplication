@@ -232,7 +232,7 @@ const RootQuery = new GraphQLObjectType({
         SET search_path = 'hotelsService';
         SELECT * FROM t_hotel 
         INNER JOIN t_hotel_chain ON t_hotel.hotel_chain_id = t_hotel_chain.id
-        ORDER BY t_hotel.city;
+        ORDER BY t_hotel.city, t_hotel.hotel_chain_id;
         `;
         return db
           .manyOrNone(query)
