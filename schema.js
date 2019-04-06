@@ -517,6 +517,29 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
+    deleteCustomer: {
+      type: GraphQLBoolean,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        delete from t_booking where cust_ssn_sin = '${args.ssn_sin}';
+        delete from t_renting where cust_ssn_sin = '${args.ssn_sin}'; 
+        delete from t_customer where ssn_sin = '${args.ssn_sin}';
+        `;
+        return db
+          .none(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     addEmployee: {
       type: EmployeeType,
       args: {

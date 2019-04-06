@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { Mutation, graphql } from "react-apollo";
+import { Mutation, graphql, withApollo } from "react-apollo";
 import classnames from "classnames";
 
 const EDIT_CUSTOMER = gql`
@@ -50,6 +50,12 @@ const EDIT_CUSTOMER = gql`
   }
 `;
 
+const DELETE_CUSTOMER = gql`
+  mutation($ssn_sin: String!) {
+    deleteCustomer(ssn_sin: $ssn_sin)
+  }
+`;
+
 class EditDeleteUserAccount extends Component {
   constructor() {
     super();
@@ -62,6 +68,28 @@ class EditDeleteUserAccount extends Component {
       [e.target.name]: e.target.value
     });
   };
+
+  deleteContact = () => {
+    console.log("this.props.client", this.props);
+    this.props.client
+      .mutate({
+        mutation: DELETE_CUSTOMER,
+        variables: { ssn_sin: this.state.ssn_sin }
+      })
+      .then(data => {
+        this.props.history.push("/signUp");
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
+      });
+  };
+
   render() {
     const { errors } = { ...this.state };
     return (
@@ -255,10 +283,22 @@ class EditDeleteUserAccount extends Component {
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
                     </div>
-                    <input
-                      type="submit"
-                      className="btn btn-info btn-block mt-4"
-                    />
+                    <div style={{ display: "flex" }}>
+                      <button
+                        type="submit"
+                        className="btn btn-block mt-4 btn-primary"
+                        style={{ marginRight: "5px" }}
+                      >
+                        Edit Contact
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-info btn-block mt-4 btn-danger"
+                        onClick={this.deleteContact}
+                      >
+                        Delete Contact
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -270,4 +310,4 @@ class EditDeleteUserAccount extends Component {
   }
 }
 
-export default graphql(EDIT_CUSTOMER)(EditDeleteUserAccount);
+export default withApollo(EditDeleteUserAccount);
