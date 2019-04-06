@@ -3,13 +3,43 @@ import classnames from "classnames";
 import gql from "graphql-tag";
 import { Mutation, graphql, withApollo } from "react-apollo";
 
-const DELETE_CUSTOMER = gql`
-  mutation($ssn_sin: String!) {
-    deleteCustomer(ssn_sin: $ssn_sin)
+const EDIT_HOTEL = gql`
+  mutation(
+    $street_name: String
+    $street_number: Int
+    $city: String
+    $state_or_province: String
+    $zip_or_postal_code: String
+    $hotel_chain_id: Int
+    $rating: Int
+    $contact_email: String
+    $manager_SSN_SIN: Int
+    $number_of_rooms: Int
+  ) {
+    editHotel(
+      street_name: $street_name
+      street_number: $street_number
+      city: $city
+      state_or_province: $state_or_province
+      zip_or_postal_code: $zip_or_postal_code
+      hotel_chain_id: $hotel_chain_id
+      rating: $rating
+      contact_email: $contact_email
+      manager_SSN_SIN: $manager_SSN_SIN
+      number_of_rooms: $number_of_rooms
+    ) {
+      street_name
+    }
   }
 `;
 
-export default class EditDeleteHotel extends Component {
+const DELETE_HOTEL = gql`
+  mutation($hotel_chain_id: Int, $contact_email: String) {
+    deleteHotel(hotel_chain_id: $hotel_chain_id, contact_email: $contact_email)
+  }
+`;
+
+class EditDeleteHotel extends Component {
   constructor(props) {
     super(props);
     const { hotelItem } = props.location.state;
@@ -34,10 +64,33 @@ export default class EditDeleteHotel extends Component {
     });
   };
 
+  deleteHotel = () => {
+    this.props.client
+      .mutate({
+        mutation: DELETE_HOTEL,
+        variables: {
+          hotel_chain_id: this.state.hotel_chain_id,
+          contact_email: this.state.contact_email
+        }
+      })
+      .then(data => {
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
+      });
+  };
+
   render() {
     const { errors } = this.state;
     return (
-      <Mutation mutation={DELETE_CUSTOMER}>
+      <Mutation mutation={EDIT_HOTEL}>
         {(editHotel, data) => (
           <div>
             <div className="register">
@@ -55,10 +108,10 @@ export default class EditDeleteHotel extends Component {
                           street_number: parseInt(this.state.street_number),
                           hotel_chain_id: parseInt(this.state.hotel_chain_id),
                           rating: parseInt(this.state.rating),
-                          manager_ssn_sin: parseInt(this.state.manager_ssn_sin),
+                          manager_SSN_SIN: parseInt(this.state.manager_ssn_sin),
                           number_of_rooms: parseInt(this.state.number_of_rooms)
                         };
-                        // editHotel({ variables: newHotel });
+                        editHotel({ variables: newHotel });
                       }}
                     >
                       <div className="form-group">
@@ -310,10 +363,22 @@ export default class EditDeleteHotel extends Component {
                         </div>
                       </div>
 
-                      <input
-                        type="submit"
-                        className="btn btn-info btn-block mt-4"
-                      />
+                      <div style={{ display: "flex" }}>
+                        <button
+                          type="submit"
+                          className="btn btn-block mt-4 btn-primary"
+                          style={{ marginRight: "5px" }}
+                        >
+                          Edit Hotel
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-info btn-block mt-4 btn-danger"
+                          onClick={this.deleteHotel}
+                        >
+                          Delete Hotel
+                        </button>
+                      </div>
                     </form>
                   </div>
                 </div>
@@ -325,3 +390,5 @@ export default class EditDeleteHotel extends Component {
     );
   }
 }
+
+export default withApollo(EditDeleteHotel);

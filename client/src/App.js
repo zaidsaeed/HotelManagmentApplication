@@ -20,6 +20,7 @@ import EditDeleteEmployeeAccount from "./components/EmployeeComponents/EditDelet
 import Rooms from "./components/Rooms";
 import CreateHotelComponent from "./components/HotelComponents/CreateHotelComponent";
 import EditDeleteHotel from "./components/HotelComponents/EditDeleteHotel";
+import HotelView from "./components/HotelItem";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -73,6 +74,7 @@ class App extends Component {
               path="/editHotelComponent"
               component={EditDeleteHotel}
             />
+            <Route exact path="/hotelView" component={HotelView} />
           </div>
         </Router>
       </ApolloProvider>

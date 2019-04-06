@@ -28,6 +28,8 @@ export default class HotelViews extends Component {
           end_date={end_date}
           hotel_contact_email={hotelView.hotel_contact_email}
           rating={hotelView.rating}
+          hotel_chain_id={hotelView.hotel_chain_id}
+          history={this.props.history}
         />
       );
     });

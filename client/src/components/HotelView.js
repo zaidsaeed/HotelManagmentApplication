@@ -1,31 +1,31 @@
 import React, { Component } from "react";
 import ReactModal from "react-modal";
 import gql from "graphql-tag";
-import { Mutation, graphql } from "react-apollo";
+import { withApollo } from "react-apollo";
 
-// const ADD_ROOM_BOOKING = gql`
-//   mutation(
-//     $room_number: Int!
-//     $hotel_contact_email: String
-//     $hotel_chain_id: Int
-//     $start_date: String
-//     $end_date: String
-//     $cust_ssn_sin: String
-//   ) {
-//     addRoomBooking(
-//       room_number: $room_number
-//       hotel_contact_email: $hotel_contact_email
-//       hotel_chain_id: $hotel_chain_id
-//       start_date: $start_date
-//       end_date: $end_date
-//       cust_ssn_sin: $cust_ssn_sin
-//     ) {
-//       room_number
-//     }
-//   }
-// `;
+const ADD_ROOM_BOOKING = gql`
+  mutation(
+    $room_number: Int!
+    $hotel_contact_email: String
+    $hotel_chain_id: Int
+    $start_date: String
+    $end_date: String
+    $cust_ssn_sin: String
+  ) {
+    addRoomBooking(
+      room_number: $room_number
+      hotel_contact_email: $hotel_contact_email
+      hotel_chain_id: $hotel_chain_id
+      start_date: $start_date
+      end_date: $end_date
+      cust_ssn_sin: $cust_ssn_sin
+    ) {
+      room_number
+    }
+  }
+`;
 
-export default class HotelView extends Component {
+class HotelView extends Component {
   constructor() {
     super();
     this.state = {
@@ -43,6 +43,38 @@ export default class HotelView extends Component {
   handleCloseModal() {
     this.setState({ showModal: false });
   }
+
+  book = () => {
+    const user_id = JSON.parse(window.localStorage.getItem("user")).customer
+      .ssn_sin;
+    console.log(user_id);
+    const booking = {
+      room_number: this.props.room_number,
+      hotel_contact_email: this.props.hotel_contact_email,
+      hotel_chain_id: this.props.hotel_chain_id,
+      start_date: this.props.start_date,
+      end_date: this.props.end_date,
+      cust_ssn_sin: user_id
+    };
+    console.log("booking", booking);
+    this.props.client
+      .mutate({
+        mutation: ADD_ROOM_BOOKING,
+        variables: booking
+      })
+      .then(data => {
+        this.props.history.push("/");
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
+      });
+  };
   render() {
     console.log(this.props);
 
@@ -146,6 +178,7 @@ export default class HotelView extends Component {
               <button
                 type="button"
                 class="btn btn-primary"
+                onClick={this.book}
                 // onClick={e => {
                 //   e.preventDefault();
                 //   const newBooking = {
@@ -170,3 +203,5 @@ export default class HotelView extends Component {
     );
   }
 }
+
+export default withApollo(HotelView);

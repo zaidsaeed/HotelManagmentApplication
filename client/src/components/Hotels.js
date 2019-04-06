@@ -43,6 +43,7 @@ const HOTELS_VIEW_QUERY = gql`
       number_of_rooms
       capacity
       room_view
+      hotel_chain_id
     }
   }
 `;
