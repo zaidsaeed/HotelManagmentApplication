@@ -111,7 +111,7 @@ const EmployeeType = new GraphQLObjectType({
   })
 });
 
-//HotelView Type
+//HotelViewType
 const HotelViewType = new GraphQLObjectType({
   name: "HotelView",
   fields: () => ({
@@ -128,6 +128,18 @@ const HotelViewType = new GraphQLObjectType({
     number_of_rooms: { type: GraphQLInt },
     capacity: { type: GraphQLInt },
     room_view: { type: GraphQLString }
+  })
+});
+
+//RoomType
+const RoomType = new GraphQLObjectType({
+  name: "Room",
+  fields: () => ({
+    price: { type: GraphQLInt },
+    room_number: { type: GraphQLInt },
+    capacity: { type: GraphQLInt },
+    room_view: { type: GraphQLString },
+    possible_bed_additions: { type: GraphQLInt }
   })
 });
 
@@ -177,6 +189,30 @@ const RootQuery = new GraphQLObjectType({
         SET search_path = 'hotelsService';
         SELECT * FROM t_hotel;
         `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    rooms_in_hotel: {
+      type: GraphQLList(RoomType),
+      args: {
+        contact_email: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM t_rooms
+        WHERE t_rooms.hotel_contact_email='${args.contact_email}'
+        ORDER BY t_rooms.room_number;
+        `;
+        console.log(query);
         return db
           .manyOrNone(query)
           .then(data => {

@@ -17,6 +17,7 @@ import EditDeleteUserAccount from "./components/UserComponents/EditDeleteUserAcc
 import AllHotels from "./components/AllHotels";
 import Areas from "./components/Areas";
 import EditDeleteEmployeeAccount from "./components/EmployeeComponents/EditDeleteEmployeeAccount";
+import Rooms from "./components/Rooms";
 import CreateHotelComponent from "./components/HotelComponents/CreateHotelComponent";
 import EditDeleteHotel from "./components/HotelComponents/EditDeleteHotel";
 
@@ -37,6 +38,8 @@ class App extends Component {
             <Route exact path="/logIn" component={Login} />
             <Route exact path="/hotels" component={AllHotels} />
             <Route exact path="/areas" component={Areas} />
+            <Route exact path="/rooms" component={Rooms} />
+
             <Route
               exact
               path="/employeeDashboard"
