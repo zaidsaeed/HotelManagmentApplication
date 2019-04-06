@@ -127,7 +127,8 @@ const HotelViewType = new GraphQLObjectType({
     hotel_contact_email: { type: GraphQLString },
     number_of_rooms: { type: GraphQLInt },
     capacity: { type: GraphQLInt },
-    room_view: { type: GraphQLString }
+    room_view: { type: GraphQLString },
+    hotel_chain_id: { type: GraphQLInt }
   })
 });
 
