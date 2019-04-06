@@ -184,15 +184,22 @@ export class Hotels extends Component {
                 />
               </div>
               <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
+                <select
+                  class="custom-select"
                   id="chainInput"
-                  placeholder="Preferred hotel chain"
                   name="chainInput"
                   value={this.state.chainInput}
                   onChange={this.onChange}
-                />
+                >
+                  <option selected="">Preferred hotel chain</option>
+                  <option value="Marriot">Marriott</option>
+                  <option value="Four Seasons">Four Seasons</option>
+                  <option value="Hilton">Hilton</option>
+                  <option value="AC Hotels">AC Hotels</option>
+                  <option value="Westin Hotels and Resorts">
+                    Westin Hotels and Resorts
+                  </option>
+                </select>
               </div>
             </div>
             <div class="form-row">

@@ -44,7 +44,7 @@ export default class EditDeleteHotel extends Component {
               <div className="container">
                 <div className="row">
                   <div className="col-md-8 m-auto">
-                    <h1 className="display-4 text-center">Create a Hotel</h1>
+                    <h1 className="display-4 text-center">Edit Hotel</h1>
                     <p className="lead text-center" />
                     <form
                       noValidate
@@ -62,170 +62,252 @@ export default class EditDeleteHotel extends Component {
                       }}
                     >
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.name
-                            }
-                          )}
-                          placeholder="Street Name"
-                          name="street_name"
-                          value={this.state.street_name}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.email}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Street Name:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.name
+                                }
+                              )}
+                              placeholder="Street Name"
+                              name="street_name"
+                              value={this.state.street_name}
+                              onChange={this.onChange}
+                            />
+                          </div>
+                          <div class="invalid-feedback">{errors.email}</div>
+                        </div>
                       </div>
                       <div className="form-group">
-                        <input
-                          type="integer"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.email
-                            }
-                          )}
-                          placeholder="Street Number"
-                          name="street_number"
-                          value={this.state.street_number}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.email}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Street Number:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="integer"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.email
+                                }
+                              )}
+                              placeholder="Street Number"
+                              name="street_number"
+                              value={this.state.street_number}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">{errors.email}</div>
+                          </div>
+                        </div>
                       </div>
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password
-                            }
-                          )}
-                          placeholder="City"
-                          name="city"
-                          value={this.state.city}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">City:</label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password
+                                }
+                              )}
+                              placeholder="City"
+                              name="city"
+                              value={this.state.city}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password}
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div className="form-group">
-                        <input
-                          type="Integer"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="State/Province"
-                          name="state_or_province"
-                          value={this.state.state_or_province}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
-                      </div>
-
-                      <div className="form-group">
-                        <input
-                          type="Integer"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="ZIP/Postal Code:"
-                          name="zip_or_postal_code"
-                          value={this.state.zip_or_postal_code}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
-                      </div>
-
-                      <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="Hotel Chain Id:"
-                          name="hotel_chain_id"
-                          value={this.state.hotel_chain_id}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Sate/Province:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="Integer"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="State/Province"
+                              name="state_or_province"
+                              value={this.state.state_or_province}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="Rating:"
-                          name="rating"
-                          value={this.state.rating}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Zip/Postal:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="Integer"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="ZIP/Postal Code:"
+                              name="zip_or_postal_code"
+                              value={this.state.zip_or_postal_code}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="Contact Email:"
-                          name="contact_email"
-                          value={this.state.contact_email}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Hotel Chain ID:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="Hotel Chain Id:"
+                              name="hotel_chain_id"
+                              value={this.state.hotel_chain_id}
+                              onChange={this.onChange}
+                              readonly=""
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="Manager SSN/SIN:"
-                          name="manager_ssn_sin"
-                          value={this.state.manager_ssn_sin}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Rating:</label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="Rating:"
+                              name="rating"
+                              value={this.state.rating}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div className="form-group">
-                        <input
-                          type="String"
-                          className={classnames(
-                            "form-control form-control-lg",
-                            {
-                              "is-invalid": errors.password2
-                            }
-                          )}
-                          placeholder="Number of Rooms:"
-                          name="number_of_rooms"
-                          value={this.state.number_of_rooms}
-                          onChange={this.onChange}
-                        />
-                        <div class="invalid-feedback">{errors.password2}</div>
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">Email:</label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="Contact Email:"
+                              name="contact_email"
+                              value={this.state.contact_email}
+                              onChange={this.onChange}
+                              readonly=""
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Manager SSN/SIN:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="Manager SSN/SIN:"
+                              name="manager_ssn_sin"
+                              value={this.state.manager_ssn_sin}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <div class="form-group row">
+                          <label class="col-md-3 col-form-label">
+                            Number of Rooms:
+                          </label>
+                          <div class="col-md-9">
+                            <input
+                              type="String"
+                              className={classnames(
+                                "form-control form-control-lg",
+                                {
+                                  "is-invalid": errors.password2
+                                }
+                              )}
+                              placeholder="Number of Rooms:"
+                              name="number_of_rooms"
+                              value={this.state.number_of_rooms}
+                              onChange={this.onChange}
+                            />
+                            <div class="invalid-feedback">
+                              {errors.password2}
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <input
