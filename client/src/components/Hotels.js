@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import gql from "graphql-tag";
 import { Query, withApollo } from "react-apollo";
-import HotelItem from "./HotelItem";
 import Navbar from "./Navbar";
 
 const HOTELS_VIEW_QUERY = gql`

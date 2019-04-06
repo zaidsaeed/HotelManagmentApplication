@@ -177,6 +177,24 @@ const RootQuery = new GraphQLObjectType({
           });
       }
     },
+    ordered_hotels: {
+      type: GraphQLList(HotelType),
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT * FROM t_hotel ORDER BY t_hotel.city;
+        `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     hotel_chains: {
       type: GraphQLList(HotelChainType),
       resolve(parentValue, args) {
