@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import RentButton from "./RentButton/RentButton";
 import BookButton from "./BookButton/BookButton";
+import Navbar from "./Navbar";
 
 const ROOM_NUMBERS_QUERY = gql`
   query RoomNumbersQuery($emp_ssn_sin: Int) {
@@ -76,6 +77,7 @@ class RoomTable extends Component {
             });
             return (
               <Fragment>
+                <Navbar />
                 <table
                   className="table table-hover"
                   style={{ padding: "10px" }}

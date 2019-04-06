@@ -71,64 +71,106 @@ class CreateRentingComponent extends Component {
                     }}
                   >
                     <div className="form-group">
-                      <input
-                        type="Number"
-                        className={"form-control form-control-lg"}
-                        placeholder="Room Number"
-                        name="room_number"
-                        value={this.state.room_number}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Room Number:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="Number"
+                            className={"form-control form-control-lg"}
+                            placeholder="Room Number"
+                            name="room_number"
+                            value={this.state.room_number}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <input
-                        type="String"
-                        className={"form-control form-control-lg"}
-                        placeholder="Hotel Contact Email"
-                        name="hotel_contact_email"
-                        value={this.state.hotel_contact_email}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Hotel Email:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="String"
+                            className={"form-control form-control-lg"}
+                            placeholder="Hotel Contact Email"
+                            name="hotel_contact_email"
+                            value={this.state.hotel_contact_email}
+                            onChange={this.onChange}
+                            readonly=""
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <input
-                        type="Number"
-                        className={"form-control form-control-lg"}
-                        placeholder="Hotel Chain Id"
-                        name="hotel_chain_id"
-                        value={this.state.hotel_chain_id}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Hotel Chain ID:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="Number"
+                            className={"form-control form-control-lg"}
+                            placeholder="Hotel Chain Id"
+                            name="hotel_chain_id"
+                            value={this.state.hotel_chain_id}
+                            onChange={this.onChange}
+                            readonly=""
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <input
-                        type="Date"
-                        className={"form-control form-control-lg"}
-                        placeholder="Renting Reservation Start Date"
-                        name="start_date"
-                        value={this.state.start_date}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Start Date:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="Date"
+                            className={"form-control form-control-lg"}
+                            placeholder="Renting Reservation Start Date"
+                            name="start_date"
+                            value={this.state.start_date}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <input
-                        type="Date"
-                        className={"form-control form-control-lg"}
-                        placeholder="Renting Reservation End Date:"
-                        name="end_date"
-                        value={this.state.end_date}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">End Date:</label>
+                        <div class="col-md-9">
+                          <input
+                            type="Date"
+                            className={"form-control form-control-lg"}
+                            placeholder="Renting Reservation End Date:"
+                            name="end_date"
+                            value={this.state.end_date}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
                     </div>
                     <div className="form-group">
-                      <input
-                        type="String"
-                        className={"form-control form-control-lg"}
-                        placeholder="Customer SSN/SIN:"
-                        name="cust_ssn_sin"
-                        value={this.state.cust_ssn_sin}
-                        onChange={this.onChange}
-                      />
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Customer SSN/SIN:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="String"
+                            className={"form-control form-control-lg"}
+                            placeholder="Customer SSN/SIN:"
+                            name="cust_ssn_sin"
+                            value={this.state.cust_ssn_sin}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
                     </div>
 
                     <input
