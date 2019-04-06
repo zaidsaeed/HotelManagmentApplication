@@ -664,6 +664,78 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
+    editEmployee: {
+      type: EmployeeType,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
+        street_number: { type: GraphQLInt },
+        street_name: { type: GraphQLString },
+        apt_number: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        zip_or_postal_code: { type: GraphQLString },
+        first_name: { type: GraphQLString },
+        middle_name: { type: GraphQLString },
+        last_name: { type: GraphQLString },
+        username: { type: GraphQLString },
+        emp_password: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        update t_employee
+        set 
+          street_number = ${args.street_number},
+          street_name = '${args.street_name}',
+          apt_number = ${args.apt_number},
+          city = '${args.city}',
+          state_or_province = '${args.state_or_province}',
+          zip_or_postal_code = '${args.zip_or_postal_code}',
+          first_name = '${args.first_name}',
+          middle_name = '${args.middle_name}',
+          last_name = '${args.last_name}',
+          username = '${args.username}',
+          emp_password = '${args.emp_password}'
+        where ssn_sin = ${args.ssn_sin}
+          RETURNING
+            *
+          ;
+        `;
+        console.log("Query", query);
+        return db
+          .one(query)
+          .then(data => {
+            console.log("data", data);
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    deleteEmployee: {
+      type: GraphQLBoolean,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        delete from t_hotel where manager_ssn_sin = '${args.ssn_sin}';
+        delete from t_employee where ssn_sin = '${args.ssn_sin}';
+        `;
+        return db
+          .none(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     addRoomRenting: {
       type: RoomRentOrBookType,
       args: {
