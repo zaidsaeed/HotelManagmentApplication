@@ -736,6 +736,114 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
+    addHotel: {
+      type: HotelType,
+      args: {
+        street_name: { type: GraphQLString },
+        street_number: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        zip_or_postal_code: { type: GraphQLString },
+        hotel_chain_id: { type: GraphQLInt },
+        rating: { type: GraphQLInt },
+        contact_email: { type: GraphQLString },
+        manager_SSN_SIN: { type: GraphQLInt },
+        number_of_rooms: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        insert into t_hotel
+        VALUES
+          ('${args.street_name}', ${args.street_number}, '${args.city}', '${
+          args.state_or_province
+        }', '${args.zip_or_postal_code}', ${args.hotel_chain_id}, ${
+          args.rating
+        }, '${args.contact_email}', ${args.manager_SSN_SIN}, ${
+          args.number_of_rooms
+        })
+        RETURNING *;
+        `;
+        console.log("Query", query);
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    editHotel: {
+      type: HotelType,
+      args: {
+        street_name: { type: GraphQLString },
+        street_number: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        zip_or_postal_code: { type: GraphQLString },
+        hotel_chain_id: { type: GraphQLInt },
+        rating: { type: GraphQLInt },
+        contact_email: { type: GraphQLString },
+        manager_SSN_SIN: { type: GraphQLInt },
+        number_of_rooms: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        update t_hotel
+        set
+        street_name= '${args.street_name}',
+        street_number= ${args.street_number},
+        city= '${args.city}',
+        state_or_province= '${args.state_or_province}',
+        zip_or_postal_code= '${args.zip_or_postal_code}',
+        rating= ${args.rating},
+        manager_SSN_SIN= ${args.manager_SSN_SIN},
+        number_of_rooms= ${args.number_of_rooms}
+        where contact_email = '${args.contact_email}' and hotel_chain_id = ${
+          args.hotel_chain_id
+        }
+        RETURNING *;
+        `;
+        console.log("Query", query);
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    deleteEmployee: {
+      type: GraphQLBoolean,
+      args: {
+        hotel_chain_id: { type: GraphQLInt },
+        contact_email: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        delete from t_hotel where contact_email = '${
+          args.contact_email
+        }' and hotel_chain_id = ${args.hotel_chain_id};
+        `;
+        return db
+          .none(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     addRoomRenting: {
       type: RoomRentOrBookType,
       args: {
