@@ -783,7 +783,7 @@ const mutation = new GraphQLObjectType({
         hotel_chain_id: { type: GraphQLInt },
         rating: { type: GraphQLInt },
         contact_email: { type: GraphQLString },
-        manager_SSN_SIN: { type: GraphQLInt },
+        manager_ssn_sin: { type: GraphQLInt },
         number_of_rooms: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
@@ -795,7 +795,7 @@ const mutation = new GraphQLObjectType({
           args.state_or_province
         }', '${args.zip_or_postal_code}', ${args.hotel_chain_id}, ${
           args.rating
-        }, '${args.contact_email}', ${args.manager_SSN_SIN}, ${
+        }, '${args.contact_email}', ${args.manager_ssn_sin}, ${
           args.number_of_rooms
         })
         RETURNING *;
