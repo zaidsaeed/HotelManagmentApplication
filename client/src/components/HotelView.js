@@ -140,6 +140,7 @@ export default class HotelView extends Component {
               </p>
               <p>Price per night: ${price}</p>
               <p>View from room: {view}</p>
+              <p>Contact email for hotel: {hotel_contact_email}</p>
             </div>
             <div class="modal-footer">
               <button

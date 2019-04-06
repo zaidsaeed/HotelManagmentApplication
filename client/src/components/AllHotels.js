@@ -2,23 +2,21 @@ import React, { Component, Fragment } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Navbar from "./Navbar";
-
+import HotelItem from "./HotelItem";
 const ALL_HOTELS_QUERY = gql`
   query AllHotelsQuery {
     ordered_hotels {
-      room_number
       street_name
       street_number
       city
-      state
-      zip
-      hotel_chain
+      state_or_province
+      zip_or_postal_code
+      hotel_chain_id
       rating
-      price
-      hotel_contact_email
+      contact_email
+      manager_SSN_SIN
       number_of_rooms
-      capacity
-      room_view
+      hotel_chain_name
     }
   }
 `;
@@ -36,14 +34,15 @@ export default class HotelViews extends Component {
             if (error) {
               console.log(error);
             }
+            console.log(data);
 
-            // return (
-            // //   <Fragment>
-            // //     {data.hotel_chains.map((hotelChainItem, index) => (
-            // //       <HotelChainItem key={index} hotelChainItem={hotelChainItem} />
-            // //     ))}
-            // //   </Fragment>
-            // );
+            return (
+              <Fragment>
+                {data.ordered_hotels.map((hotelItem, index) => (
+                  <HotelItem key={index} hotelItem={hotelItem} />
+                ))}
+              </Fragment>
+            );
           }}
         </Query>
       </Fragment>

@@ -21,7 +21,7 @@ const connectionString = {
 const pgp = require("pg-promise")();
 const db = pgp(connectionString);
 
-//HotelType
+//HotelChainType
 const HotelChainType = new GraphQLObjectType({
   name: "HotelChain",
   fields: () => ({
@@ -66,7 +66,6 @@ const HotelType = new GraphQLObjectType({
   fields: () => ({
     street_name: { type: GraphQLString },
     street_number: { type: GraphQLInt },
-    apt_number: { type: GraphQLInt },
     city: { type: GraphQLString },
     state_or_province: { type: GraphQLString },
     zip_or_postal_code: { type: GraphQLString },
@@ -74,7 +73,8 @@ const HotelType = new GraphQLObjectType({
     rating: { type: GraphQLInt },
     contact_email: { type: GraphQLString },
     manager_SSN_SIN: { type: GraphQLInt },
-    number_of_rooms: { type: GraphQLInt }
+    number_of_rooms: { type: GraphQLInt },
+    hotel_chain_name: { type: GraphQLString }
   })
 });
 
@@ -183,7 +183,9 @@ const RootQuery = new GraphQLObjectType({
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        SELECT * FROM t_hotel ORDER BY t_hotel.city;
+        SELECT * FROM t_hotel 
+        INNER JOIN t_hotel_chain ON t_hotel.hotel_chain_id = t_hotel_chain.id
+        ORDER BY t_hotel.city;
         `;
         return db
           .manyOrNone(query)
