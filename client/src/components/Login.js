@@ -28,13 +28,21 @@ const CUSTOMER_QUERY = gql`
 const EMP_QUERY = gql`
   query employeeQuery($username: String!, $emp_password: String!) {
     employee(username: $username, emp_password: $emp_password) {
+      ssn_sin
+      street_number
+      street_name
+      apt_number
+      city
+      state_or_province
+      zip_or_postal_code
       first_name
       middle_name
       last_name
-      ssn_sin
+      username
+      emp_password
+      emp_role
       hotel_contact_email
       hotel_chain_id
-      emp_role
     }
   }
 `;
