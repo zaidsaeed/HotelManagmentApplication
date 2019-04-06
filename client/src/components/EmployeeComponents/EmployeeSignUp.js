@@ -10,8 +10,8 @@ const ADD_EMPLOYEE = gql`
     $street_name: String
     $apt_number: Int
     $city: String
-    $state_province: String
-    $zip_postalcode: String
+    $state_or_province: String
+    $zip_or_postal_code: String
     $first_name: String
     $middle_name: String
     $last_name: String
@@ -24,8 +24,8 @@ const ADD_EMPLOYEE = gql`
       street_name: $street_name
       apt_number: $apt_number
       city: $city
-      state_province: $state_province
-      zip_postalcode: $zip_postalcode
+      state_or_province: $state_or_province
+      zip_or_postal_code: $zip_or_postal_code
       first_name: $first_name
       middle_name: $middle_name
       last_name: $last_name
@@ -98,8 +98,8 @@ class EmployeeSignUp extends Component {
                         street_name: this.state.street_name,
                         apt_number: parseInt(this.state.apt_number),
                         city: this.state.city,
-                        state_province: this.state.state_province,
-                        zip_postalcode: this.state.zip_postalcode,
+                        state_or_province: this.state.state_province,
+                        zip_or_postal_code: this.state.zip_postalcode,
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
@@ -112,14 +112,15 @@ class EmployeeSignUp extends Component {
                   >
                     <div className="form-group">
                       <input
-                        type="String"
+                        name="ssn_sin"
+                        maxLength="9"
                         className={classnames("form-control form-control-lg", {
                           "is-invalid": errors.name
                         })}
                         placeholder="SSN/SIN"
-                        name="ssn_sin"
                         value={this.state.ssn_sin}
                         onChange={this.onChange}
+                        type="Number"
                       />
                       <div class="invalid-feedback">{errors.email}</div>
                     </div>

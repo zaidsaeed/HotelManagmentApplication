@@ -87,8 +87,8 @@ const EmployeeType = new GraphQLObjectType({
     street_name: { type: GraphQLString },
     apt_number: { type: GraphQLInt },
     city: { type: GraphQLString },
-    state_province: { type: GraphQLString },
-    zip_postalcode: { type: GraphQLString },
+    state_or_province: { type: GraphQLString },
+    zip_or_postal_code: { type: GraphQLString },
     first_name: { type: GraphQLString },
     middle_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
@@ -548,8 +548,8 @@ const mutation = new GraphQLObjectType({
         street_name: { type: GraphQLString },
         apt_number: { type: GraphQLInt },
         city: { type: GraphQLString },
-        state_province: { type: GraphQLString },
-        zip_postalcode: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        zip_or_postal_code: { type: GraphQLString },
         first_name: { type: GraphQLString },
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
@@ -565,8 +565,8 @@ const mutation = new GraphQLObjectType({
           street_name,
           apt_number,
           city,
-          state_province,
-          zip_postalcode,
+          state_or_province,
+          zip_or_postal_code,
           first_name,
           middle_name,
           last_name,
@@ -578,8 +578,8 @@ const mutation = new GraphQLObjectType({
             '${args.street_name}',
             ${args.apt_number},
             '${args.city}',
-            '${args.state_province}',
-            '${args.zip_postalcode}',
+            '${args.state_or_province}',
+            '${args.zip_or_postal_code}',
             '${args.first_name}',
             '${args.middle_name}',
             '${args.last_name}',
@@ -592,8 +592,8 @@ const mutation = new GraphQLObjectType({
             street_name,
             apt_number,
             city,
-            state_province,
-            zip_postalcode,
+            state_or_province,
+            zip_or_postal_code,
             first_name,
             middle_name,
             last_name,
@@ -601,6 +601,7 @@ const mutation = new GraphQLObjectType({
             emp_password
           ;
         `;
+        console.log("Query", query);
         return db
           .one(query)
           .then(data => {

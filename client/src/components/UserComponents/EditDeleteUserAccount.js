@@ -77,6 +77,7 @@ class EditDeleteUserAccount extends Component {
         variables: { ssn_sin: this.state.ssn_sin }
       })
       .then(data => {
+        window.localStorage.clear();
         this.props.history.push("/signUp");
       })
       .catch(err => {

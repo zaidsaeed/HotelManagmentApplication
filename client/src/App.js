@@ -6,14 +6,14 @@ import "./App.css";
 import Hotels from "./components/Hotels";
 import HotelPage from "./components/HotelPage";
 import HotelChains from "./components/HotelChains";
-import SignUp from "./components/SignUp";
+import SignUp from "./components/UserComponents/SignUp";
 import Login from "./components/Login";
 import EmployeeDashboard from "./components/EmployeeDashboard";
-import EmployeeSignUp from "./components/EmployeeSignUp";
+import EmployeeSignUp from "./components/EmployeeComponents/EmployeeSignUp";
 import RoomTable from "./components/RoomTable";
 import HotelViews from "./components/HotelViews";
 import CreateRentingComponent from "./components/CreateRentingComponent";
-import EditDeleteUserAccount from "./components/EditDeleteUserAccount";
+import EditDeleteUserAccount from "./components/UserComponents/EditDeleteUserAccount";
 import AllHotels from "./components/AllHotels";
 
 const client = new ApolloClient({
