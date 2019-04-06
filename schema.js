@@ -32,6 +32,16 @@ const HotelChainType = new GraphQLObjectType({
   })
 });
 
+//AreaCountType
+const AreaCountType = new GraphQLObjectType({
+  name: "AreaCount",
+  fields: () => ({
+    city: { type: GraphQLString },
+    state_or_province: { type: GraphQLString },
+    count: { type: GraphQLInt }
+  })
+});
+
 //RoomNumber Type
 const RoomNumberType = new GraphQLObjectType({
   name: "RoomNumber",
@@ -186,6 +196,26 @@ const RootQuery = new GraphQLObjectType({
         SELECT * FROM t_hotel 
         INNER JOIN t_hotel_chain ON t_hotel.hotel_chain_id = t_hotel_chain.id
         ORDER BY t_hotel.city;
+        `;
+        return db
+          .manyOrNone(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    area_counts: {
+      type: GraphQLList(AreaCountType),
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        SELECT t_hotel.city, t_hotel.state_or_province, COUNT(t_hotel.city) from t_hotel
+        GROUP BY t_hotel.city, t_hotel.state_or_province
+        ORDER BY t_hotel.state_or_province, t_hotel.city;
         `;
         return db
           .manyOrNone(query)

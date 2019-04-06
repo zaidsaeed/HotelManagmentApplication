@@ -3,6 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Navbar from "./Navbar";
 import HotelItem from "./HotelItem";
+
 const ALL_HOTELS_QUERY = gql`
   query AllHotelsQuery {
     ordered_hotels {
@@ -20,6 +21,7 @@ const ALL_HOTELS_QUERY = gql`
     }
   }
 `;
+
 export default class HotelViews extends Component {
   render() {
     return (

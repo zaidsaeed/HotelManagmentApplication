@@ -122,7 +122,7 @@ export class Hotels extends Component {
       <Fragment>
         <Navbar />
         <h1 className="display-4 my-3">Hotels</h1>
-        <div class="container">
+        <div class="card border-primary mb-3 mx-5 px-4 py-3">
           <form noValidate onSubmit={this.onSubmit}>
             <div class="form-row">
               <div class="col">
