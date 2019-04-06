@@ -881,6 +881,41 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
+    addRoom: {
+      type: RoomType,
+      args: {
+        room_number: { type: GraphQLInt },
+        hotel_chain_id: { type: GraphQLInt },
+        hotel_contact_email: { type: GraphQLString },
+        price: { type: GraphQLInt },
+        room_view: { type: GraphQLString },
+        possible_bed_additions: { type: GraphQLInt },
+        capacity: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        insert into t_rooms
+        VALUES
+          (${args.room_number}, '${args.hotel_contact_email}', ${
+          args.hotel_chain_id
+        }, ${args.price}, '${args.room_view}', ${
+          args.possible_bed_additions
+        }, ${args.capacity})
+        RETURNING *;
+        `;
+        console.log("Query", query);
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     addRoomRenting: {
       type: RoomRentOrBookType,
       args: {
