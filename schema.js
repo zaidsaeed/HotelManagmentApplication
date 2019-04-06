@@ -40,6 +40,7 @@ const RoomNumberType = new GraphQLObjectType({
   })
 });
 
+//Customer Type
 const CustomerType = new GraphQLObjectType({
   name: "CustomerType",
   fields: () => ({
@@ -86,8 +87,8 @@ const EmployeeType = new GraphQLObjectType({
     street_name: { type: GraphQLString },
     apt_number: { type: GraphQLInt },
     city: { type: GraphQLString },
-    state_province: { type: GraphQLString },
-    zip_postalcode: { type: GraphQLString },
+    state_or_province: { type: GraphQLString },
+    zip_or_postal_code: { type: GraphQLString },
     first_name: { type: GraphQLString },
     middle_name: { type: GraphQLString },
     last_name: { type: GraphQLString },
@@ -484,8 +485,8 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
-    addEmployee: {
-      type: EmployeeType,
+    editCustomer: {
+      type: CustomerType,
       args: {
         ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
         street_number: { type: GraphQLInt },
@@ -494,6 +495,79 @@ const mutation = new GraphQLObjectType({
         city: { type: GraphQLString },
         state_province: { type: GraphQLString },
         zip_postalcode: { type: GraphQLString },
+        first_name: { type: GraphQLString },
+        middle_name: { type: GraphQLString },
+        last_name: { type: GraphQLString },
+        date_of_registration: { type: GraphQLString },
+        username: { type: GraphQLString },
+        cust_password: { type: GraphQLString }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+
+        update t_customer
+          set street_number = ${args.street_number},
+          street_name= '${args.street_name}',
+          apt_number=${args.apt_number},
+          city='${args.city}',
+          state_province='${args.state_province}',
+          zip_postalcode='${args.zip_postalcode}',
+          first_name='${args.first_name}',
+          middle_name='${args.middle_name}',
+          last_name='${args.last_name}',
+          username='${args.username}',
+          date_of_registration= '${args.date_of_registration}',
+          cust_password='${args.cust_password}'
+          where ssn_sin = '${args.ssn_sin}'
+          RETURNING
+            *
+          ;
+        `;
+        return db
+          .one(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    deleteCustomer: {
+      type: GraphQLBoolean,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        delete from t_booking where cust_ssn_sin = '${args.ssn_sin}';
+        delete from t_renting where cust_ssn_sin = '${args.ssn_sin}'; 
+        delete from t_customer where ssn_sin = '${args.ssn_sin}';
+        `;
+        return db
+          .none(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
+    addEmployee: {
+      type: EmployeeType,
+      args: {
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
+        street_number: { type: GraphQLInt },
+        street_name: { type: GraphQLString },
+        apt_number: { type: GraphQLInt },
+        city: { type: GraphQLString },
+        state_or_province: { type: GraphQLString },
+        zip_or_postal_code: { type: GraphQLString },
         first_name: { type: GraphQLString },
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
@@ -509,8 +583,8 @@ const mutation = new GraphQLObjectType({
           street_name,
           apt_number,
           city,
-          state_province,
-          zip_postalcode,
+          state_or_province,
+          zip_or_postal_code,
           first_name,
           middle_name,
           last_name,
@@ -522,8 +596,8 @@ const mutation = new GraphQLObjectType({
             '${args.street_name}',
             ${args.apt_number},
             '${args.city}',
-            '${args.state_province}',
-            '${args.zip_postalcode}',
+            '${args.state_or_province}',
+            '${args.zip_or_postal_code}',
             '${args.first_name}',
             '${args.middle_name}',
             '${args.last_name}',
@@ -536,8 +610,8 @@ const mutation = new GraphQLObjectType({
             street_name,
             apt_number,
             city,
-            state_province,
-            zip_postalcode,
+            state_or_province,
+            zip_or_postal_code,
             first_name,
             middle_name,
             last_name,
@@ -545,6 +619,7 @@ const mutation = new GraphQLObjectType({
             emp_password
           ;
         `;
+        console.log("Query", query);
         return db
           .one(query)
           .then(data => {

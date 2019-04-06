@@ -1,63 +1,92 @@
 import React, { Component } from "react";
+import classnames from "classnames";
 import gql from "graphql-tag";
 import { Mutation, graphql } from "react-apollo";
-import classnames from "classnames";
 
-const ADD_CUSTOMER = gql`
+const ADD_EMPLOYEE = gql`
   mutation(
     $ssn_sin: String!
     $street_number: Int
     $street_name: String
     $apt_number: Int
     $city: String
-    $state_province: String
-    $zip_postalcode: String
+    $state_or_province: String
+    $zip_or_postal_code: String
     $first_name: String
     $middle_name: String
     $last_name: String
-    $date_of_registration: String
     $username: String
-    $cust_password: String
+    $emp_password: String
   ) {
-    addCustomer(
+    addEmployee(
       ssn_sin: $ssn_sin
       street_number: $street_number
       street_name: $street_name
       apt_number: $apt_number
       city: $city
-      state_province: $state_province
-      zip_postalcode: $zip_postalcode
+      state_or_province: $state_or_province
+      zip_or_postal_code: $zip_or_postal_code
       first_name: $first_name
       middle_name: $middle_name
       last_name: $last_name
-      date_of_registration: $date_of_registration
       username: $username
-      cust_password: $cust_password
+      emp_password: $emp_password
     ) {
       ssn_sin
     }
   }
 `;
 
-export default class EditDeleteUserAccount extends Component {
+class EmployeeSignUp extends Component {
   constructor() {
     super();
-    const user = JSON.parse(window.localStorage.getItem("user")).customer;
-    this.state = { ...user, errors: {} };
-    console.log("this.state", this.state);
+    this.state = {
+      ssn_sin: "",
+      street_number: "",
+      street_name: "",
+      apt_number: "",
+      city: "",
+      state_province: "",
+      zip_postalcode: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      username: "",
+      emp_password: "",
+      errors: {}
+    };
   }
+
+  // componentDidMount() {
+  //   if (this.props.auth.isAuthenticated) {
+  //     this.props.history.push("/dashboard");
+  //   }
+  // }
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.errors) {
+  //     this.setState({ errors: nextProps.errors });
+  //   }
+  // }
+
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  };
+
   render() {
-    const { errors } = { ...this.state };
+    const { errors } = this.state;
     return (
-      <Mutation mutation={ADD_CUSTOMER}>
-        {(addCustomer, { data }) => (
+      <Mutation mutation={ADD_EMPLOYEE}>
+        {(addEmployee, { data }) => (
           <div className="register">
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
                   <h1 className="display-4 text-center">Sign Up</h1>
                   <p className="lead text-center">
-                    Edit your HotelsApp account
+                    Create your Employee HotelsApp account
                   </p>
                   <form
                     noValidate
@@ -69,29 +98,29 @@ export default class EditDeleteUserAccount extends Component {
                         street_name: this.state.street_name,
                         apt_number: parseInt(this.state.apt_number),
                         city: this.state.city,
-                        state_province: this.state.state_province,
-                        zip_postalcode: this.state.zip_postalcode,
+                        state_or_province: this.state.state_province,
+                        zip_or_postal_code: this.state.zip_postalcode,
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
-                        date_of_registration: new Date(),
                         username: this.state.username,
-                        cust_password: this.state.cust_password
+                        emp_password: this.state.emp_password
                       };
-
-                      addCustomer({ variables: newUser });
+                      console.log("newEmployee", newUser);
+                      addEmployee({ variables: newUser });
                     }}
                   >
                     <div className="form-group">
                       <input
-                        type="String"
+                        name="ssn_sin"
+                        maxLength="9"
                         className={classnames("form-control form-control-lg", {
                           "is-invalid": errors.name
                         })}
                         placeholder="SSN/SIN"
-                        name="ssn_sin"
                         value={this.state.ssn_sin}
                         onChange={this.onChange}
+                        type="Number"
                       />
                       <div class="invalid-feedback">{errors.email}</div>
                     </div>
@@ -232,8 +261,8 @@ export default class EditDeleteUserAccount extends Component {
                           "is-invalid": errors.password2
                         })}
                         placeholder="Password:"
-                        name="cust_password"
-                        value={this.state.cust_password}
+                        name="emp_password"
+                        value={this.state.emp_password}
                         onChange={this.onChange}
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
@@ -252,3 +281,5 @@ export default class EditDeleteUserAccount extends Component {
     );
   }
 }
+
+export default graphql(ADD_EMPLOYEE)(EmployeeSignUp);

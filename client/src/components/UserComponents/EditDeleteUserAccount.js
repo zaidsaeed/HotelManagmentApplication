@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import classnames from "classnames";
 import gql from "graphql-tag";
-import { Mutation, graphql } from "react-apollo";
+import { Mutation, graphql, withApollo } from "react-apollo";
+import classnames from "classnames";
 
-const ADD_EMPLOYEE = gql`
+const EDIT_CUSTOMER = gql`
   mutation(
     $ssn_sin: String!
     $street_number: Int
@@ -15,10 +15,11 @@ const ADD_EMPLOYEE = gql`
     $first_name: String
     $middle_name: String
     $last_name: String
+    $date_of_registration: String
     $username: String
-    $emp_password: String
+    $cust_password: String
   ) {
-    addEmployee(
+    editCustomer(
       ssn_sin: $ssn_sin
       street_number: $street_number
       street_name: $street_name
@@ -29,64 +30,79 @@ const ADD_EMPLOYEE = gql`
       first_name: $first_name
       middle_name: $middle_name
       last_name: $last_name
+      date_of_registration: $date_of_registration
       username: $username
-      emp_password: $emp_password
+      cust_password: $cust_password
     ) {
       ssn_sin
+      street_number
+      street_name
+      apt_number
+      city
+      state_province
+      zip_postalcode
+      first_name
+      middle_name
+      last_name
+      username
+      cust_password
     }
   }
 `;
 
-class EmployeeSignUp extends Component {
+const DELETE_CUSTOMER = gql`
+  mutation($ssn_sin: String!) {
+    deleteCustomer(ssn_sin: $ssn_sin)
+  }
+`;
+
+class EditDeleteUserAccount extends Component {
   constructor() {
     super();
-    this.state = {
-      ssn_sin: "",
-      street_number: "",
-      street_name: "",
-      apt_number: "",
-      city: "",
-      state_province: "",
-      zip_postalcode: "",
-      first_name: "",
-      middle_name: "",
-      last_name: "",
-      username: "",
-      emp_password: "",
-      errors: {}
-    };
+    const user = JSON.parse(window.localStorage.getItem("user")).customer;
+    this.state = { ...user, errors: {} };
+    console.log("this.state", this.state);
   }
-
-  // componentDidMount() {
-  //   if (this.props.auth.isAuthenticated) {
-  //     this.props.history.push("/dashboard");
-  //   }
-  // }
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.errors) {
-  //     this.setState({ errors: nextProps.errors });
-  //   }
-  // }
-
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
 
+  deleteContact = () => {
+    console.log("this.props.client", this.props);
+    this.props.client
+      .mutate({
+        mutation: DELETE_CUSTOMER,
+        variables: { ssn_sin: this.state.ssn_sin }
+      })
+      .then(data => {
+        window.localStorage.clear();
+        this.props.history.push("/signUp");
+      })
+      .catch(err => {
+        console.log("err", err);
+        this.setState({
+          errors: {
+            userName: "Username is incorrect",
+            password: "Password is incorrect"
+          }
+        });
+      });
+  };
+
   render() {
-    const { errors } = this.state;
+    const { errors } = { ...this.state };
     return (
-      <Mutation mutation={ADD_EMPLOYEE}>
-        {(addEmployee, { data }) => (
+      <Mutation mutation={EDIT_CUSTOMER}>
+        {(editCustomer, { data }) => (
           <div className="register">
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
                   <h1 className="display-4 text-center">Sign Up</h1>
                   <p className="lead text-center">
-                    Create your Employee HotelsApp account
+                    Edit your HotelsApp account
                   </p>
                   <form
                     noValidate
@@ -103,11 +119,12 @@ class EmployeeSignUp extends Component {
                         first_name: this.state.first_name,
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
+                        date_of_registration: new Date(),
                         username: this.state.username,
-                        emp_password: this.state.emp_password
+                        cust_password: this.state.cust_password
                       };
-                      console.log("newEmployee", newUser);
-                      addEmployee({ variables: newUser });
+
+                      editCustomer({ variables: newUser });
                     }}
                   >
                     <div className="form-group">
@@ -120,6 +137,7 @@ class EmployeeSignUp extends Component {
                         name="ssn_sin"
                         value={this.state.ssn_sin}
                         onChange={this.onChange}
+                        readOnly
                       />
                       <div class="invalid-feedback">{errors.email}</div>
                     </div>
@@ -260,16 +278,28 @@ class EmployeeSignUp extends Component {
                           "is-invalid": errors.password2
                         })}
                         placeholder="Password:"
-                        name="emp_password"
-                        value={this.state.emp_password}
+                        name="cust_password"
+                        value={this.state.cust_password}
                         onChange={this.onChange}
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
                     </div>
-                    <input
-                      type="submit"
-                      className="btn btn-info btn-block mt-4"
-                    />
+                    <div style={{ display: "flex" }}>
+                      <button
+                        type="submit"
+                        className="btn btn-block mt-4 btn-primary"
+                        style={{ marginRight: "5px" }}
+                      >
+                        Edit Contact
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-info btn-block mt-4 btn-danger"
+                        onClick={this.deleteContact}
+                      >
+                        Delete Contact
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
@@ -281,4 +311,4 @@ class EmployeeSignUp extends Component {
   }
 }
 
-export default graphql(ADD_EMPLOYEE)(EmployeeSignUp);
+export default withApollo(EditDeleteUserAccount);
