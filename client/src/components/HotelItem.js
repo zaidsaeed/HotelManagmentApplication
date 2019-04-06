@@ -1,10 +1,21 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class HotelView extends Component {
   render() {
     console.log(this.props);
 
     const { hotelItem } = this.props;
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    if (user && user.employee) {
+      if (user.employee.emp_role === "Manager") {
+        var isManager = true;
+      } else {
+        var isManager = false;
+      }
+    } else {
+      var isManager = false;
+    }
 
     return (
       <div>
@@ -33,6 +44,22 @@ export default class HotelView extends Component {
                     {hotelItem.zip_or_postal_code}
                   </p>
                   <button class="btn btn-primary">View Rooms</button>
+                  {isManager ? (
+                    <Link
+                      to={{
+                        pathname: "/editHotelComponent",
+                        state: {
+                          hotelItem: hotelItem
+                        }
+                      }}
+                    >
+                      <button class="btn btn-info" style={{ float: "right" }}>
+                        Edit Hotel
+                      </button>
+                    </Link>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

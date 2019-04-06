@@ -82,7 +82,7 @@ const HotelType = new GraphQLObjectType({
     hotel_chain_id: { type: GraphQLInt },
     rating: { type: GraphQLInt },
     contact_email: { type: GraphQLString },
-    manager_SSN_SIN: { type: GraphQLInt },
+    manager_ssn_sin: { type: GraphQLInt },
     number_of_rooms: { type: GraphQLInt },
     hotel_chain_name: { type: GraphQLString }
   })

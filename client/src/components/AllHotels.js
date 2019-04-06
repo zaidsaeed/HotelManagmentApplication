@@ -15,7 +15,7 @@ const ALL_HOTELS_QUERY = gql`
       hotel_chain_id
       rating
       contact_email
-      manager_SSN_SIN
+      manager_ssn_sin
       number_of_rooms
       hotel_chain_name
     }
@@ -36,7 +36,7 @@ export default class HotelViews extends Component {
             if (error) {
               console.log(error);
             }
-            console.log(data);
+            console.log("DATA", data);
 
             return (
               <Fragment>

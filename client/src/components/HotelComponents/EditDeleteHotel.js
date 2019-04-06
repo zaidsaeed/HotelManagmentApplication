@@ -1,52 +1,29 @@
 import React, { Component } from "react";
 import classnames from "classnames";
 import gql from "graphql-tag";
-import { Mutation, graphql } from "react-apollo";
+import { Mutation, graphql, withApollo } from "react-apollo";
 
-const ADD_HOTEL = gql`
-  mutation(
-    $street_name: String
-    $street_number: Int
-    $city: String
-    $state_or_province: String
-    $zip_or_postal_code: String
-    $hotel_chain_id: Int
-    $rating: Int
-    $contact_email: String
-    $manager_ssn_sin: Int
-    $number_of_rooms: Int
-  ) {
-    addHotel(
-      street_name: $street_name
-      street_number: $street_number
-      city: $city
-      state_or_province: $state_or_province
-      zip_or_postal_code: $zip_or_postal_code
-      hotel_chain_id: $hotel_chain_id
-      rating: $rating
-      contact_email: $contact_email
-      manager_ssn_sin: $manager_ssn_sin
-      number_of_rooms: $number_of_rooms
-    ) {
-      zip_or_postal_code
-    }
+const DELETE_CUSTOMER = gql`
+  mutation($ssn_sin: String!) {
+    deleteCustomer(ssn_sin: $ssn_sin)
   }
 `;
 
-class CreateHotelComponent extends Component {
-  constructor() {
-    super();
+export default class EditDeleteHotel extends Component {
+  constructor(props) {
+    super(props);
+    const { hotelItem } = props.location.state;
     this.state = {
-      street_name: "",
-      street_number: 0,
-      city: "",
-      state_or_province: "",
-      zip_or_postal_code: "",
-      hotel_chain_id: 0,
-      rating: 0,
-      contact_email: "",
-      manager_ssn_sin: 0,
-      number_of_rooms: 0,
+      street_name: hotelItem.street_name,
+      street_number: hotelItem.street_number,
+      city: hotelItem.city,
+      state_or_province: hotelItem.state_or_province,
+      zip_or_postal_code: hotelItem.zip_or_postal_code,
+      hotel_chain_id: hotelItem.hotel_chain_id,
+      rating: hotelItem.rating,
+      contact_email: hotelItem.contact_email,
+      manager_ssn_sin: hotelItem.manager_ssn_sin,
+      number_of_rooms: hotelItem.number_of_rooms,
       errors: {}
     };
   }
@@ -60,8 +37,8 @@ class CreateHotelComponent extends Component {
   render() {
     const { errors } = this.state;
     return (
-      <Mutation mutation={ADD_HOTEL}>
-        {(addHotel, data) => (
+      <Mutation mutation={DELETE_CUSTOMER}>
+        {(editHotel, data) => (
           <div>
             <div className="register">
               <div className="container">
@@ -81,7 +58,7 @@ class CreateHotelComponent extends Component {
                           manager_ssn_sin: parseInt(this.state.manager_ssn_sin),
                           number_of_rooms: parseInt(this.state.number_of_rooms)
                         };
-                        addHotel({ variables: newHotel });
+                        // editHotel({ variables: newHotel });
                       }}
                     >
                       <div className="form-group">
@@ -266,5 +243,3 @@ class CreateHotelComponent extends Component {
     );
   }
 }
-
-export default graphql(ADD_HOTEL)(CreateHotelComponent);
