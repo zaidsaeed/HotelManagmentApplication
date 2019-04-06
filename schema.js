@@ -954,6 +954,33 @@ const mutation = new GraphQLObjectType({
           });
       }
     },
+    deleteRoom: {
+      type: GraphQLBoolean,
+      args: {
+        hotel_chain_id: { type: GraphQLInt },
+        hotel_contact_email: { type: GraphQLString },
+        room_number: { type: GraphQLInt }
+      },
+      resolve(parentValue, args) {
+        const query = `
+        SET search_path = 'hotelsService';
+        delete from t_rooms where hotel_contact_email = '${
+          args.hotel_contact_email
+        }' and hotel_chain_id = ${args.hotel_chain_id} and room_number = ${
+          args.room_number
+        };
+        `;
+        return db
+          .none(query)
+          .then(data => {
+            return data;
+          })
+          .catch(err => {
+            console.log("error", err);
+            return "The error is", err;
+          });
+      }
+    },
     addRoomRenting: {
       type: RoomRentOrBookType,
       args: {
