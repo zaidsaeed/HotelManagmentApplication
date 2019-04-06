@@ -162,13 +162,13 @@ class RoomTable extends Component {
                   </thead>
                   <tbody>{tableRows}</tbody>
                 </table>
-                <Link to="/signUp">
+                <Link to="/createRenting">
                   <button
                     type="button"
                     style={{ float: "right", marginRight: "13%" }}
                     class="btn btn-success"
                   >
-                    Add Booking
+                    Add Renting
                   </button>
                 </Link>
               </Fragment>

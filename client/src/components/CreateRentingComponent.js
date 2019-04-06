@@ -29,8 +29,10 @@ class CreateRentingComponent extends Component {
     super();
     this.state = {
       room_number: 0,
-      hotel_contact_email: "",
-      hotel_chain_id: 0,
+      hotel_contact_email: JSON.parse(window.localStorage.getItem("user"))
+        .employee.hotel_contact_email,
+      hotel_chain_id: JSON.parse(window.localStorage.getItem("user")).employee
+        .hotel_chain_id,
       start_date: "",
       end_date: "",
       cust_ssn_sin: ""
@@ -65,6 +67,7 @@ class CreateRentingComponent extends Component {
                         hotel_chain_id: parseInt(this.state.hotel_chain_id)
                       };
                       addRoomRenting({ variables: newRenting });
+                      this.props.history.push("/employeeDashboard");
                     }}
                   >
                     <div className="form-group">
