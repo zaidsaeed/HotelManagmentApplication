@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class HotelView extends Component {
   render() {
@@ -24,15 +25,33 @@ export default class HotelView extends Component {
                     {hotelItem.city} {hotelItem.hotel_chain_name}
                   </h2>
                   <h4 class="card-header">Star Rating: {hotelItem.rating}</h4>
-                  <p class="card-text">
-                    Size of hotel: {hotelItem.number_of_rooms} rooms
-                  </p>
+                  <div class="row py-2">
+                    <div class="col-md-4">
+                      <p class="card-text">
+                        Size of hotel: {hotelItem.number_of_rooms} rooms
+                      </p>
+                    </div>{" "}
+                    <div class="col-md-6">
+                      <p class="card-text">
+                        Contact at: {hotelItem.contact_email}
+                      </p>
+                    </div>
+                  </div>
                   <p class="card-text">
                     {hotelItem.street_number} {hotelItem.street_name},{" "}
                     {hotelItem.city}, {hotelItem.state_or_province},{" "}
                     {hotelItem.zip_or_postal_code}
                   </p>
-                  <button class="btn btn-primary">View Rooms</button>
+                  <Link
+                    to={{
+                      pathname: "/rooms",
+                      state: {
+                        hotelItem: hotelItem
+                      }
+                    }}
+                  >
+                    <button class="btn btn-primary">View Rooms</button>
+                  </Link>
                 </div>
               </div>
             </div>
