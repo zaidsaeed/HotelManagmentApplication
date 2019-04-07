@@ -125,6 +125,7 @@ class EditDeleteUserAccount extends Component {
                       };
 
                       editCustomer({ variables: newUser });
+                      this.props.history.push("/");
                     }}
                   >
                     <div className="form-group">
