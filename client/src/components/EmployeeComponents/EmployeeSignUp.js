@@ -17,6 +17,9 @@ const ADD_EMPLOYEE = gql`
     $last_name: String
     $username: String
     $emp_password: String
+    $emp_role: String
+    $hotel_contact_email: String
+    $hotel_chain_id: Int
   ) {
     addEmployee(
       ssn_sin: $ssn_sin
@@ -31,6 +34,9 @@ const ADD_EMPLOYEE = gql`
       last_name: $last_name
       username: $username
       emp_password: $emp_password
+      emp_role: $emp_role
+      hotel_contact_email: $hotel_contact_email
+      hotel_chain_id: $hotel_chain_id
     ) {
       ssn_sin
     }
@@ -40,6 +46,8 @@ const ADD_EMPLOYEE = gql`
 class EmployeeSignUp extends Component {
   constructor() {
     super();
+    const employee = JSON.parse(window.localStorage.getItem("user")).employee;
+    debugger;
     this.state = {
       ssn_sin: "",
       street_number: "",
@@ -53,6 +61,9 @@ class EmployeeSignUp extends Component {
       last_name: "",
       username: "",
       emp_password: "",
+      emp_role: "",
+      hotel_chain_id: employee.hotel_chain_id,
+      hotel_contact_email: employee.hotel_contact_email,
       errors: {}
     };
   }
@@ -104,7 +115,10 @@ class EmployeeSignUp extends Component {
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
                         username: this.state.username,
-                        emp_password: this.state.emp_password
+                        emp_password: this.state.emp_password,
+                        hotel_chain_id: this.state.hotel_chain_id,
+                        hotel_contact_email: this.state.hotel_contact_email,
+                        emp_role: this.state.emp_role
                       };
                       console.log("newEmployee", newUser);
                       addEmployee({ variables: newUser });
@@ -268,6 +282,51 @@ class EmployeeSignUp extends Component {
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
                     </div>
+
+                    <div className="form-group">
+                      <input
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Employee Role:"
+                        name="emp_role"
+                        value={this.state.emp_role}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        readOnly
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Hotel Contact Email:"
+                        name="hotel_contact_email"
+                        value={this.state.hotel_contact_email}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        readOnly
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Hotel Chain Id:"
+                        name="hotel_chain_id"
+                        value={this.state.hotel_chain_id}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
                     <input
                       type="submit"
                       className="btn btn-info btn-block mt-4"

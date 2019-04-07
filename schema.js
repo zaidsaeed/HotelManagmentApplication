@@ -641,7 +641,10 @@ const mutation = new GraphQLObjectType({
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
         username: { type: GraphQLString },
-        emp_password: { type: GraphQLString }
+        emp_password: { type: GraphQLString },
+        emp_role: { type: GraphQLString },
+        hotel_contact_email: { type: GraphQLString },
+        hotel_chain_id: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
         const query = `
@@ -673,20 +676,12 @@ const mutation = new GraphQLObjectType({
             '${args.username}',
             '${args.emp_password}'
           )
-          RETURNING
-            ssn_sin,
-            street_number,
-            street_name,
-            apt_number,
-            city,
-            state_or_province,
-            zip_or_postal_code,
-            first_name,
-            middle_name,
-            last_name,
-            username,
-            emp_password
           ;
+          INSERT into t_works_at VALUES (${args.ssn_sin}, '${
+          args.emp_role
+        }', '${args.hotel_contact_email}', ${args.hotel_chain_id})
+          RETURNING
+          emp_ssn_sin;
         `;
         console.log("Query", query);
         return db
