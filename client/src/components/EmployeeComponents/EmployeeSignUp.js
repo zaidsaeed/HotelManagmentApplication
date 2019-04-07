@@ -108,6 +108,7 @@ class EmployeeSignUp extends Component {
                       };
                       console.log("newEmployee", newUser);
                       addEmployee({ variables: newUser });
+                      this.props.history.push("/employeeDashboard");
                     }}
                   >
                     <div className="form-group">

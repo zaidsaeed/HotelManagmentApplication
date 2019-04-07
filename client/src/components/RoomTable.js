@@ -27,10 +27,14 @@ class RoomTable extends Component {
       date.setDate(date.getDate() + 1);
       count = count + 1;
     }
-
+    const employee = JSON.parse(window.localStorage.getItem("user")).employee;
+    debugger;
     return (
       <div>
-        <Query query={ROOM_NUMBERS_QUERY} variables={{ emp_ssn_sin: 1 }}>
+        <Query
+          query={ROOM_NUMBERS_QUERY}
+          variables={{ emp_ssn_sin: employee.ssn_sin }}
+        >
           {({ loading, error, data }) => {
             if (loading) {
               return <h4> Loading </h4>;
