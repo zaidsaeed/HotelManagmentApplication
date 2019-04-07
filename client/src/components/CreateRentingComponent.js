@@ -10,6 +10,7 @@ const ADD_ROOM_RENTING = gql`
     $start_date: String
     $end_date: String
     $cust_ssn_sin: String
+    $amount_paid: Int
   ) {
     addRoomRenting(
       room_number: $room_number
@@ -18,6 +19,7 @@ const ADD_ROOM_RENTING = gql`
       start_date: $start_date
       end_date: $end_date
       cust_ssn_sin: $cust_ssn_sin
+      amount_paid: $amount_paid
     ) {
       room_number
     }
@@ -64,7 +66,8 @@ class CreateRentingComponent extends Component {
                       const newRenting = {
                         ...this.state,
                         room_number: parseInt(this.state.room_number),
-                        hotel_chain_id: parseInt(this.state.hotel_chain_id)
+                        hotel_chain_id: parseInt(this.state.hotel_chain_id),
+                        amount_paid: parseInt(this.state.amount_paid)
                       };
                       addRoomRenting({ variables: newRenting });
                       this.props.history.push("/employeeDashboard");
@@ -167,6 +170,24 @@ class CreateRentingComponent extends Component {
                             placeholder="Customer SSN/SIN:"
                             name="cust_ssn_sin"
                             value={this.state.cust_ssn_sin}
+                            onChange={this.onChange}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="form-group">
+                      <div class="form-group row">
+                        <label class="col-md-3 col-form-label">
+                          Amount Paid:
+                        </label>
+                        <div class="col-md-9">
+                          <input
+                            type="String"
+                            className={"form-control form-control-lg"}
+                            placeholder="Amount Paid:"
+                            name="amount_paid"
+                            value={this.state.amount_paid}
                             onChange={this.onChange}
                           />
                         </div>

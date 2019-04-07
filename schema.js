@@ -1000,16 +1000,19 @@ const mutation = new GraphQLObjectType({
         hotel_chain_id: { type: GraphQLInt },
         start_date: { type: GraphQLString },
         end_date: { type: GraphQLString },
-        cust_ssn_sin: { type: GraphQLString }
+        cust_ssn_sin: { type: GraphQLString },
+        amount_paid: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
-        insert into t_renting(room_number, hotel_contact_email, hotel_chain_id, start_date, end_date, cust_ssn_sin)
+        insert into t_renting(room_number, hotel_contact_email, hotel_chain_id, start_date, end_date, cust_ssn_sin, amount_paid)
         VALUES
         ('${args.room_number}', '${args.hotel_contact_email}', ${
           args.hotel_chain_id
-        }, '${args.start_date}', '${args.end_date}', ${args.cust_ssn_sin})
+        }, '${args.start_date}', '${args.end_date}', ${args.cust_ssn_sin}, ${
+          args.amount_paid
+        })
         RETURNING
         room_number,
         hotel_contact_email,
