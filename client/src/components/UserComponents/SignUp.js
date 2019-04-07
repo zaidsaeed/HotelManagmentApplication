@@ -109,8 +109,9 @@ class Register extends Component {
                         username: this.state.username,
                         cust_password: this.state.cust_password
                       };
-                   
+
                       addCustomer({ variables: newUser });
+                      this.props.history.push("/");
                     }}
                   >
                     <div className="form-group">
