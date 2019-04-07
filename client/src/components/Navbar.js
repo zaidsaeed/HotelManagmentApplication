@@ -90,6 +90,17 @@ export default class Navbar extends Component {
             </i>
           </Link>
         </li>
+        <li className="nav-item" id="account_circle">
+          <Link to="/editDeleteEmployeeAccount">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Account Settings"
+            >
+              account_circle
+            </i>
+          </Link>
+        </li>
         {logOutBtn}
       </ul>
     );
@@ -102,6 +113,17 @@ export default class Navbar extends Component {
             Employee Dashboard
           </Link>
         </li>{" "}
+        <li className="nav-item" id="account_circle">
+          <Link to="/editDeleteEmployeeAccount">
+            <i
+              style={{ hover: "pointer" }}
+              className="nav-link material-icons"
+              title="Account Settings"
+            >
+              account_circle
+            </i>
+          </Link>
+        </li>
         <li className="nav-item">
           <Link to="/editRentingComponent" className="nav-link" href="#">
             Log Payment

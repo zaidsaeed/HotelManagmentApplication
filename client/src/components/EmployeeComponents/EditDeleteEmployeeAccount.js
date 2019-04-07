@@ -17,6 +17,9 @@ const EDIT_EMPLOYEE = gql`
     $last_name: String
     $username: String
     $emp_password: String
+    $emp_role: String
+    $hotel_contact_email: String
+    $hotel_chain_id: Int
   ) {
     editEmployee(
       ssn_sin: $ssn_sin
@@ -31,26 +34,26 @@ const EDIT_EMPLOYEE = gql`
       last_name: $last_name
       username: $username
       emp_password: $emp_password
+      emp_role: $emp_role
+      hotel_contact_email: $hotel_contact_email
+      hotel_chain_id: $hotel_chain_id
     ) {
-      ssn_sin
-      street_number
-      street_name
-      apt_number
-      city
-      state_or_province
-      zip_or_postal_code
-      first_name
-      middle_name
-      last_name
-      username
-      emp_password
+      emp_role
     }
   }
 `;
 
 const DELETE_EMPLOYEE = gql`
-  mutation($ssn_sin: String!) {
-    deleteEmployee(ssn_sin: $ssn_sin)
+  mutation(
+    $ssn_sin: String!
+    $hotel_chain_id: Int!
+    $hotel_contact_email: String!
+  ) {
+    deleteEmployee(
+      ssn_sin: $ssn_sin
+      hotel_chain_id: $hotel_chain_id
+      hotel_contact_email: $hotel_contact_email
+    )
   }
 `;
 
@@ -63,11 +66,21 @@ class EditDeleteEmployeeAccount extends Component {
   }
 
   deleteContact = () => {
-    console.log("this.props.client", this.props);
+    const objectTOSEND = {
+      ssn_sin: this.state.ssn_sin.toString(),
+      hotel_chain_id: parseInt(this.state.hotel_chain_id),
+      hotel_contact_email: this.state.hotel_contact_email
+    };
+    console.log("ib", objectTOSEND);
+    debugger;
     this.props.client
       .mutate({
         mutation: DELETE_EMPLOYEE,
-        variables: { ssn_sin: this.state.ssn_sin.toString() }
+        variables: {
+          ssn_sin: this.state.ssn_sin.toString(),
+          hotel_chain_id: parseInt(this.state.hotel_chain_id),
+          hotel_contact_email: this.state.hotel_contact_email
+        }
       })
       .then(data => {
         window.localStorage.clear();
@@ -119,10 +132,14 @@ class EditDeleteEmployeeAccount extends Component {
                         middle_name: this.state.middle_name,
                         last_name: this.state.last_name,
                         username: this.state.username,
-                        emp_password: this.state.emp_password
+                        emp_password: this.state.emp_password,
+                        hotel_chain_id: parseInt(this.state.hotel_chain_id),
+                        hotel_contact_email: this.state.hotel_contact_email,
+                        emp_role: this.state.emp_role
                       };
                       console.log("newEmployee", newUser);
                       editEmployee({ variables: newUser });
+                      this.props.history.push("/logIn");
                     }}
                   >
                     <div className="form-group">
@@ -283,6 +300,51 @@ class EditDeleteEmployeeAccount extends Component {
                       />
                       <div class="invalid-feedback">{errors.password2}</div>
                     </div>
+
+                    <div className="form-group">
+                      <input
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Employee Role:"
+                        name="emp_role"
+                        value={this.state.emp_role}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        readOnly
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Hotel Contact Email:"
+                        name="hotel_contact_email"
+                        value={this.state.hotel_contact_email}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
+                    <div className="form-group">
+                      <input
+                        readOnly
+                        type="String"
+                        className={classnames("form-control form-control-lg", {
+                          "is-invalid": errors.password2
+                        })}
+                        placeholder="Hotel Chain ID:"
+                        name="hotel_chain_id"
+                        value={this.state.hotel_chain_id}
+                        onChange={this.onChange}
+                      />
+                      <div class="invalid-feedback">{errors.password2}</div>
+                    </div>
+
                     <div style={{ display: "flex" }}>
                       <button
                         type="submit"

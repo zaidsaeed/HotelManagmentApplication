@@ -710,7 +710,10 @@ const mutation = new GraphQLObjectType({
         middle_name: { type: GraphQLString },
         last_name: { type: GraphQLString },
         username: { type: GraphQLString },
-        emp_password: { type: GraphQLString }
+        emp_password: { type: GraphQLString },
+        emp_role: { type: GraphQLString },
+        hotel_contact_email: { type: GraphQLString },
+        hotel_chain_id: { type: GraphQLInt }
       },
       resolve(parentValue, args) {
         const query = `
@@ -728,10 +731,15 @@ const mutation = new GraphQLObjectType({
           last_name = '${args.last_name}',
           username = '${args.username}',
           emp_password = '${args.emp_password}'
-        where ssn_sin = ${args.ssn_sin}
-          RETURNING
-            *
-          ;
+        where ssn_sin = ${args.ssn_sin};
+        update t_works_at
+        set
+          emp_role = '${args.emp_role}'
+        where
+          emp_ssn_sin = ${args.ssn_sin} and hotel_chain_id = ${
+          args.hotel_chain_id
+        } and hotel_contact_email = '${args.hotel_contact_email}'
+        RETURNING emp_role;
         `;
         console.log("Query", query);
         return db
@@ -749,14 +757,23 @@ const mutation = new GraphQLObjectType({
     deleteEmployee: {
       type: GraphQLBoolean,
       args: {
-        ssn_sin: { type: new GraphQLNonNull(GraphQLString) }
+        ssn_sin: { type: new GraphQLNonNull(GraphQLString) },
+        hotel_chain_id: { type: new GraphQLNonNull(GraphQLInt) },
+        hotel_contact_email: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parentValue, args) {
+        console.log(args);
         const query = `
         SET search_path = 'hotelsService';
+        delete from t_works_at where emp_ssn_sin = ${
+          args.ssn_sin
+        } and hotel_contact_email = '${
+          args.hotel_contact_email
+        }' and hotel_chain_id = ${args.hotel_chain_id};
         delete from t_hotel where manager_ssn_sin = '${args.ssn_sin}';
         delete from t_employee where ssn_sin = '${args.ssn_sin}';
         `;
+        console.log("Query", query);
         return db
           .none(query)
           .then(data => {
