@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 const ROOM_QUERY = gql`
   query RoomQuery($contact_email: String) {
@@ -55,7 +56,16 @@ export default class HotelViews extends Component {
                   <div class="col-md-2">{room.room_view}</div>
                   <div class="col-md-2">{room.possible_bed_additions}</div>{" "}
                   <div class="col-md-2">
-                    <button />
+                    <Link
+                      to={{
+                        pathname: "/editOrDeleteRoom",
+                        state: {
+                          room: room
+                        }
+                      }}
+                    >
+                      <button className="btn btn-primary">Edit Room</button>
+                    </Link>
                   </div>{" "}
                 </div>
               ))}

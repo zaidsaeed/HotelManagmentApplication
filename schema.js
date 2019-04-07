@@ -964,12 +964,23 @@ const mutation = new GraphQLObjectType({
       resolve(parentValue, args) {
         const query = `
         SET search_path = 'hotelsService';
+        delete from t_renting where hotel_contact_email = '${
+          args.hotel_contact_email
+        }' and hotel_chain_id = ${args.hotel_chain_id} and room_number = ${
+          args.room_number
+        };
+        delete from t_booking where hotel_contact_email = '${
+          args.hotel_contact_email
+        }' and hotel_chain_id = ${args.hotel_chain_id} and room_number = ${
+          args.room_number
+        };
         delete from t_rooms where hotel_contact_email = '${
           args.hotel_contact_email
         }' and hotel_chain_id = ${args.hotel_chain_id} and room_number = ${
           args.room_number
         };
         `;
+        console.log("query", query);
         return db
           .none(query)
           .then(data => {
