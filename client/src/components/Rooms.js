@@ -20,7 +20,7 @@ export default class HotelViews extends Component {
   render() {
     const { hotelItem } = this.props.location.state;
     const variable = { contact_email: hotelItem.contact_email };
-    console.log(variable);
+    const employee = JSON.parse(window.localStorage.getItem("user")).employee;
     return (
       <Query query={ROOM_QUERY} variables={variable}>
         {({ loading, error, data }) => {
@@ -55,18 +55,22 @@ export default class HotelViews extends Component {
                   <div class="col-md-2">${room.price}/night</div>
                   <div class="col-md-2">{room.room_view}</div>
                   <div class="col-md-2">{room.possible_bed_additions}</div>{" "}
-                  <div class="col-md-2">
-                    <Link
-                      to={{
-                        pathname: "/editOrDeleteRoom",
-                        state: {
-                          room: room
-                        }
-                      }}
-                    >
-                      <button className="btn btn-primary">Edit Room</button>
-                    </Link>
-                  </div>{" "}
+                  {employee ? (
+                    <div class="col-md-2">
+                      <Link
+                        to={{
+                          pathname: "/editOrDeleteRoom",
+                          state: {
+                            room: room
+                          }
+                        }}
+                      >
+                        <button className="btn btn-primary">Edit Room</button>
+                      </Link>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
               ))}
             </Fragment>
