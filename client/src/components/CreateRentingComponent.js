@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Link } from "react";
 import gql from "graphql-tag";
 import { Mutation, graphql } from "react-apollo";
 
@@ -40,7 +40,9 @@ class CreateRentingComponent extends Component {
       cust_ssn_sin: ""
     };
   }
-
+  back = e => {
+    this.props.history.push("/employeeDashboard");
+  };
   onChange = e => {
     this.setState({
       [e.target.name]: e.target.value
@@ -193,11 +195,18 @@ class CreateRentingComponent extends Component {
                         </div>
                       </div>
                     </div>
-
-                    <input
-                      type="submit"
-                      className="btn btn-info btn-block mt-4"
-                    />
+                    <div className="row">
+                      <input
+                        type="submit"
+                        className="btn btn-info btn-block mt-4 col-md-6"
+                      />
+                      <button
+                        className="btn btn-secondary col-md-6 mt-4 btn-block"
+                        onClick={this.back}
+                      >
+                        Cancel
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
