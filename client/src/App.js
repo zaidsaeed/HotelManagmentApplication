@@ -23,6 +23,7 @@ import EditDeleteHotel from "./components/HotelComponents/EditDeleteHotel";
 import HotelView from "./components/HotelItem";
 import CreateRoomComponent from "./components/RoomComponents/CreateRoomComponent";
 import EditDeleteRoom from "./components/RoomComponents/EditDeleteRoom";
+import EditRentingComponent from "./components/EditRentingComponent";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql"
@@ -79,6 +80,11 @@ class App extends Component {
             <Route exact path="/hotelView" component={HotelView} />
             <Route exact path="/createRoom" component={CreateRoomComponent} />
             <Route exact path="/editOrDeleteRoom" component={EditDeleteRoom} />
+            <Route
+              exact
+              path="/editRentingComponent"
+              component={EditRentingComponent}
+            />
           </div>
         </Router>
       </ApolloProvider>
