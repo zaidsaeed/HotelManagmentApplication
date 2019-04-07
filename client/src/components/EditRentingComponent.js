@@ -55,9 +55,9 @@ class EditRentingComponent extends Component {
             <div className="container">
               <div className="row">
                 <div className="col-md-8 m-auto">
-                  <h1 className="display-4 text-center">Create Renting</h1>
+                  <h1 className="display-4 text-center">Add a Payment</h1>
                   <p className="lead text-center">
-                    Allow a customer to rent a hotel room at your hotel
+                    Allow a customer to pay for a hotel room at your hotel
                   </p>
                   <form
                     noValidate

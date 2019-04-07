@@ -52,17 +52,6 @@ export default class Navbar extends Component {
 
     const userSignedInLinks = (
       <ul className="form-inline navbar-nav my-2 my-lg-0">
-        <li className="nav-item" id="bookmarks">
-          <Link to="/clientBookmarks">
-            <i
-              style={{ hover: "pointer" }}
-              className="nav-link material-icons"
-              title="My Room Bookings"
-            >
-              bookmarks
-            </i>
-          </Link>
-        </li>
         <li className="nav-item" id="account_circle">
           <Link to="/editDeleteUserAccount">
             <i
@@ -83,11 +72,6 @@ export default class Navbar extends Component {
         <li className="nav-item">
           <Link to="/editRentingComponent" className="nav-link" href="#">
             Log Payment
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/hotelEmployees" className="nav-link" href="#">
-            Hotel Employees
           </Link>
         </li>
         <li className="nav-item">
