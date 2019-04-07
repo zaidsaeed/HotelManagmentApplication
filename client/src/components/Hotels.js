@@ -192,7 +192,7 @@ export class Hotels extends Component {
                   value={this.state.chainInput}
                   onChange={this.onChange}
                 >
-                  <option selected="">Preferred hotel chain</option>
+                  <option selected="">Select Preferred Chain</option>
                   <option value="Marriot">Marriott</option>
                   <option value="Four Seasons">Four Seasons</option>
                   <option value="Hilton">Hilton</option>
@@ -308,24 +308,23 @@ export class Hotels extends Component {
                 </div>
               </div>
               <div class="col">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text" id="ratingInput">
-                      Star Rating:
-                    </span>
-                  </div>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="ratingInput"
-                    placeholder="Any"
-                    min="1"
-                    max="5"
-                    name="ratingInput"
-                    value={this.state.ratingInput}
-                    onChange={this.onChange}
-                  />
-                </div>
+                <select
+                  class="custom-select"
+                  id="ratingInput"
+                  name="ratingInput"
+                  value={this.state.ratingInput}
+                  onChange={this.onChange}
+                >
+                  <option selected="">Select Preferred Rating</option>
+                  <option value="5">
+                    {" "}
+                    &#9734;&#9734;&#9734;&#9734;&#9734;
+                  </option>
+                  <option value="4">&#9734;&#9734;&#9734;&#9734;</option>
+                  <option value="3">&#9734;&#9734;&#9734;</option>
+                  <option value="2">&#9734;&#9734;</option>
+                  <option value="1">&#9734;</option>
+                </select>
               </div>
             </div>
             <button type="submit" class="btn btn-primary">
