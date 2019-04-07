@@ -77,6 +77,12 @@ class HotelView extends Component {
   };
   render() {
     console.log(this.props);
+    var customer;
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    debugger;
+    if (user) {
+      customer = user.customer;
+    }
 
     const {
       city,
@@ -138,12 +144,16 @@ class HotelView extends Component {
                   <p class="card-text">
                     {street_number} {street_name}, {city}, {state}, {zip}
                   </p>
-                  <button
-                    class="btn btn-primary"
-                    onClick={this.handleOpenModal}
-                  >
-                    Book This Room
-                  </button>
+                  {customer ? (
+                    <button
+                      class="btn btn-primary"
+                      onClick={this.handleOpenModal}
+                    >
+                      Book This Room
+                    </button>
+                  ) : (
+                    ""
+                  )}
                 </div>
               </div>
             </div>

@@ -20,7 +20,11 @@ export default class HotelViews extends Component {
   render() {
     const { hotelItem } = this.props.location.state;
     const variable = { contact_email: hotelItem.contact_email };
-    const employee = JSON.parse(window.localStorage.getItem("user")).employee;
+    const user = JSON.parse(window.localStorage.getItem("user"));
+    var employee;
+    if (user) {
+      employee = user.employee;
+    }
     return (
       <Query query={ROOM_QUERY} variables={variable}>
         {({ loading, error, data }) => {
