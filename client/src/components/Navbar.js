@@ -81,6 +81,11 @@ export default class Navbar extends Component {
     const managerLinks = (
       <ul className="form-inline navbar-nav my-2 my-lg-0">
         <li className="nav-item">
+          <Link to="/editRentingComponent" className="nav-link" href="#">
+            Log Payment
+          </Link>
+        </li>
+        <li className="nav-item">
           <Link to="/hotelEmployees" className="nav-link" href="#">
             Hotel Employees
           </Link>
@@ -106,7 +111,20 @@ export default class Navbar extends Component {
     );
 
     const employeeLinks = (
-      <ul className="form-inline navbar-nav my-2 my-lg-0">{logOutBtn}</ul>
+      <ul className="form-inline navbar-nav my-2 my-lg-0">
+        {" "}
+        <li className="nav-item">
+          <Link to="/employeeDashboard" className="nav-link" href="#">
+            Employee Dashboard
+          </Link>
+        </li>{" "}
+        <li className="nav-item">
+          <Link to="/editRentingComponent" className="nav-link" href="#">
+            Log Payment
+          </Link>
+        </li>
+        {logOutBtn}
+      </ul>
     );
 
     return (
